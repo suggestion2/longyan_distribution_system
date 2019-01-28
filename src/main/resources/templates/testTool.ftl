@@ -46,8 +46,22 @@
                 <strong>[登出]</strong><br/>
                 <input type="button" value="登出" onclick="commonModule.logout()"/><br>
             </div>
+        </div>
 
-
+        <div style="float: left; width: 400px;">
+            <h2>系统参数(system_params)</h2>
+            <div>
+                <strong>[列表]</strong><br/>
+                <input type="button" value="列表" onclick="systemParamsModule.list()"/><br>
+            </div>
+            <div>
+                <strong>[修改参数]</strong><br/>
+                id:<input class="textbox" type="text" id="systemParam-update-id" style="width: 100px;"
+                           value=""/>
+                value:<input class="textbox" type="text" id="systemParam-update-value" style="width: 100px;"
+                           value=""/>
+                <input type="button" value="修改" onclick="systemParamsModule.update()"/><br>
+            </div>
         </div>
     </div>
 

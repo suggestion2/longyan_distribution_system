@@ -140,3 +140,26 @@ var commonModule = {
         showResult(settings);
     }
 };
+
+var systemParamsModule= {
+    list: function () {
+        var settings = {
+            type: "GET",
+            url: "/management/systemParams/list",
+            dataType: "json"
+        };
+        showResult(settings);
+    },
+    update: function () {
+        var settings = {
+            type: "PUT",
+            url: "/management/systemParams/update",
+            dataType: "json",
+            data: JSON.stringify({
+                "id": $("#systemParam-update-id").val(),
+                "value": $("#systemParam-update-value").val()
+            })
+        };
+        showResult(settings);
+    }
+};

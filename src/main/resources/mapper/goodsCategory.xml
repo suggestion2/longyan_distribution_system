@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.longyan.distribution.mapper.GoodsCategoryMapper">
+
+    <select id="selectById" resultType="com.longyan.distribution.domain.GoodsCategory" parameterType="java.lang.Integer">
+        select * from `goods_category` where id= #{id} and `valid` = 1
+    </select>
+
+    <select id="select" resultType="com.longyan.distribution.domain.GoodsCategory" parameterType="java.util.Map">
+        select * from `goods_category` where `valid` = 1
+        <if test="id!=null">
+            and `id` = #{id}
+        </if>
+    </select>
+
+    <select id="selectList" resultType="com.longyan.distribution.domain.GoodsCategory" parameterType="java.util.Map">
+        select * from `goods_category` where `valid` = 1
+        <if test="id!=null">
+
+        </if>
+        <if test="startIndex != null and pageSize != null">
+            limit #{startIndex},#{pageSize}
+        </if>
+    </select>
+
+    <select id="selectCount" resultType="java.lang.Integer" parameterType="java.util.Map">
+        select count(*) from `goods_category` where `valid` = 1
+        <if test="id!=null">
+
+        </if>
+    </select>
+
+    <insert id="insert" parameterType="com.longyan.distribution.domain.GoodsCategory" useGeneratedKeys="true" keyProperty="id">
+        insert into `goods_category`
+        (
+        `name`,
+        `level`,
+        `parentId`,
+        `createBy`,
+        `updateBy`,
+        `status`,
+        )
+        values
+        (
+        #{name},
+        #{level},
+        #{parentId},
+        #{createBy},
+        #{createBy},
+        #{status},
+        )
+    </insert>
+
+    <update id="update" parameterType="com.longyan.distribution.domain.GoodsCategory">
+        update `goods_category` set
+        `name` = #{name},
+        `level` = #{level},
+        `parentId` = #{parentId},
+        `updateBy` = #{updateBy},
+        `status` = #{status},
+        `updateTime` = now()
+        where `id` = #{id}
+    </update>
+
+    <delete id="deleteById" parameterType="java.lang.Integer">
+        update `goods_category` set valid = 0 where `id` = #{id}
+    </delete>
+</mapper>
