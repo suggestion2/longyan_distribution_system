@@ -140,3 +140,34 @@ var commonModule = {
         showResult(settings);
     }
 };
+var customerModule = {
+    create: function () {
+        var settings = {
+            type: "POST",
+            url: "/api/customer/create",
+            dataType: "json",
+            data: JSON.stringify({
+                "realName": $("#customer-create-realName").val(),
+                "phone": $("#customer-create-phone").val(),
+                "loginPassword": $("#customer-create-loginPassword").val(),
+                "paymentPassword": $("#customer-create-paymentPassword").val(),
+                "customerBank": $("#customer-create-customerBank").val(),
+                "customerBankAccount": $("#customer-create-customerBankAccount").val(),
+                "parentId": $("#customer-create-parentId").val()
+            })
+        };
+        showResult(settings);
+    },
+    login: function () {
+        var settings = {
+            type: "POST",
+            url: "/api/customer/login",
+            dataType: "json",
+            data: JSON.stringify({
+                "phone": $("#customer-a-login-phone").val(),
+                "password": $("#customer-a-login-password").val()
+            })
+        };
+        showResult(settings);
+    },
+};

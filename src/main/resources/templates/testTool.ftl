@@ -17,7 +17,35 @@
         <button class="tablinks" onclick="openTab(2)">management</button>
     </div>
     <div id="tabs-1" style="width: 2000px;display: none">
-
+        <div style="float: left; width: 400px;">
+            <h2>用户(customer)</h2>
+            <div>
+                <strong>[注册]</strong><br/>
+                真实姓名:<input class="textbox" type="text" id="customer-create-realName" style="width: 100px;"
+                           value="王"/><br/>
+                手机号码:<input class="textbox" type="text" id="customer-create-phone" style="width: 100px;"
+                          value="15059592132"/><br/>
+                登录密码:<input class="textbox" type="text" id="customer-create-loginPassword" style="width: 100px;"
+                          value="123456"/><br/>
+                支付密码:<input class="textbox" type="text" id="customer-create-paymentPassword" style="width: 100px;"
+                          value="123456"/><br/>
+                银行名称:<input class="textbox" type="text" id="customer-create-customerBank" style="width: 100px;"
+                          value="建行"/><br/>
+                银行卡号:<input class="textbox" type="text" id="customer-create-customerBankAccount" style="width: 100px;"
+                          value="6222600260001072444"/><br/>
+                邀请id:<input class="textbox" type="text" id="customer-create-parentId" style="width: 100px;"
+                          value=""/><br/>
+                <input type="button" value="注册" onclick="customerModule.create()"/><br>
+            </div>
+            <div>
+                <strong>[登录]</strong><br/>
+                手机:<input class="textbox" type="text" id="customer-a-login-phone" style="width: 100px;"
+                           value="admin"/>
+                密码:<input class="textbox" type="text" id="customer-a-login-password" style="width: 100px;"
+                          value="123456"/>
+                <input type="button" value="登录" onclick="customerModule.login()"/><br>
+            </div>
+        </div>
     </div>
     <div id="tabs-2" style="width: 2000px;display: block">
         <div style="float: left; width: 400px;">
