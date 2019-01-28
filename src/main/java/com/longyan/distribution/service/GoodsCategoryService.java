@@ -15,11 +15,15 @@ public interface GoodsCategoryService {
 
     List<GoodsCategory> selectList(Map<String, Object> map);
 
+    List<GoodsCategory> selectAll();
+
     int selectCount(Map<String, Object> map);
 
     int create(GoodsCategory goodsCategory);
 
     int update(GoodsCategory goodsCategory);
+
+    int updateStatus(GoodsCategory goodsCategory);
 
     int deleteById(Integer id);
 }

@@ -20,5 +20,7 @@ public interface GoodsCategoryMapper {
 
     int update(GoodsCategory goodsCategory);
 
+    int updateStatus(GoodsCategory goodsCategory);
+
     int deleteById(Integer id);
 }

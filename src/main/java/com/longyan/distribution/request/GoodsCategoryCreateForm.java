@@ -1,18 +1,17 @@
 package com.longyan.distribution.request;
 
+import com.sug.core.util.RegexUtils;
+
 import java.math.BigDecimal;
 import java.util.Date;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 public class GoodsCategoryCreateForm {
 
     @NotEmpty
     private String name;
-    @NotNull
-    private Integer level;
-    @NotNull
-    private Integer parentId;
 
     public String getName() {
     return name;
@@ -20,20 +19,6 @@ public class GoodsCategoryCreateForm {
 
     public void setName(String name) {
     this.name = name;
-    }
-    public Integer getLevel() {
-    return level;
-    }
-
-    public void setLevel(Integer level) {
-    this.level = level;
-    }
-    public Integer getParentId() {
-    return parentId;
-    }
-
-    public void setParentId(Integer parentId) {
-    this.parentId = parentId;
     }
 
 }

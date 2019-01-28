@@ -1,16 +1,14 @@
 package com.longyan.distribution.request;
 
-import java.math.BigDecimal;
-import java.util.Date;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-public class GoodsCategoryUpdateForm {
+public class GoodsCategoryStatusForm {
 
     @NotNull
     private Integer id;
-    @NotEmpty
-    private String name;
+    @NotNull
+    private Integer status;
 
     public Integer getId() {
     return id;
@@ -19,12 +17,12 @@ public class GoodsCategoryUpdateForm {
     public void setId(Integer id) {
     this.id = id;
     }
-    public String getName() {
-    return name;
+
+    public Integer getStatus() {
+        return status;
     }
 
-    public void setName(String name) {
-    this.name = name;
+    public void setStatus(Integer status) {
+        this.status = status;
     }
-
 }

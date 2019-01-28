@@ -37,8 +37,7 @@
         `level`,
         `parentId`,
         `createBy`,
-        `updateBy`,
-        `status`,
+        `updateBy`
         )
         values
         (
@@ -46,8 +45,7 @@
         #{level},
         #{parentId},
         #{createBy},
-        #{createBy},
-        #{status},
+        #{createBy}
         )
     </insert>
 
@@ -57,7 +55,14 @@
         `level` = #{level},
         `parentId` = #{parentId},
         `updateBy` = #{updateBy},
+        `updateTime` = now()
+        where `id` = #{id}
+    </update>
+    
+    <update id="updateStatus" parameterType="com.longyan.distribution.domain.GoodsCategory">
+        update `goods_category` set
         `status` = #{status},
+        `updateBy` = #{updateBy},
         `updateTime` = now()
         where `id` = #{id}
     </update>

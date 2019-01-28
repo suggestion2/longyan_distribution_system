@@ -31,6 +31,11 @@ public class GoodsCategoryServiceImpl implements GoodsCategoryService{
     }
 
     @Override
+    public List<GoodsCategory> selectAll() {
+        return goodsCategoryMapper.selectList(null);
+    }
+
+    @Override
     public int selectCount(Map<String, Object> map){
         return goodsCategoryMapper.selectCount(map);
     }
@@ -43,6 +48,11 @@ public class GoodsCategoryServiceImpl implements GoodsCategoryService{
     @Override
     public int update(GoodsCategory goodsCategory){
         return goodsCategoryMapper.update(goodsCategory);
+    }
+
+    @Override
+    public int updateStatus(GoodsCategory goodsCategory) {
+        return goodsCategoryMapper.updateStatus(goodsCategory);
     }
 
     @Override
