@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.longyan.distribution.mapper.UserMapper">
+
+    <select id="selectById" resultType="com.longyan.distribution.domain.User" parameterType="java.lang.Integer">
+        select * from `user` where id= #{id} and `valid` = 1
+    </select>
+
+    <select id="select" resultType="com.longyan.distribution.domain.User" parameterType="java.util.Map">
+        select * from `user` where `valid` = 1
+        <if test="name!=null">
+            and `name` = #{name}
+        </if>
+    </select>
+
+    <select id="selectList" resultType="com.longyan.distribution.domain.User" parameterType="java.util.Map">
+        select * from `user` where `valid` = 1
+        <if test="id!=null">
+
+        </if>
+        <if test="startIndex != null and pageSize != null">
+            limit #{startIndex},#{pageSize}
+        </if>
+    </select>
+
+    <select id="selectCount" resultType="java.lang.Integer" parameterType="java.util.Map">
+        select count(*) from `user` where `valid` = 1
+        <if test="id!=null">
+
+        </if>
+    </select>
+
+    <insert id="insert" parameterType="com.longyan.distribution.domain.User" useGeneratedKeys="true" keyProperty="id">
+        insert into `user`
+        (
+        `name`,
+        `password`,
+        `createBy`,
+        `updateBy`,
+        `status`,
+        )
+        values
+        (
+        #{name},
+        #{password},
+        #{createBy},
+        #{createBy},
+        #{status},
+        )
+    </insert>
+
+    <update id="update" parameterType="com.longyan.distribution.domain.User">
+        update `user` set
+        `password` = #{password},
+        `updateBy` = #{updateBy},
+        `updateTime` = now()
+        where `id` = #{id}
+    </update>
+
+    <delete id="deleteById" parameterType="java.lang.Integer">
+        update `user` set valid = 0 where `id` = #{id}
+    </delete>
+</mapper>

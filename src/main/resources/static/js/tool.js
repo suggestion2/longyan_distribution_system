@@ -102,7 +102,7 @@ var commonModule = {
     login: function () {
         var settings = {
             type: "POST",
-            url: "/mApi/login",
+            url: "/management/login",
             dataType: "json",
             data: JSON.stringify({
                 "name": $("#login-m-name").val(),
@@ -114,7 +114,7 @@ var commonModule = {
     resetPwd: function () {
         var settings = {
             type: "PUT",
-            url: "/mApi/password",
+            url: "/management/password",
             dataType: "json",
             data: JSON.stringify({
                 "originPassword": $("#resetPwd-m-originPwd").val(),
@@ -126,7 +126,7 @@ var commonModule = {
     currentUser: function () {
         var settings = {
             type: "GET",
-            url: "/mApi/current",
+            url: "/management/current",
             dataType: "json"
         };
         showResult(settings);
@@ -134,7 +134,7 @@ var commonModule = {
     logout: function () {
         var settings = {
             type: "GET",
-            url: "/mApi/logout",
+            url: "/management/logout",
             dataType: "json"
         };
         showResult(settings);
