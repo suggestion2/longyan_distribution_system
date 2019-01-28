@@ -169,5 +169,82 @@ var customerModule = {
             })
         };
         showResult(settings);
+    }
+};
+
+var systemParamsModule= {
+    list: function () {
+        var settings = {
+            type: "GET",
+            url: "/management/systemParams/list",
+            dataType: "json"
+        };
+        showResult(settings);
     },
+    update: function () {
+        var settings = {
+            type: "PUT",
+            url: "/management/systemParams/update",
+            dataType: "json",
+            data: JSON.stringify({
+                "id": $("#systemParam-update-id").val(),
+                "value": $("#systemParam-update-value").val()
+            })
+        };
+        showResult(settings);
+    }
+};
+
+var goodsCategoryModule= {
+    list: function () {
+        var settings = {
+            type: "GET",
+            url: "/management/goodsCategory/list",
+            dataType: "json"
+        };
+        showResult(settings);
+    },
+    create: function () {
+        var settings = {
+            type: "POST",
+            url: "/management/goodsCategory/create",
+            dataType: "json",
+            data: JSON.stringify({
+                "name": $("#goodsCategory-create-name").val()
+            })
+        };
+        showResult(settings);
+    },
+    update: function () {
+        var settings = {
+            type: "PUT",
+            url: "/management/goodsCategory/update",
+            dataType: "json",
+            data: JSON.stringify({
+                "id": $("#goodsCategory-update-id").val(),
+                "name": $("#goodsCategory-update-name").val()
+            })
+        };
+        showResult(settings);
+    },
+    updateStatus: function () {
+        var settings = {
+            type: "PUT",
+            url: "/management/goodsCategory/resetStatus",
+            dataType: "json",
+            data: JSON.stringify({
+                "id": $("#goodsCategory-status-id").val(),
+                "status": $("#goodsCategory-status-status").val()
+            })
+        };
+        showResult(settings);
+    },
+    deleteById: function () {
+        var settings = {
+            type: "DELETE",
+            url: "/management/goodsCategory/delete/" + $("#goodsCategory-delete-id").val(),
+            dataType: "json"
+        };
+        showResult(settings);
+    }
 };
