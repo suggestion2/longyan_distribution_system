@@ -1,0 +1,15 @@
+body{font-size:10px;}
+
+input.textbox{width: 300px;}
+
+
+#tabs div{margin-bottom: 5px;}
+
+#d_param{
+    margin-top: 5px;
+}
+
+#tb_param td{
+    word-break:keep-all;
+    width: 50px;
+}

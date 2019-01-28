@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>原生json格式化及高亮</title>
+    <script src="http://code.jquery.com/jquery-1.6.1.min.js" type="text/javascript"></script>
+    <script src="JsonParser.js" type="text/javascript"></script>
+    <link href="JsonParser.css" type="text/css" rel="stylesheet"></link>
+    <script>
+        var page = {
+            jsonParser: [],
+            exampleList: ['{"RecentOrders":[{"OrderId":"11008487","OrderDate":"Mon, Jan 28, 2013","TotalAmount":109.0000,"Status":"Order received","EncryptOrderId":"ADtRMV5vWjgAblFgVGlRZQ==","IsUSPSZipcode":false,"CanBeReturnedOrCanceled":"Hide","IsValidOrderDay":true},{"OrderId":"11008486","OrderDate":"Mon, Jan 28, 2013","TotalAmount":109.0000,"Status":"Order received","EncryptOrderId":"ADtRMV5vWjgAblFgVGlRZA==","IsUSPSZipcode":false,"CanBeReturnedOrCanceled":"Hide","IsValidOrderDay":true},{"OrderId":"11008485","OrderDate":"Mon, Jan 28, 2013","TotalAmount":14.1500,"Status":"Order received","EncryptOrderId":"ADtRMV5vWjgAblFgVGlRZw==","IsUSPSZipcode":false,"CanBeReturnedOrCanceled":"Hide","IsValidOrderDay":true}],"MyAccountInfo":{"CustomerNumber":"SYS3615724","ReferralCode":"MXBI5724","Credits":"$0.00","TotalSavings":"$15.00"},"CreditCard":{"IsPrimary":false,"CreditCardId":"UmsBYws+Wz5WNAYxCTw=","CardNumber":"xxxx-xxxx-xxxx-8040","ExpireDate":"10/2027","BillingAddressId":"UmABaQs/WzhWNwY2CTk=","CardType":"VI","CardTypeName":"Visa","IsSampleSociety":false,"IsSelected":false},"ShippingAddress":{"IsPrimary":true,"AddressId":"UmABaQs/WzhWNwY2CTg=","Name":"mobb lii","Addressline1":"610 UNIVERSITY HALL","Addressline2":"","State":"CA","Zipcode":"94720","ZipExt":"1171","PhoneNumber":"5106425735","City":"BERKELEY","AddressType":"S","AddressCode":"610 UNIVERSITY HALL","IsSelected":false,"IsGiftRegistryAddress":false},"ContactInfo":{"FirstName":"mobb","LastName":"lii","Phone1":"5106425735","UserName":"mobile21@s.cn"},"BillingAddress":{"IsPrimary":true,"AddressId":"UmABaQs/WzhWNwY2CTk=","Name":"mobb lii","Addressline1":"610 UNIVERSITY HALL","Addressline2":"","State":"CA","Zipcode":"94720","ZipExt":"","PhoneNumber":"5106425735","City":"BERKELEY","AddressType":"B","AddressCode":"VI-8040","IsSelected":false,"IsGiftRegistryAddress":false}}',
+        '{"IsReturnCustomer":true,"AllCategoriesBanner":{"ForNew":{"Src":"http://c1.wag.com/images/banners/dog/032812_nvhp_dog_15.jpg","Link":"javascript:void(0);openHopup(0,0,670,580,\u0027blueBolder\u0027,\u0027\u0027,\u0027http://c3.wag.com/Images/Banners/NewUserPromoHopup.gif\u0027,true,true);","AltText":""},"ForRepeat":{"Src":"http://c2.wag.com/Images/Banners/Dog/dog_animalrvhp_778pxw_052912.jpg","Link":"/dog/subcat=Dry-Food-10168/Brand=Natural+Balance/Special+Diet=Limited+Ingredient?icn=W-dog-RVHP-main\u0026ici=100311","AltText":"$5 off big bags of Limited Ingredient Diets dry food"},"SmallLeft":{"Src":"http://c3.wag.com/images/banners/shopby/dog_shopby_01.gif","Link":"/Dog/NewToPet?icn=W-dog-RVHP-1\u0026ici=070511","AltText":"New To Pet"},"SmallMiddile":{"Src":"http://c1.wag.com/images/banners/shopby/dog_shopby_02.gif","Link":"/buy?s=green+dog\u0026SubCatalog=dog\u0026viewheader=N\u0026icn=W-dog-RVHP-2\u0026ici=070511","AltText":"Ecofriendly"},"SmallRight":{"Src":"http://c2.wag.com/images/banners/shopby/dog_shopby_03.gif","Link":"/dog/cat=Health-Wellness-1029?icn=W-dog-RVHP-3\u0026ici=070511","AltText":"Health and Wellness"},"WagRxMedicineManager":null}}'
+        ],
+            init: function () {
+                for (var i = 0; i < page.exampleList.length; i++) {
+                    page.jsonParser[i] = new JsonParser(page.exampleList[i], i);
+                }
+                for (var i = 0; i < page.jsonParser.length; i++) {
+                    page.jsonParser[i].init();
+                }
+            }
+        }
+        $(document).ready(function () {
+            page.init();
+        });
+    </script>
+</head>
+<body>
+    <div id="jsonParser1"></div>
+    <div id="jsonParser2"></div>
+</body>
+</html>

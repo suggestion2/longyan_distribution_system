@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<configuration scan="true">
+	<property name="APP_Name" value="longyan_distribution_system"/>
+	<contextName>${APP_Name}</contextName>
+	<!--<property name="LOG_HOME" value="/opt/eb_store/log"/>-->
+	<springProperty scope="context" name="env" source="spring.profiles.active"/>
+	<springProperty scope="context" name="logPath" source="logback.file.path"/>
+	
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+	
+	<appender name="trace" class="com.sug.core.platform.log.TraceAppender">
+		<layout>
+			<pattern>%d [%thread] %-5level %logger{36} - %msg%n</pattern>
+		</layout>
+		<logFolder>${logPath}</logFolder>
+	</appender>
+	
+	<logger name="io.lettuce" additivity="false">
+	
+	</logger>
+	
+	<logger name="org.springframework" additivity="false" level="INFO">
+		<appender-ref ref="STDOUT"/>
+	</logger>
+	
+	<logger name="org.mybatis" additivity="false" level="DEBUG">
+		<if condition='property("env").equalsIgnoreCase("dev")'>
+			<then>
+				<appender-ref ref="STDOUT"/>
+			</then>
+		</if>
+	</logger>
+	
+	<root level="debug">
+		<if condition='property("env").equalsIgnoreCase("dev")'>
+			<then>
+				<appender-ref ref="STDOUT"/>
+			</then>
+			<else>
+				<appender-ref ref="trace"/>
+			</else>
+		</if>
+	</root>
+	<!---->
+
+</configuration>
