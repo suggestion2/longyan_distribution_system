@@ -338,3 +338,18 @@ var goodsCategoryModule= {
         showResult(settings);
     }
 };
+var customerMaModule= {
+    list: function () {
+        var settings = {
+            type: "POST",
+            url: "/management/customer/list",
+            dataType: "json" ,
+            data: JSON.stringify({
+                "managementContent": $("#customer-m-list-managementContent").val(),
+                "pageIndex": $("#customer-m-List-startIndex").val(),
+                "pageSize": $("#customer-m-List-pageSize").val()
+            })
+        };
+        showResult(settings);
+    },
+};

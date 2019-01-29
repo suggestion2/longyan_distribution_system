@@ -185,6 +185,16 @@
                 <input type="button" value="删除" onclick="goodsCategoryModule.deleteById()"/><br>
             </div>
         </div>
+        <div>
+            <strong>[用户列表]</strong><br/>
+            搜索内容:<input class="textbox" type="text" id="customer-m-list-managementContent" style="width: 100px;"
+                      value=""/><br/>
+            startIndex:<input class="textbox" type="text" id="customer-m-List-startIndex" style="width: 100px;"
+                              value="0"/>
+            pageSize:<input class="textbox" type="text" id="customer-m-List-pageSize" style="width: 100px;"
+                            value="10"/><br>
+            <input type="button" value="列表" onclick="customerMaModule.list()"/><br>
+        </div>
     </div>
 
     <div style="clear: both;"></div>

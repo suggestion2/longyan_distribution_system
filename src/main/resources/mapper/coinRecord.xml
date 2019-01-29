@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.longyan.distribution.mapper.CoinRecordMapper">
+
+    <select id="selectById" resultType="com.longyan.distribution.domain.CoinRecord" parameterType="java.lang.Integer">
+        select * from `coin_record` where id= #{id} and `valid` = 1
+    </select>
+
+    <select id="select" resultType="com.longyan.distribution.domain.CoinRecord" parameterType="java.util.Map">
+        select * from `coin_record` where `valid` = 1
+        <if test="id!=null">
+            and `id` = #{id}
+        </if>
+    </select>
+
+    <select id="selectList" resultType="com.longyan.distribution.domain.CoinRecord" parameterType="java.util.Map">
+        select * from `coin_record` where `valid` = 1
+        <if test="id!=null">
+
+        </if>
+        <if test="startIndex != null and pageSize != null">
+            limit #{startIndex},#{pageSize}
+        </if>
+    </select>
+
+    <select id="selectCount" resultType="java.lang.Integer" parameterType="java.util.Map">
+        select count(*) from `coin_record` where `valid` = 1
+        <if test="id!=null">
+
+        </if>
+    </select>
+
+    <insert id="insert" parameterType="com.longyan.distribution.domain.CoinRecord" useGeneratedKeys="true" keyProperty="id">
+        insert into `coin_record`
+        (
+        `customerId`,
+        `sourceCustomerId`,
+        `amount`,
+        `customerPhone`,
+        `createBy`,
+        `updateBy`,
+        `status`,
+        `type`,
+        `refuseReason`,
+        `sourceCustomerLevel`,
+        `sourceCustomerPhone`
+        )
+        values
+        (
+        #{customerId},
+        #{sourceCustomerId},
+        #{amount},
+        #{customerPhone},
+        #{createBy},
+        #{createBy},
+        #{status},
+        #{type},
+        #{refuseReason},
+        #{sourceCustomerLevel},
+        #{sourceCustomerPhone}
+        )
+    </insert>
+
+    <update id="update" parameterType="com.longyan.distribution.domain.CoinRecord">
+        update `coin_record` set
+        `customerId` = #{customerId},
+        `sourceCustomerId` = #{sourceCustomerId},
+        `amount` = #{amount},
+        `customerPhone` = #{customerPhone},
+        `updateBy` = #{updateBy},
+        `status` = #{status},
+        `type` = #{type},
+        `refuseReason` = #{refuseReason},
+        `sourceCustomerLevel` = #{sourceCustomerLevel},
+        `sourceCustomerPhone` = #{sourceCustomerPhone},
+        `updateTime` = now()
+        where `id` = #{id}
+    </update>
+
+    <delete id="deleteById" parameterType="java.lang.Integer">
+        update `coin_record` set valid = 0 where `id` = #{id}
+    </delete>
+</mapper>

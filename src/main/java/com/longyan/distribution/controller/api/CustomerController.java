@@ -29,7 +29,7 @@ import java.util.Objects;
 import static com.longyan.distribution.constants.CommonConstants.*;
 import static com.longyan.distribution.constants.CustomerConstants.*;
 
-@RestController
+@RestController("customerApiController")
 @RequestMapping(value = "/api/customer")
 public class CustomerController {
 
@@ -41,10 +41,10 @@ public class CustomerController {
     @Autowired
     private SessionContext sessionContext;
 
-    @RequestMapping(value = LIST,method = RequestMethod.POST)
-    public CustomerListView list(@Valid @RequestBody CustomerListForm form){
-        return new CustomerListView(customerService.selectList(form.getQueryMap()));
-    }
+//    @RequestMapping(value = LIST,method = RequestMethod.POST)
+//    public CustomerListView list(@Valid @RequestBody CustomerListForm form){
+//        return new CustomerListView(customerService.selectList(form.getQueryMap()));
+//    }
 
     @RequestMapping(value = "/inviteList",method = RequestMethod.POST)
     @CustomerLoginRequired

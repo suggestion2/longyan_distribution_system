@@ -1,5 +1,9 @@
 package com.longyan.distribution.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.sug.core.util.jsonFormat.SimpleDateTimeSerializer;
+
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -15,18 +19,25 @@ public class Customer {
     private Integer parentId;
     private Integer superParentId;
     private Integer level;
+    @JsonIgnore
     private String loginPassword;
+    @JsonIgnore
     private String paymentPassword;
     private BigDecimal customerGold;
     private BigDecimal customerOilDrill;
     private BigDecimal customerCoin;
     private BigDecimal businessGold;
     private BigDecimal businessOilDrill;
+    @JsonSerialize(using = SimpleDateTimeSerializer.class)
     private Date createTime;
+    @JsonIgnore
     private Date updateTime;
+    @JsonIgnore
     private Integer createBy;
+    @JsonIgnore
     private Integer updateBy;
     private Integer status;
+    @JsonIgnore
     private Integer valid;
     private Integer business;
     private String remark;

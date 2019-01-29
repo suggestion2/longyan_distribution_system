@@ -21,8 +21,8 @@
         <if test="business!=null">
             and `business` = #{business}
         </if>
-        <if test="content!=null">
-            and (`businessAccount` like concat ('%',#{content},'%') or `businessName` like concat ('%',#{content},'%'))
+        <if test="managementContent!=null">
+            and (`phone` like concat ('%',#{managementContent},'%') or `realName` like concat ('%',#{managementContent},'%'))
         </if>
         <if test="startIndex != null and pageSize != null">
             limit #{startIndex},#{pageSize}
@@ -30,7 +30,7 @@
     </select>
 
     <select id="selectShortViewList" resultType="com.longyan.distribution.response.CustomerShortView" parameterType="java.util.Map">
-        select id,phone,parentPhone,superParentPhone,realName,parentRealName,superParentRealName from `customer` where `valid` = 1
+        select id,phone,parentPhone,superParentPhone,rewoalName,parentRealName,superParentRealName from `customer` where `valid` = 1
         <if test="business!=null">
             and `business` = #{business}
         </if>
@@ -67,6 +67,9 @@
         </if>
         <if test="content!=null">
             and (`businessAccount` like concat ('%',#{content},'%') or `businessName` like concat ('%',#{content},'%'))
+        </if>
+        <if test="managementContent!=null">
+            and (`phone` like concat ('%',#{managementContent},'%') or `realName` like concat ('%',#{managementContent},'%'))
         </if>
         <if test="parentId!=null">
             <if test="superParentId!=null">
