@@ -186,14 +186,39 @@
             </div>
         </div>
         <div>
+            <h2>用户</h2>
             <strong>[用户列表]</strong><br/>
-            搜索内容:<input class="textbox" type="text" id="customer-m-list-managementContent" style="width: 100px;"
+            搜索会员内容:<input class="textbox" type="text" id="customer-m-list-content" style="width: 100px;"
                       value=""/><br/>
+            搜索商户内容:<input class="textbox" type="text" id="customer-m-list-customerContent" style="width: 100px;"
+                      value=""/><br/>
+            status:<select class="textbox" id="customer-m-list-status" style="width: 100px;">
+            <option value="0" selected>会员</option>
+            <option value="1" >商户</option>
+            </select><br>
             startIndex:<input class="textbox" type="text" id="customer-m-List-startIndex" style="width: 100px;"
                               value="0"/>
             pageSize:<input class="textbox" type="text" id="customer-m-List-pageSize" style="width: 100px;"
                             value="10"/><br>
             <input type="button" value="列表" onclick="customerMaModule.list()"/><br>
+        </div>
+        <div>
+            <strong>[详情]</strong><br/>
+            id:<input class="textbox" type="text" id="customer-m-detail-id" style="width: 100px;"
+                      value=""/><br/>
+            <input type="button" value="详情" onclick="customerMaModule.deleteById()"/><br>
+        </div>
+        <div>
+            <strong>[重置登陆密码]</strong><br/>
+            商户id:<input class="textbox" type="text" id="distributor-m-resetLoginPassword-id" style="width: 100px;"
+                         value="1"/>
+            <input type="button" value="重置" onclick="customerMaModule.resetLoginPasswordById()"/><br>
+        </div>
+        <div>
+            <strong>[重置支付密码]</strong><br/>
+            商户id:<input class="textbox" type="text" id="distributor-m-resetPaymentPassword-id" style="width: 100px;"
+                         value="1"/>
+            <input type="button" value="重置" onclick="customerMaModule.resetPaymentPassword()"/><br>
         </div>
     </div>
 

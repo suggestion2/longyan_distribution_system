@@ -68,8 +68,8 @@
         <if test="content!=null">
             and (`businessAccount` like concat ('%',#{content},'%') or `businessName` like concat ('%',#{content},'%'))
         </if>
-        <if test="managementContent!=null">
-            and (`phone` like concat ('%',#{managementContent},'%') or `realName` like concat ('%',#{managementContent},'%'))
+        <if test="customerContent!=null">
+            and (`phone` like concat ('%',#{customerContent},'%') or `realName` like concat ('%',#{customerContent},'%'))
         </if>
         <if test="parentId!=null">
             <if test="superParentId!=null">
