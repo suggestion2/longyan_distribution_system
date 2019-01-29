@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.longyan.distribution.mapper.OrderItemMapper">
+
+    <select id="selectById" resultType="com.longyan.distribution.domain.OrderItem" parameterType="java.lang.Integer">
+        select * from `order_item` where id= #{id} and `valid` = 1
+    </select>
+
+    <select id="select" resultType="com.longyan.distribution.domain.OrderItem" parameterType="java.util.Map">
+        select * from `order_item` where `valid` = 1
+        <if test="id!=null">
+            and `id` = #{id}
+        </if>
+    </select>
+
+    <select id="selectList" resultType="com.longyan.distribution.domain.OrderItem" parameterType="java.util.Map">
+        select * from `order_item` where `valid` = 1
+        <if test="orderId!=null">
+            and `orderId` = #{orderId}
+        </if>
+        <if test="startIndex != null and pageSize != null">
+            limit #{startIndex},#{pageSize}
+        </if>
+    </select>
+
+    <select id="selectCount" resultType="java.lang.Integer" parameterType="java.util.Map">
+        select count(*) from `order_item` where `valid` = 1
+        <if test="id!=null">
+
+        </if>
+    </select>
+
+    <insert id="insert" parameterType="com.longyan.distribution.domain.OrderItem" useGeneratedKeys="true" keyProperty="id">
+        insert into `order_item`
+        (
+        `orderId`,
+        `goodsId`,
+        `goodsName`,
+        `price`,
+        `count`,
+        `amount`,
+        `createBy`,
+        `updateBy`,
+        `status`,
+        `recharge`
+        )
+        values
+        (
+        #{orderId},
+        #{goodsId},
+        #{goodsName},
+        #{price},
+        #{count},
+        #{amount},
+        #{createBy},
+        #{createBy},
+        #{status},
+        #{recharge}
+        )
+    </insert>
+
+    <update id="update" parameterType="com.longyan.distribution.domain.OrderItem">
+        update `order_item` set
+        `orderId` = #{orderId},
+        `goodsId` = #{goodsId},
+        `goodsName` = #{goodsName},
+        `price` = #{price},
+        `count` = #{count},
+        `amount` = #{amount},
+        `updateBy` = #{updateBy},
+        `status` = #{status},
+        `recharge` = #{recharge},
+        `updateTime` = now()
+        where `id` = #{id}
+    </update>
+
+    <delete id="deleteById" parameterType="java.lang.Integer">
+        update `order_item` set valid = 0 where `id` = #{id}
+    </delete>
+</mapper>

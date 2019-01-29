@@ -355,6 +355,14 @@ var goodsModule= {
         };
         showResult(settings);
     },
+    detail: function () {
+        var settings = {
+            type: "GET",
+            url: "/management/goods/" + $("#goods-detail-id").val(),
+            dataType: "json"
+        };
+        showResult(settings);
+    },
     create: function () {
         var settings = {
             type: "POST",
@@ -410,6 +418,45 @@ var goodsModule= {
     }
 };
 
+var orderModule= {
+    list: function () {
+        var settings = {
+            type: "POST",
+            url: "/management/order/list",
+            dataType: "json",
+            data: JSON.stringify({
+                "content": $("#order-list-content").val(),
+                "status": $("#order-list-status").val(),
+                "pageIndex": $("#goods-list-pageIndex").val(),
+                "pageSize": $("#goods-list-pageSize").val()
+            })
+        };
+        showResult(settings);
+    },
+    detail: function () {
+        var settings = {
+            type: "GET",
+            url: "/management/order/" + $("#order-detail-id").val(),
+            dataType: "json"
+        };
+        showResult(settings);
+    },
+    updateStatus: function () {
+        var settings = {
+            type: "PUT",
+            url: "/management/order/resetStatus",
+            dataType: "json",
+            data: JSON.stringify({
+                "id": $("#order-status-id").val(),
+                "status": $("#order-status-status").val(),
+                "cancelReason": $("#order-status-cancelReason").val(),
+                "remarks": $("#order-status-remarks").val()
+            })
+        };
+        showResult(settings);
+    }
+};
+
 var customerMaModule= {
     list: function () {
         var settings = {
@@ -423,5 +470,5 @@ var customerMaModule= {
             })
         };
         showResult(settings);
-    },
+    }
 };

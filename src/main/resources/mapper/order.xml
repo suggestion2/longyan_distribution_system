@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.longyan.distribution.mapper.OrderMapper">
+
+    <select id="selectById" resultType="com.longyan.distribution.domain.Order" parameterType="java.lang.Integer">
+        select * from `order` where id= #{id} and `valid` = 1
+    </select>
+
+    <select id="select" resultType="com.longyan.distribution.domain.Order" parameterType="java.util.Map">
+        select * from `order` where `valid` = 1
+        <if test="id!=null">
+            and `id` = #{id}
+        </if>
+    </select>
+
+    <select id="selectList" resultType="com.longyan.distribution.domain.Order" parameterType="java.util.Map">
+        select * from `order` where `valid` = 1
+        <if test="content!=null">
+            and (`goodsNames` like concat ('%',#{content},'%') or `number` like concat ('%',#{content},'%'))
+        </if>
+        <if test="status!=null">
+            and `status` = #{status}
+        </if>
+        <if test="startIndex != null and pageSize != null">
+            limit #{startIndex},#{pageSize}
+        </if>
+    </select>
+
+    <select id="selectCount" resultType="java.lang.Integer" parameterType="java.util.Map">
+        select count(*) from `order` where `valid` = 1
+        <if test="content!=null">
+            and (`goodsNames` like concat ('%',#{content},'%') or `number` like concat ('%',#{content},'%'))
+        </if>
+        <if test="status!=null">
+            and `status` = #{status}
+        </if>
+    </select>
+
+    <insert id="insert" parameterType="com.longyan.distribution.domain.Order" useGeneratedKeys="true" keyProperty="id">
+        insert into `order`
+        (
+        `number`,
+        `count`,
+        `amount`,
+        `createBy`,
+        `updateBy`,
+        `status`,
+        `recharge`,
+        `refuseReason`,
+        `customerRealName`,
+        `goodsNames`
+        )
+        values
+        (
+        #{number},
+        #{count},
+        #{amount},
+        #{createBy},
+        #{createBy},
+        #{status},
+        #{recharge},
+        #{refuseReason},
+        #{customerRealName},
+        #{goodsNames}
+        )
+    </insert>
+
+    <update id="update" parameterType="com.longyan.distribution.domain.Order">
+        update `order` set
+        `number` = #{number},
+        `count` = #{count},
+        `amount` = #{amount},
+        `updateBy` = #{updateBy},
+        `status` = #{status},
+        `recharge` = #{recharge},
+        `refuseReason` = #{refuseReason},
+        `customerRealName` = #{customerRealName},
+        `goodsNames` = #{goodsNames},
+        `updateTime` = now()
+        where `id` = #{id}
+    </update>
+
+    <update id="updateStatus" parameterType="com.longyan.distribution.domain.Order">
+        update `order` set
+        `updateBy` = #{updateBy},
+        `status` = #{status},
+        `refuseReason` = #{refuseReason},
+        `remark` = #{remark},
+        `updateTime` = now()
+        where `id` = #{id}
+    </update>
+
+    <delete id="deleteById" parameterType="java.lang.Integer">
+        update `order` set valid = 0 where `id` = #{id}
+    </delete>
+</mapper>

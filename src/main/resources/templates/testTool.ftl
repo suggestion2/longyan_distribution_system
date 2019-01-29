@@ -22,25 +22,25 @@
             <div>
                 <strong>[注册]</strong><br/>
                 真实姓名:<input class="textbox" type="text" id="customer-create-realName" style="width: 100px;"
-                           value="王"/><br/>
+                            value="王"/><br/>
                 手机号码:<input class="textbox" type="text" id="customer-create-phone" style="width: 100px;"
-                          value="15059592132"/><br/>
+                            value="15059592132"/><br/>
                 登录密码:<input class="textbox" type="text" id="customer-create-loginPassword" style="width: 100px;"
-                          value="123456"/><br/>
+                            value="123456"/><br/>
                 支付密码:<input class="textbox" type="text" id="customer-create-paymentPassword" style="width: 100px;"
-                          value="123456"/><br/>
+                            value="123456"/><br/>
                 银行名称:<input class="textbox" type="text" id="customer-create-customerBank" style="width: 100px;"
-                          value="建行"/><br/>
+                            value="建行"/><br/>
                 银行卡号:<input class="textbox" type="text" id="customer-create-customerBankAccount" style="width: 100px;"
-                          value="6222600260001072444"/><br/>
+                            value="6222600260001072444"/><br/>
                 邀请id:<input class="textbox" type="text" id="customer-create-parentId" style="width: 100px;"
-                          value=""/><br/>
+                            value=""/><br/>
                 <input type="button" value="注册" onclick="customerModule.create()"/><br>
             </div>
             <div>
                 <strong>[登录]</strong><br/>
                 手机:<input class="textbox" type="text" id="customer-a-login-phone" style="width: 100px;"
-                           value="15059592132"/>
+                          value="15059592132"/>
                 密码:<input class="textbox" type="text" id="customer-a-login-loginPassword" style="width: 100px;"
                           value="123456"/>
                 <input type="button" value="登录" onclick="customerModule.login()"/><br>
@@ -70,7 +70,7 @@
                 真实姓名:<input class="textbox" type="text" id="customer-a-update-realName" style="width: 100px;"
                             value="真实姓名"/><br>
                 银行:<input class="textbox" type="text" id="customer-a-update-customerBank" style="width: 100px;"
-                            value="农行"/><br>
+                          value="农行"/><br>
                 银行账号:<input class="textbox" type="text" id="customer-a-update-customerBankAccount" style="width: 100px;"
                             value="6222600260001072442"/><br>
                 <input type="button" value="修改" onclick="customerModule.update()"/><br>
@@ -78,8 +78,9 @@
             <div>
                 <strong>[列表]</strong><br/>
                 商户账户或商户名称:<input class="textbox" type="text" id="customer-a-businessList-content" style="width: 100px;"
-                                  value=""/>
-                startIndex:<input class="textbox" type="text" id="customer-a-businessList-startIndex" style="width: 100px;"
+                                 value=""/>
+                startIndex:<input class="textbox" type="text" id="customer-a-businessList-startIndex"
+                                  style="width: 100px;"
                                   value="0"/>
                 pageSize:<input class="textbox" type="text" id="customer-a-businessList-pageSize" style="width: 100px;"
                                 value="10"/><br>
@@ -87,7 +88,8 @@
             </div>
             <div>
                 <strong>[商户列表]</strong><br/>
-                startIndex:<input class="textbox" type="text" id="customer-a-inviteList-startIndex" style="width: 100px;"
+                startIndex:<input class="textbox" type="text" id="customer-a-inviteList-startIndex"
+                                  style="width: 100px;"
                                   value="0"/>
                 pageSize:<input class="textbox" type="text" id="customer-a-inviteList-pageSize" style="width: 100px;"
                                 value="10"/><br>
@@ -95,8 +97,9 @@
             </div>
             <div>
                 <strong>[申请成为商户]</strong><br/>
-                businessName:<input class="textbox" type="text" id="customer-a-businessApplication-businessName" style="width: 100px;"
-                                  value="商户"/>
+                businessName:<input class="textbox" type="text" id="customer-a-businessApplication-businessName"
+                                    style="width: 100px;"
+                                    value="商户"/>
                 <input type="button" value="列表" onclick="customerModule.businessApplication()"/><br>
             </div>
             <div>
@@ -157,7 +160,7 @@
             <div>
                 <strong>[创建]</strong><br/>
                 name:<input class="textbox" type="text" id="goodsCategory-create-name" style="width: 100px;"
-                          value=""/>
+                            value=""/>
                 <input type="button" value="创建" onclick="goodsCategoryModule.create()"/><br>
             </div>
             <div>
@@ -189,46 +192,46 @@
             <div>
                 <strong>[列表]</strong><br/>
                 content:<input class="textbox" type="text" id="goods-list-content" style="width: 100px;"
-                            value=""/>
+                               value=""/>
                 categoryId1:<input class="textbox" type="text" id="goods-list-categoryId1" style="width: 100px;"
-                            value=""/><br>
+                                   value=""/><br>
                 status:<select class="textbox" id="goods-list-status" style="width: 100px;">
                 <option value="">all</option>
                 <option value="0">disable</option>
                 <option value="1">enable</option>
             </select><br>
                 pageIndex:<input class="textbox" type="text" id="goods-list-pageIndex" style="width: 100px;"
-                                   value="0"/>
+                                 value="0"/>
                 pageSize:<input class="textbox" type="text" id="goods-list-pageSize" style="width: 100px;"
-                                   value="10"/><br>
+                                value="10"/><br>
                 <input type="button" value="列表" onclick="goodsModule.list()"/><br>
             </div>
             <div>
                 <strong>[详情]</strong><br/>
                 id:<input class="textbox" type="text" id="goods-detail-id" style="width: 100px;"
-                            value=""/>
+                          value=""/>
                 <input type="button" value="详情" onclick="goodsModule.detail()"/><br>
             </div>
             <div>
                 <strong>[创建]</strong><br/>
                 categoryId1:<input class="textbox" type="text" id="goods-create-categoryId1" style="width: 100px;"
-                            value=""/>
+                                   value=""/>
                 category1:<input class="textbox" type="text" id="goods-create-category1" style="width: 100px;"
-                            value=""/><br>
+                                 value=""/><br>
                 name:<input class="textbox" type="text" id="goods-create-name" style="width: 100px;"
                             value=""/>
                 description:<input class="textbox" type="text" id="goods-create-description" style="width: 100px;"
-                            value=""/><br>
+                                   value=""/><br>
                 imagesUrl:<input class="textbox" type="text" id="goods-create-imagesUrl" style="width: 100px;"
-                            value=""/>
+                                 value=""/>
                 price:<input class="textbox" type="text" id="goods-create-price" style="width: 100px;"
-                            value=""/><br>
+                             value=""/><br>
                 <input type="button" value="创建" onclick="goodsModule.create()"/><br>
             </div>
             <div>
                 <strong>[修改]</strong><br/>
                 id:<input class="textbox" type="text" id="goods-update-id" style="width: 100px;"
-                                   value=""/><br>
+                          value=""/><br>
                 categoryId1:<input class="textbox" type="text" id="goods-update-categoryId1" style="width: 100px;"
                                    value=""/>
                 category1:<input class="textbox" type="text" id="goods-update-category1" style="width: 100px;"
@@ -260,15 +263,54 @@
                 <input type="button" value="删除" onclick="goodsModule.deleteById()"/><br>
             </div>
         </div>
-        <div>
+        <div style="float: left; width: 400px;">
             <strong>[用户列表]</strong><br/>
             搜索内容:<input class="textbox" type="text" id="customer-m-list-managementContent" style="width: 100px;"
-                      value=""/><br/>
+                        value=""/><br/>
             startIndex:<input class="textbox" type="text" id="customer-m-List-startIndex" style="width: 100px;"
                               value="0"/>
             pageSize:<input class="textbox" type="text" id="customer-m-List-pageSize" style="width: 100px;"
                             value="10"/><br>
             <input type="button" value="列表" onclick="customerMaModule.list()"/><br>
+        </div>
+        <div style="float: left; width: 400px;">
+            <h2>订单(order)</h2>
+            <div>
+                <strong>[列表]</strong><br/>
+                content:<input class="textbox" type="text" id="order-list-content" style="width: 100px;"
+                            value=""/>
+                status:<select class="textbox" id="order-list-status" style="width: 100px;">
+                <option value="">all</option>
+                <option value="0">disable</option>
+                <option value="1">enable</option>
+            </select><br>
+                pageIndex:<input class="textbox" type="text" id="order-list-pageIndex" style="width: 100px;"
+                                  value="0"/>
+                pageSize:<input class="textbox" type="text" id="order-list-pageSize" style="width: 100px;"
+                                value="10"/><br>
+                <input type="button" value="列表" onclick="orderModule.list()"/><br>
+            </div>
+            <div>
+                <strong>[详情]</strong><br/>
+                id:<input class="textbox" type="text" id="order-detail-id" style="width: 100px;"
+                               value=""/>
+                <input type="button" value="详情" onclick="orderModule.detail()"/><br>
+            </div>
+            <div>
+                <strong>[修改状态]</strong><br/>
+                id:<input class="textbox" type="text" id="order-status-id" style="width: 100px;"
+                               value=""/>
+                status:<select class="textbox" id="order-status-status" style="width: 100px;">
+                <option value="">all</option>
+                <option value="0">disable</option>
+                <option value="1">enable</option>
+            </select><br>
+                cancelReason(unnecessary):<input class="textbox" type="text" id="order-status-cancelReason" style="width: 100px;"
+                                 value=""/><br>
+                remarks(unnecessary):<input class="textbox" type="text" id="order-status-remarks" style="width: 100px;"
+                                value=""/><br>
+                <input type="button" value="修改" onclick="orderModule.updateStatus()"/><br>
+            </div>
         </div>
     </div>
 
