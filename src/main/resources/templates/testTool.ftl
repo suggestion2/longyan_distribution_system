@@ -184,6 +184,81 @@
                           value=""/>
                 <input type="button" value="删除" onclick="goodsCategoryModule.deleteById()"/><br>
             </div>
+
+            <h2>商品(goods)</h2>
+            <div>
+                <strong>[列表]</strong><br/>
+                content:<input class="textbox" type="text" id="goods-list-content" style="width: 100px;"
+                            value=""/>
+                categoryId1:<input class="textbox" type="text" id="goods-list-categoryId1" style="width: 100px;"
+                            value=""/><br>
+                status:<select class="textbox" id="goods-list-status" style="width: 100px;">
+                <option value="">all</option>
+                <option value="0">disable</option>
+                <option value="1">enable</option>
+            </select><br>
+                pageIndex:<input class="textbox" type="text" id="goods-list-pageIndex" style="width: 100px;"
+                                   value="0"/>
+                pageSize:<input class="textbox" type="text" id="goods-list-pageSize" style="width: 100px;"
+                                   value="10"/><br>
+                <input type="button" value="列表" onclick="goodsModule.list()"/><br>
+            </div>
+            <div>
+                <strong>[详情]</strong><br/>
+                id:<input class="textbox" type="text" id="goods-detail-id" style="width: 100px;"
+                            value=""/>
+                <input type="button" value="详情" onclick="goodsModule.detail()"/><br>
+            </div>
+            <div>
+                <strong>[创建]</strong><br/>
+                categoryId1:<input class="textbox" type="text" id="goods-create-categoryId1" style="width: 100px;"
+                            value=""/>
+                category1:<input class="textbox" type="text" id="goods-create-category1" style="width: 100px;"
+                            value=""/><br>
+                name:<input class="textbox" type="text" id="goods-create-name" style="width: 100px;"
+                            value=""/>
+                description:<input class="textbox" type="text" id="goods-create-description" style="width: 100px;"
+                            value=""/><br>
+                imagesUrl:<input class="textbox" type="text" id="goods-create-imagesUrl" style="width: 100px;"
+                            value=""/>
+                price:<input class="textbox" type="text" id="goods-create-price" style="width: 100px;"
+                            value=""/><br>
+                <input type="button" value="创建" onclick="goodsModule.create()"/><br>
+            </div>
+            <div>
+                <strong>[修改]</strong><br/>
+                id:<input class="textbox" type="text" id="goods-update-id" style="width: 100px;"
+                                   value=""/><br>
+                categoryId1:<input class="textbox" type="text" id="goods-update-categoryId1" style="width: 100px;"
+                                   value=""/>
+                category1:<input class="textbox" type="text" id="goods-update-category1" style="width: 100px;"
+                                 value=""/><br>
+                name:<input class="textbox" type="text" id="goods-update-name" style="width: 100px;"
+                            value=""/>
+                description:<input class="textbox" type="text" id="goods-update-description" style="width: 100px;"
+                                   value=""/><br>
+                imagesUrl:<input class="textbox" type="text" id="goods-update-imagesUrl" style="width: 100px;"
+                                 value=""/>
+                price:<input class="textbox" type="text" id="goods-update-price" style="width: 100px;"
+                             value=""/><br>
+                <input type="button" value="修改" onclick="goodsModule.update()"/><br>
+            </div>
+            <div>
+                <strong>[上架/下架]</strong><br/>
+                id:<input class="textbox" type="text" id="goods-status-id" style="width: 100px;"
+                          value=""/>
+                status:<select class="textbox" id="goods-status-status" style="width: 100px;">
+                <option value="0">disable</option>
+                <option value="1">enable</option>
+            </select><br>
+                <input type="button" value="修改" onclick="goodsModule.updateStatus()"/><br>
+            </div>
+            <div>
+                <strong>[删除]</strong><br/>
+                id:<input class="textbox" type="text" id="goods-delete-id" style="width: 100px;"
+                          value=""/>
+                <input type="button" value="删除" onclick="goodsModule.deleteById()"/><br>
+            </div>
         </div>
         <div>
             <strong>[用户列表]</strong><br/>

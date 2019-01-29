@@ -1,5 +1,7 @@
 package com.longyan.distribution.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -16,11 +18,16 @@ public class Goods {
     private String description;
     private String imagesUrl;
     private BigDecimal price;
+    @JsonIgnore
     private Date createTime;
+    @JsonIgnore
     private Date updateTime;
+    @JsonIgnore
     private Integer createBy;
+    @JsonIgnore
     private Integer updateBy;
     private Integer status;
+    @JsonIgnore
     private Integer valid;
 
     public Integer getId() {
