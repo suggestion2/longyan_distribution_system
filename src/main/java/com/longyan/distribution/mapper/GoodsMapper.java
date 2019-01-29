@@ -20,5 +20,7 @@ public interface GoodsMapper {
 
     int update(Goods goods);
 
+    int updateStatus(Goods goods);
+
     int deleteById(Integer id);
 }

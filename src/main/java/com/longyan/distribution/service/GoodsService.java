@@ -21,5 +21,7 @@ public interface GoodsService {
 
     int update(Goods goods);
 
+    int updateStatus(Goods goods);
+
     int deleteById(Integer id);
 }

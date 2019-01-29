@@ -15,8 +15,14 @@
 
     <select id="selectList" resultType="com.longyan.distribution.domain.Goods" parameterType="java.util.Map">
         select * from `goods` where `valid` = 1
-        <if test="id!=null">
-
+        <if test="content!=null">
+            and (`name` like concat ('%',#{content},'%') or `number` like concat ('%',#{content},'%'))
+        </if>
+        <if test="categoryId1!=null">
+            and `categoryId1` = #{categoryId1}
+        </if>
+        <if test="status!=null">
+            and `status` = #{status}
         </if>
         <if test="startIndex != null and pageSize != null">
             limit #{startIndex},#{pageSize}
@@ -25,8 +31,14 @@
 
     <select id="selectCount" resultType="java.lang.Integer" parameterType="java.util.Map">
         select count(*) from `goods` where `valid` = 1
-        <if test="id!=null">
-
+        <if test="content!=null">
+            and (`name` like concat ('%',#{content},'%') or `number` like concat ('%',#{content},'%'))
+        </if>
+        <if test="categoryId1!=null">
+            and `categoryId1` = #{categoryId1}
+        </if>
+        <if test="status!=null">
+            and `status` = #{status}
         </if>
     </select>
 
@@ -34,51 +46,44 @@
         insert into `goods`
         (
         `categoryId1`,
-        `categoryId2`,
-        `categoryId3`,
         `category1`,
-        `category2`,
-        `category3`,
         `name`,
         `description`,
         `imagesUrl`,
         `price`,
         `createBy`,
-        `updateBy`,
-        `status`,
+        `updateBy`
         )
         values
         (
         #{categoryId1},
-        #{categoryId2},
-        #{categoryId3},
         #{category1},
-        #{category2},
-        #{category3},
         #{name},
         #{description},
         #{imagesUrl},
         #{price},
         #{createBy},
-        #{createBy},
-        #{status},
+        #{createBy}
         )
     </insert>
 
     <update id="update" parameterType="com.longyan.distribution.domain.Goods">
         update `goods` set
         `categoryId1` = #{categoryId1},
-        `categoryId2` = #{categoryId2},
-        `categoryId3` = #{categoryId3},
         `category1` = #{category1},
-        `category2` = #{category2},
-        `category3` = #{category3},
         `name` = #{name},
         `description` = #{description},
         `imagesUrl` = #{imagesUrl},
         `price` = #{price},
         `updateBy` = #{updateBy},
+        `updateTime` = now()
+        where `id` = #{id}
+    </update>
+
+    <update id="updateStatus" parameterType="com.longyan.distribution.domain.Goods">
+        update `goods` set
         `status` = #{status},
+        `updateBy` = #{updateBy},
         `updateTime` = now()
         where `id` = #{id}
     </update>

@@ -338,6 +338,125 @@ var goodsCategoryModule= {
         showResult(settings);
     }
 };
+
+var goodsModule= {
+    list: function () {
+        var settings = {
+            type: "POST",
+            url: "/management/goods/list",
+            dataType: "json",
+            data: JSON.stringify({
+                "content": $("#goods-list-content").val(),
+                "categoryId1": $("#goods-list-categoryId1").val(),
+                "status": $("#goods-list-status").val(),
+                "pageIndex": $("#goods-list-pageIndex").val(),
+                "pageSize": $("#goods-list-pageSize").val()
+            })
+        };
+        showResult(settings);
+    },
+    detail: function () {
+        var settings = {
+            type: "GET",
+            url: "/management/goods/" + $("#goods-detail-id").val(),
+            dataType: "json"
+        };
+        showResult(settings);
+    },
+    create: function () {
+        var settings = {
+            type: "POST",
+            url: "/management/goods/create",
+            dataType: "json",
+            data: JSON.stringify({
+                "categoryId1": $("#goods-create-categoryId1").val(),
+                "category1": $("#goods-create-category1").val(),
+                "name": $("#goods-create-name").val(),
+                "description": $("#goods-create-description").val(),
+                "imagesUrl": $("#goods-create-imagesUrl").val(),
+                "price": $("#goods-create-price").val()
+            })
+        };
+        showResult(settings);
+    },
+    update: function () {
+        var settings = {
+            type: "PUT",
+            url: "/management/goods/update",
+            dataType: "json",
+            data: JSON.stringify({
+                "id": $("#goods-update-id").val(),
+                "categoryId1": $("#goods-update-categoryId1").val(),
+                "category1": $("#goods-update-category1").val(),
+                "name": $("#goods-update-name").val(),
+                "description": $("#goods-update-description").val(),
+                "imagesUrl": $("#goods-update-imagesUrl").val(),
+                "price": $("#goods-update-price").val()
+            })
+        };
+        showResult(settings);
+    },
+    updateStatus: function () {
+        var settings = {
+            type: "PUT",
+            url: "/management/goods/resetStatus",
+            dataType: "json",
+            data: JSON.stringify({
+                "id": $("#goods-status-id").val(),
+                "status": $("#goods-status-status").val()
+            })
+        };
+        showResult(settings);
+    },
+    deleteById: function () {
+        var settings = {
+            type: "DELETE",
+            url: "/management/goods/delete/" + $("#goods-delete-id").val(),
+            dataType: "json"
+        };
+        showResult(settings);
+    }
+};
+
+var orderModule= {
+    list: function () {
+        var settings = {
+            type: "POST",
+            url: "/management/order/list",
+            dataType: "json",
+            data: JSON.stringify({
+                "content": $("#order-list-content").val(),
+                "status": $("#order-list-status").val(),
+                "pageIndex": $("#goods-list-pageIndex").val(),
+                "pageSize": $("#goods-list-pageSize").val()
+            })
+        };
+        showResult(settings);
+    },
+    detail: function () {
+        var settings = {
+            type: "GET",
+            url: "/management/order/" + $("#order-detail-id").val(),
+            dataType: "json"
+        };
+        showResult(settings);
+    },
+    updateStatus: function () {
+        var settings = {
+            type: "PUT",
+            url: "/management/order/resetStatus",
+            dataType: "json",
+            data: JSON.stringify({
+                "id": $("#order-status-id").val(),
+                "status": $("#order-status-status").val(),
+                "cancelReason": $("#order-status-cancelReason").val(),
+                "remarks": $("#order-status-remarks").val()
+            })
+        };
+        showResult(settings);
+    }
+};
+
 var customerMaModule= {
     list: function () {
         var settings = {
@@ -353,7 +472,7 @@ var customerMaModule= {
             })
         };
         showResult(settings);
-    },
+    }
     deleteById: function () {
         var settings = {
             type: "GET",
