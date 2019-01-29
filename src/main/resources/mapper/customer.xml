@@ -11,12 +11,49 @@
         <if test="id!=null">
             and `id` = #{id}
         </if>
+        <if test="phone!=null">
+            and `phone` = #{phone}
+        </if>
     </select>
 
     <select id="selectList" resultType="com.longyan.distribution.domain.Customer" parameterType="java.util.Map">
         select * from `customer` where `valid` = 1
-        <if test="id!=null">
+        <if test="business!=null">
+            and `business` = #{business}
+        </if>
+        <if test="content!=null">
+            and (`businessAccount` like concat ('%',#{content},'%') or `businessName` like concat ('%',#{content},'%'))
+        </if>
+        <if test="startIndex != null and pageSize != null">
+            limit #{startIndex},#{pageSize}
+        </if>
+    </select>
 
+    <select id="selectShortViewList" resultType="com.longyan.distribution.response.CustomerShortView" parameterType="java.util.Map">
+        select id,phone,parentPhone,superParentPhone,realName,parentRealName,superParentRealName from `customer` where `valid` = 1
+        <if test="business!=null">
+            and `business` = #{business}
+        </if>
+        <if test="parentId!=null">
+            <if test="superParentId!=null">
+                and (`parentId` = #{parentId} or `superParentId` = #{superParentId})
+            </if>
+        </if>
+        <if test="content!=null">
+            and (`businessAccount` like concat ('%',#{content},'%') or `businessName` like concat ('%',#{content},'%'))
+        </if>
+        <if test="startIndex != null and pageSize != null">
+            limit #{startIndex},#{pageSize}
+        </if>
+    </select>
+
+    <select id="selectBusinessList" resultType="com.longyan.distribution.response.BusinessView" parameterType="java.util.Map">
+        select businessAccount,businessName  from `customer` where `valid` = 1
+        <if test="business!=null">
+            and `business` = #{business}
+        </if>
+        <if test="content!=null">
+            and (`businessAccount` like concat ('%',#{content},'%') or `businessName` like concat ('%',#{content},'%'))
         </if>
         <if test="startIndex != null and pageSize != null">
             limit #{startIndex},#{pageSize}
@@ -25,8 +62,16 @@
 
     <select id="selectCount" resultType="java.lang.Integer" parameterType="java.util.Map">
         select count(*) from `customer` where `valid` = 1
-        <if test="id!=null">
-
+        <if test="business!=null">
+            and `business` = #{business}
+        </if>
+        <if test="content!=null">
+            and (`businessAccount` like concat ('%',#{content},'%') or `businessName` like concat ('%',#{content},'%'))
+        </if>
+        <if test="parentId!=null">
+            <if test="superParentId!=null">
+                and (`parentId` = #{parentId} or `superParentId` = #{superParentId})
+            </if>
         </if>
     </select>
 
@@ -34,10 +79,15 @@
         insert into `customer`
         (
         `phone`,
+        `parentPhone`,
+        `superParentPhone`,
         `realName`,
+        `parentRealName`,
+        `superParentRealName`,
         `customerBank`,
         `customerBankAccount`,
         `parentId`,
+        `superParentId`,
         `loginPassword`,
         `paymentPassword`,
         `level`
@@ -45,10 +95,15 @@
         values
         (
         #{phone},
+        #{parentPhone},
+        #{superParentPhone},
         #{realName},
+        #{parentRealName},
+        #{superParentRealName},
         #{customerBank},
         #{customerBankAccount},
         #{parentId},
+        #{superParentId},
         #{loginPassword},
         #{paymentPassword},
         #{level}
@@ -65,23 +120,24 @@
         `customerBankAccount` = #{customerBankAccount},
         `parentId` = #{parentId},
         `superParentId` = #{superParentId},
-        `level` = #{level},
-        `loginPassword` = #{loginPassword},
-        `paymentPassword` = #{paymentPassword},
-        `customerGold` = #{customerGold},
-        `customerOilDrill` = #{customerOilDrill},
-        `customerCoin` = #{customerCoin},
-        `businessGold` = #{businessGold},
-        `businessOilDrill` = #{businessOilDrill},
-        `updateBy` = #{updateBy},
-        `status` = #{status},
-        `business` = #{business},
         `remark` = #{remark},
         `parentPhone` = #{parentPhone},
         `superParentPhone` = #{superParentPhone},
         `parentRealName` = #{parentRealName},
         `superParentRealName` = #{superParentRealName},
-        `businessStatus` = #{businessStatus},
+        `business` = #{business},
+        `updateTime` = now()
+        where `id` = #{id}
+    </update>
+    <update id="updateLoginPassword" parameterType="com.longyan.distribution.domain.Customer">
+        update `customer` set
+        `loginPassword` = #{loginPassword},
+        `updateTime` = now()
+        where `id` = #{id}
+    </update>
+    <update id="updatePaymentPassword" parameterType="com.longyan.distribution.domain.Customer">
+        update `customer` set
+        `paymentPassword` = #{paymentPassword},
         `updateTime` = now()
         where `id` = #{id}
     </update>

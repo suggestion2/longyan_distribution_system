@@ -38,9 +38,9 @@ public class SessionInterceptor extends HandlerInterceptorAdapter {
 
         if ((((HandlerMethod) handler).getMethod().isAnnotationPresent(CustomerLoginRequired.class)
                 || ((HandlerMethod) handler).getBeanType().isAnnotationPresent(CustomerLoginRequired.class))
-                //&& Objects.isNull(sessionContext.getCustomerId())
+                && Objects.isNull(sessionContext.getCustomerId())
                 ) {
-//            throw new LoginRequiredException("customer loginRequired");
+            throw new LoginRequiredException("customer loginRequired");
         }
 
         if ((((HandlerMethod) handler).getMethod().isAnnotationPresent(BusinessRequired.class)

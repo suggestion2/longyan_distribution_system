@@ -23,17 +23,16 @@ public class CustomerCreateForm {
     @Size(min=1,max = 32)
     private String customerBank;
     @NotEmpty
-
+    @Pattern(regexp=RegexUtils.REGEX_NUM  ,message = RegexUtils.REGEX_NUM_MESSAGE  )
     private String customerBankAccount;
-
     private Integer parentId;
     @NotEmpty
-    @Pattern(regexp=RegexUtils.REGEX_CHINESE_ENG_NUM  ,message = "Must be an alphanumeric character"  )
-    @Size(min=1,max = 32)
+    @Pattern(regexp = RegexUtils.REGEX_ENGNNUM,message = RegexUtils.REGEX_ENGNNUM_MESSAGE)
+    @Size(min = 6,max = 12,message = "6 to 12")
     private String loginPassword;
     @NotEmpty
-    @Pattern(regexp=RegexUtils.REGEX_CHINESE_ENG_NUM  ,message = "Must be an alphanumeric character"  )
-    @Size(min=1,max = 32)
+    @Pattern(regexp = RegexUtils.REGEX_ENGNNUM,message = RegexUtils.REGEX_ENGNNUM_MESSAGE)
+    @Size(min = 6,max = 12,message = "6 to 12")
     private String paymentPassword;
 
     public String getPhone() {

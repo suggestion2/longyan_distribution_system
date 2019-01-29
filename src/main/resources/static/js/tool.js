@@ -139,6 +139,7 @@ var commonModule = {
         };
         showResult(settings);
     }
+
 };
 var customerModule = {
     create: function () {
@@ -165,11 +166,100 @@ var customerModule = {
             dataType: "json",
             data: JSON.stringify({
                 "phone": $("#customer-a-login-phone").val(),
-                "password": $("#customer-a-login-password").val()
+                "loginPassword": $("#customer-a-login-loginPassword").val()
             })
         };
         showResult(settings);
-    }
+    },
+    resetLogPwd: function () {
+        var settings = {
+            type: "PUT",
+            url: "/api/customer/loginPassword",
+            dataType: "json",
+            data: JSON.stringify({
+                "originPassword": $("#customer-resetLogPwd-a-originPwd").val(),
+                "newPassword": $("#customer-resetLogPwd-a-newPwd").val()
+            })
+        };
+        showResult(settings);
+    },
+    resetPayPwd: function () {
+        var settings = {
+            type: "PUT",
+            url: "/api/customer/paymentPassword",
+            dataType: "json",
+            data: JSON.stringify({
+                "originPassword": $("#customer-resetPayPwd-a-originPwd").val(),
+                "newPassword": $("#customer-resetPayPwd-a-newPwd").val()
+            })
+        };
+        showResult(settings);
+    },
+    logout: function () {
+        var settings = {
+            type: "GET",
+            url: "/api/customer/logout",
+            dataType: "json"
+        };
+        showResult(settings);
+    },
+    update: function () {
+        var settings = {
+            type: "PUT",
+            url: "/api/customer/update",
+            dataType: "json",
+            data: JSON.stringify({
+                "realName": $("#customer-a-update-realName").val(),
+                "customerBank": $("#customer-a-update-customerBank").val(),
+                "customerBankAccount": $("#customer-a-update-customerBankAccount").val()
+            })
+        };
+        showResult(settings);
+    },
+    businessList: function () {
+        var settings = {
+            type: "POST",
+            url: "/api/customer/businessList",
+            dataType: "json",
+            data: JSON.stringify({
+                "content": $("#customer-a-businessList-content").val(),
+                "pageIndex": $("#customer-a-businessList-startIndex").val(),
+                "pageSize": $("#customer-a-businessList-pageSize").val()
+            })
+        };
+        showResult(settings);
+    },
+    inviteList: function () {
+        var settings = {
+            type: "POST",
+            url: "/api/customer/inviteList",
+            dataType: "json",
+            data: JSON.stringify({
+                "pageIndex": $("#customer-a-inviteList-startIndex").val(),
+                "pageSize": $("#customer-a-inviteList-pageSize").val()
+            })
+        };
+        showResult(settings);
+    },
+    businessApplication: function () {
+        var settings = {
+            type: "PUT",
+            url: "/api/customer/businessApplication",
+            dataType: "json",
+            data: JSON.stringify({
+                "businessName": $("#customer-a-businessApplication-businessName").val()
+            })
+        };
+        showResult(settings);
+    },
+    inviteCode: function () {
+        var settings = {
+            type: "GET",
+            url: "/api/customer/inviteCode",
+            dataType: "json"
+        };
+        showResult(settings);
+    },
 };
 
 var systemParamsModule= {

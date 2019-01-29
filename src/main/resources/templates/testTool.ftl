@@ -40,10 +40,68 @@
             <div>
                 <strong>[登录]</strong><br/>
                 手机:<input class="textbox" type="text" id="customer-a-login-phone" style="width: 100px;"
-                           value="admin"/>
-                密码:<input class="textbox" type="text" id="customer-a-login-password" style="width: 100px;"
+                           value="15059592132"/>
+                密码:<input class="textbox" type="text" id="customer-a-login-loginPassword" style="width: 100px;"
                           value="123456"/>
                 <input type="button" value="登录" onclick="customerModule.login()"/><br>
+            </div>
+            <div>
+                <strong>[修改登录密码]</strong><br/>
+                旧密码:<input class="textbox" type="text" id="customer-resetLogPwd-a-originPwd" style="width: 100px;"
+                           value="123456"/>
+                新密码:<input class="textbox" type="text" id="customer-resetLogPwd-a-newPwd" style="width: 100px;"
+                           value="123456"/>
+                <input type="button" value="修改" onclick="customerModule.resetLogPwd()"/><br>
+            </div>
+            <div>
+                <strong>[修改支付密码]</strong><br/>
+                旧密码:<input class="textbox" type="text" id="customer-resetPayPwd-a-originPwd" style="width: 100px;"
+                           value="123456"/>
+                新密码:<input class="textbox" type="text" id="customer-resetPayPwd-a-newPwd" style="width: 100px;"
+                           value="123456"/>
+                <input type="button" value="修改" onclick="customerModule.resetPayPwd()"/><br>
+            </div>
+            <div>
+                <strong>[登出]</strong><br/>
+                <input type="button" value="登出" onclick="customerModule.logout()"/><br>
+            </div>
+            <div>
+                <strong>[修改]</strong><br/>
+                真实姓名:<input class="textbox" type="text" id="customer-a-update-realName" style="width: 100px;"
+                            value="真实姓名"/><br>
+                银行:<input class="textbox" type="text" id="customer-a-update-customerBank" style="width: 100px;"
+                            value="农行"/><br>
+                银行账号:<input class="textbox" type="text" id="customer-a-update-customerBankAccount" style="width: 100px;"
+                            value="6222600260001072442"/><br>
+                <input type="button" value="修改" onclick="customerModule.update()"/><br>
+            </div>
+            <div>
+                <strong>[列表]</strong><br/>
+                商户账户或商户名称:<input class="textbox" type="text" id="customer-a-businessList-content" style="width: 100px;"
+                                  value=""/>
+                startIndex:<input class="textbox" type="text" id="customer-a-businessList-startIndex" style="width: 100px;"
+                                  value="0"/>
+                pageSize:<input class="textbox" type="text" id="customer-a-businessList-pageSize" style="width: 100px;"
+                                value="10"/><br>
+                <input type="button" value="列表" onclick="customerModule.businessList()"/><br>
+            </div>
+            <div>
+                <strong>[商户列表]</strong><br/>
+                startIndex:<input class="textbox" type="text" id="customer-a-inviteList-startIndex" style="width: 100px;"
+                                  value="0"/>
+                pageSize:<input class="textbox" type="text" id="customer-a-inviteList-pageSize" style="width: 100px;"
+                                value="10"/><br>
+                <input type="button" value="列表" onclick="customerModule.inviteList()"/><br>
+            </div>
+            <div>
+                <strong>[申请成为商户]</strong><br/>
+                businessName:<input class="textbox" type="text" id="customer-a-businessApplication-businessName" style="width: 100px;"
+                                  value="商户"/>
+                <input type="button" value="列表" onclick="customerModule.businessApplication()"/><br>
+            </div>
+            <div>
+                <strong>[生成邀请链接]</strong><br/>
+                <input type="button" value="列表" onclick="customerModule.inviteCode()"/><br>
             </div>
         </div>
     </div>
