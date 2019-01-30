@@ -34,7 +34,7 @@ public interface CustomerService {
 
     int updateLevel(Customer customer);
 
-    int updateCustomerGold(CustomerAddGoldRecordForm customerAddGoldRecordForm);
+    int updateCustomerGold(Customer customer);
 
     int updateLoginPassword(Customer customer);
 

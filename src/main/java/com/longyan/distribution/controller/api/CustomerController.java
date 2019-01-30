@@ -144,7 +144,7 @@ public class CustomerController {
     public ResponseView businessApplication(@Valid @RequestBody BusinessApplicationForm form){
         Customer customer = sessionContext.getCustomer();
         BeanUtils.copyProperties(form,customer);
-        customer.setBusiness(businessApplication);
+        customer.setBusiness(BUSINESSAPPLICATION);
         customerService.update(customer);
         sessionContext.setCustomer(customer);
         return new ResponseView();

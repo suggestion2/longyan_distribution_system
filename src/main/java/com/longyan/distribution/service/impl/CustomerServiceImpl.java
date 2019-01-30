@@ -82,8 +82,8 @@ public class CustomerServiceImpl implements CustomerService{
     }
 
     @Override
-    public int updateCustomerGold(CustomerAddGoldRecordForm customerAddGoldRecordForm){
-        return customerMapper.updateCustomerGold(customerAddGoldRecordForm);
+    public int updateCustomerGold(Customer customer){
+        return customerMapper.updateCustomerGold(customer);
     }
 
     @Override

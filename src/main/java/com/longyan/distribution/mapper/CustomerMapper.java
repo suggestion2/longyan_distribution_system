@@ -30,7 +30,7 @@ public interface CustomerMapper {
 
     int updateBusiness(Customer customer);
 
-    int updateCustomerGold(CustomerAddGoldRecordForm customerAddGoldRecordForm);
+    int updateCustomerGold(Customer customer);
 
     int updateLevel(Customer customer);
 

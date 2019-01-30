@@ -9,7 +9,7 @@
     <select id="getValueByKey" resultType="com.longyan.distribution.domain.SystemParams" parameterType="java.util.Map">
         select value from `system_params` where  `valid` = 1
         <if test="key!=null">
-            and key= #{key}
+            and `key`= #{key}
         </if>
     </select>
 

@@ -168,7 +168,7 @@
         a.updateBy=#{updateBy};
     </update>
 
-    <update id="updateCustomerGold" parameterType="com.longyan.distribution.request.CustomerAddGoldRecordForm">
+    <update id="updateCustomerGold" parameterType="com.longyan.distribution.domain.Customer">
         update customer set
         customerGold = customerGold+#{amount}
         where `id` = #{id}
