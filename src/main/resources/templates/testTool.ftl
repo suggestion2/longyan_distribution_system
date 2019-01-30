@@ -109,7 +109,47 @@
         </div>
     </div>
     <div id="tabs-2" style="width: 2000px;display: block">
+        <div style="float: left; width: 400px;">
+            <h2>管理员(user)</h2>
+            <div>
+                <strong>[登录]</strong><br/>
+                管理员:<input class="textbox" type="text" id="login-m-name" style="width: 100px;"
+                           value="admin"/>
+                密码:<input class="textbox" type="text" id="login-m-password" style="width: 100px;"
+                          value="123456"/>
+                <input type="button" value="登录" onclick="commonModule.login()"/><br>
+            </div>
+            <div>
+                <strong>[修改密码]</strong><br/>
+                旧密码:<input class="textbox" type="text" id="resetPwd-m-originPwd" style="width: 100px;"
+                           value=""/>
+                新密码:<input class="textbox" type="text" id="resetPwd-m-newPwd" style="width: 100px;"
+                           value=""/>
+                <input type="button" value="修改" onclick="commonModule.resetPwd()"/><br>
+            </div>
+            <div>
+                <strong>[当前管理员]</strong><br/>
+                <input type="button" value="获取" onclick="commonModule.currentUser()"/><br>
+            </div>
+            <div>
+                <strong>[登出]</strong><br/>
+                <input type="button" value="登出" onclick="commonModule.logout()"/><br>
+            </div>
 
+            <h2>系统参数(system_params)</h2>
+            <div>
+                <strong>[列表]</strong><br/>
+                <input type="button" value="列表" onclick="systemParamsModule.list()"/><br>
+            </div>
+            <div>
+                <strong>[修改参数]</strong><br/>
+                id:<input class="textbox" type="text" id="systemParam-update-id" style="width: 100px;"
+                          value=""/>
+                value:<input class="textbox" type="text" id="systemParam-update-value" style="width: 100px;"
+                             value=""/><br>
+                <input type="button" value="修改" onclick="systemParamsModule.update()"/><br>
+            </div>
+        </div>
         <div style="float: left; width: 400px;">
             <h2>商品品类(goods_category)</h2>
             <div>
@@ -226,13 +266,13 @@
         <div style="float: left; width: 400px;">
             <h2>用户</h2>
             <strong>[用户列表]</strong><br/>
-            搜索会员内容:<input class="textbox" type="text" id="customer-m-list-content" style="width: 100px;"
-                        value=""/><br/>
-            搜索商户内容:<input class="textbox" type="text" id="customer-m-list-customerContent" style="width: 100px;"
+            搜索内容:<input class="textbox" type="text" id="customer-m-list-managementContent" style="width: 100px;"
                       value=""/><br/>
             status:<select class="textbox" id="customer-m-list-status" style="width: 100px;">
-            <option value="0" selected>会员</option>
+            <option value="" selected>全部</option>
+            <option value="0" >会员</option>
             <option value="1" >商户</option>
+            <option value="2" >申请成为商户</option>
             </select><br>
             startIndex:<input class="textbox" type="text" id="customer-m-List-startIndex" style="width: 100px;"
                               value="0"/>

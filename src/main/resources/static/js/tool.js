@@ -464,15 +464,14 @@ var customerMaModule= {
             url: "/management/customer/list",
             dataType: "json" ,
             data: JSON.stringify({
-                "customerContent": $("#customer-m-list-customerContent").val(),
+                "managementContent": $("#customer-m-list-managementContent").val(),
                 "type": $("#customer-m-list-status").val(),
-                "content": $("#customer-m-list-content").val(),
                 "pageIndex": $("#customer-m-List-startIndex").val(),
                 "pageSize": $("#customer-m-List-pageSize").val()
             })
         };
         showResult(settings);
-    }
+    },
     deleteById: function () {
         var settings = {
             type: "GET",

@@ -3,6 +3,7 @@ package com.longyan.distribution.controller.management;
 import com.longyan.distribution.domain.Customer;
 import com.longyan.distribution.interceptor.UserLoginRequired;
 import com.longyan.distribution.request.CustomerListForm;
+import com.longyan.distribution.request.CustomerManagementlistForm;
 import com.longyan.distribution.request.ResetCustomerPasswordForm;
 import com.longyan.distribution.response.CustomerListView;
 import com.longyan.distribution.service.CustomerService;
@@ -22,9 +23,7 @@ import java.util.Objects;
 import static com.longyan.distribution.constants.CommonConstants.DETAIL;
 import static com.longyan.distribution.constants.CommonConstants.LIST;
 import static com.longyan.distribution.constants.CommonConstants.MD5_SALT;
-import static com.longyan.distribution.constants.CustomerConstants.BUSINESS;
-import static com.longyan.distribution.constants.CustomerConstants.CUSTOMER;
-import static com.longyan.distribution.constants.CustomerConstants.INIT_PASSWORD;
+import static com.longyan.distribution.constants.CustomerConstants.*;
 
 @RestController("customerManagementController")
 @RequestMapping(value = "/management/customer")
@@ -36,12 +35,16 @@ public class CustomerController {
 
     @RequestMapping(value = LIST,method = RequestMethod.POST)
     @UserLoginRequired
-    public CustomerListView list(@Valid @RequestBody CustomerListForm form){
+    public CustomerListView list(@Valid @RequestBody CustomerManagementlistForm form){
         Map<String,Object> query = form.getQueryMap();
         if(Objects.equals(form.getType(),CUSTOMER)){
             query.put("business",CUSTOMER);
-        }else {
+        }
+        if(Objects.equals(form.getType(),BUSINESS)){
             query.put("business",BUSINESS);
+        }
+        if(Objects.equals(form.getType(),APPLYBUSINESS)){
+            query.put("business",APPLYBUSINESS);
         }
         return new CustomerListView(customerService.selectList(query),customerService.selectCount(query));
     }
