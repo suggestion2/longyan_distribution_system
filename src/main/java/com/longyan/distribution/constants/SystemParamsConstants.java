@@ -6,6 +6,17 @@ import java.math.BigDecimal;
 import java.util.regex.Pattern;
 
 public class SystemParamsConstants {
+    public static final String VIPINVITECOIN = "vipInviteCoin ";//VIP邀请获得的钢镚百分比
+    public static final String INVITEVIPCOIN = "/create";//合伙人邀请VIP获得的钢镚百分比
+    public static final String VIPRECHARGE  = "/create";//VIP充值的充值折扣
+    public static final String PARTNERRECHARGE = "/create";//合伙人充值的充值折扣
+    public static final String VIPINVITENUM = "/create";//VIP邀请x人升级为合伙人
+    public static final String COINCASH = "/create";//钢镚提现手续费费率
+    public static final String BUSINESSCASH = "/create";//商户金币提现手续费费率
+    public static final String COINCHANGEGOLD= "/create";//钢镚转金币手续费费率
+    public static final String COINCHANGEOIL = "/create";//钢镚转油钻的手续费费率
+    public static final String OILPRICE = "/create";//当日油价,展示在前台页面，仅做展示
+
 
     public static boolean matches(String key,String value){
         switch (key){

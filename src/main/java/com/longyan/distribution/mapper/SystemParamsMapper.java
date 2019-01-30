@@ -10,6 +10,8 @@ public interface SystemParamsMapper {
 
     SystemParams selectById(Integer id);
 
+    SystemParams getValueByKey(Map<String, Object> map);
+
     SystemParams select(Map<String, Object> map);
 
     List<SystemParams> selectList(Map<String, Object> map);

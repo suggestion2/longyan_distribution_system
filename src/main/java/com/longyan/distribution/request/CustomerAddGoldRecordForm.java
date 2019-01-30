@@ -1,0 +1,41 @@
+package com.longyan.distribution.request;
+
+
+import com.sug.core.util.RegexUtils;
+
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+
+public class CustomerAddGoldRecordForm {
+    @NotNull
+    private Integer id;
+    @NotNull
+    private Integer type;
+    @NotNull
+    @Pattern(regexp=RegexUtils.REGEX_NUM  ,message = RegexUtils.REGEX_NUM_MESSAGE  )
+    private Integer amount;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
+    }
+
+    public Integer getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Integer amount) {
+        this.amount = amount;
+    }
+}

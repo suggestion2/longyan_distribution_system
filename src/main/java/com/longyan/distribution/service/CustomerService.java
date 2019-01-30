@@ -1,6 +1,7 @@
 package com.longyan.distribution.service;
 
 import com.longyan.distribution.domain.Customer;
+import com.longyan.distribution.request.CustomerAddGoldRecordForm;
 import com.longyan.distribution.response.BusinessListView;
 import com.longyan.distribution.response.BusinessView;
 import com.longyan.distribution.response.CustomerShortView;
@@ -28,6 +29,12 @@ public interface CustomerService {
     int create(Customer customer);
 
     int update(Customer customer);
+
+    int updateBusiness(Customer customer);
+
+    int updateLevel(Customer customer);
+
+    int updateCustomerGold(CustomerAddGoldRecordForm customerAddGoldRecordForm);
 
     int updateLoginPassword(Customer customer);
 
