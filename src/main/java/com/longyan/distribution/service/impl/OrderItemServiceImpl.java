@@ -47,6 +47,11 @@ public class OrderItemServiceImpl implements OrderItemService{
     }
 
     @Override
+    public int batchCreate(List<OrderItem> list) {
+        return orderItemMapper.batchInsert(list);
+    }
+
+    @Override
     public int update(OrderItem orderItem){
         return orderItemMapper.update(orderItem);
     }

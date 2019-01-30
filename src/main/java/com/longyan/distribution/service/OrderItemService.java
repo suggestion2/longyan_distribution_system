@@ -21,6 +21,8 @@ public interface OrderItemService {
 
     int create(OrderItem orderItem);
 
+    int batchCreate(List<OrderItem> list);
+
     int update(OrderItem orderItem);
 
     int deleteById(Integer id);

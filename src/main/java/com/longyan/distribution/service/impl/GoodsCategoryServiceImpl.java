@@ -6,9 +6,12 @@ import com.longyan.distribution.mapper.GoodsCategoryMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static com.longyan.distribution.constants.GoodsCategoryConstants.ENABLE;
 
 @Service
 public class GoodsCategoryServiceImpl implements GoodsCategoryService{
@@ -33,6 +36,11 @@ public class GoodsCategoryServiceImpl implements GoodsCategoryService{
     @Override
     public List<GoodsCategory> selectAll() {
         return goodsCategoryMapper.selectList(null);
+    }
+
+    @Override
+    public List<GoodsCategory> selectAllEnable() {
+        return goodsCategoryMapper.selectList(Collections.singletonMap("status",ENABLE));
     }
 
     @Override

@@ -21,6 +21,9 @@
         <if test="status!=null">
             and `status` = #{status}
         </if>
+        <if test="customerId!=null">
+            and `customerId` = #{customerId}
+        </if>
         <if test="startIndex != null and pageSize != null">
             limit #{startIndex},#{pageSize}
         </if>
@@ -34,32 +37,33 @@
         <if test="status!=null">
             and `status` = #{status}
         </if>
+        <if test="customerId!=null">
+            and `customerId` = #{customerId}
+        </if>
     </select>
 
     <insert id="insert" parameterType="com.longyan.distribution.domain.Order" useGeneratedKeys="true" keyProperty="id">
         insert into `order`
         (
         `number`,
+        `customerId`,
         `count`,
         `amount`,
         `createBy`,
         `updateBy`,
-        `status`,
         `recharge`,
-        `refuseReason`,
         `customerRealName`,
         `goodsNames`
         )
         values
         (
         #{number},
+        #{customerId},
         #{count},
         #{amount},
         #{createBy},
         #{createBy},
-        #{status},
         #{recharge},
-        #{refuseReason},
         #{customerRealName},
         #{goodsNames}
         )

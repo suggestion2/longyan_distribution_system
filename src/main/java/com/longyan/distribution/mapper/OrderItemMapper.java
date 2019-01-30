@@ -18,6 +18,8 @@ public interface OrderItemMapper {
 
     int insert(OrderItem orderItem);
 
+    int batchInsert(List<OrderItem> list);
+
     int update(OrderItem orderItem);
 
     int deleteById(Integer id);

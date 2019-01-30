@@ -9,6 +9,7 @@ public class Order {
 
     private Integer id;
     private String number;
+    private Integer customerId;
     private Integer count;
     private BigDecimal amount;
     @JsonIgnore
@@ -133,5 +134,13 @@ public class Order {
 
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    public Integer getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(Integer customerId) {
+        this.customerId = customerId;
     }
 }

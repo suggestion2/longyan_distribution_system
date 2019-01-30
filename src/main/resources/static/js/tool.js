@@ -294,6 +294,14 @@ var goodsCategoryModule= {
         };
         showResult(settings);
     },
+    listApi: function () {
+        var settings = {
+            type: "GET",
+            url: "/api/goodsCategory/list",
+            dataType: "json"
+        };
+        showResult(settings);
+    },
     create: function () {
         var settings = {
             type: "POST",
@@ -355,10 +363,32 @@ var goodsModule= {
         };
         showResult(settings);
     },
+    listApi: function () {
+        var settings = {
+            type: "POST",
+            url: "/api/goods/list",
+            dataType: "json",
+            data: JSON.stringify({
+                "content": $("#goods-api-list-content").val(),
+                "categoryId1": $("#goods-api-list-categoryId1").val(),
+                "pageIndex": $("#goods-api-list-pageIndex").val(),
+                "pageSize": $("#goods-api-list-pageSize").val()
+            })
+        };
+        showResult(settings);
+    },
     detail: function () {
         var settings = {
             type: "GET",
             url: "/management/goods/" + $("#goods-detail-id").val(),
+            dataType: "json"
+        };
+        showResult(settings);
+    },
+    detailApi: function () {
+        var settings = {
+            type: "GET",
+            url: "/api/goods/" + $("#goods-api-detail-id").val(),
             dataType: "json"
         };
         showResult(settings);
@@ -433,11 +463,56 @@ var orderModule= {
         };
         showResult(settings);
     },
+    listApi: function () {
+        var settings = {
+            type: "POST",
+            url: "/api/order/list",
+            dataType: "json",
+            data: JSON.stringify({
+                "content": $("#order-api-list-content").val(),
+                "status": $("#order-api-list-status").val(),
+                "pageIndex": $("#goods-api-list-pageIndex").val(),
+                "pageSize": $("#goods-api-list-pageSize").val()
+            })
+        };
+        showResult(settings);
+    },
     detail: function () {
         var settings = {
             type: "GET",
             url: "/management/order/" + $("#order-detail-id").val(),
             dataType: "json"
+        };
+        showResult(settings);
+    },
+    detailApi: function () {
+        var settings = {
+            type: "GET",
+            url: "/api/order/" + $("#order-api-detail-id").val(),
+            dataType: "json"
+        };
+        showResult(settings);
+    },
+    createApi: function () {
+        var jsonObject = {
+            "amount": $("#order-api-create-amount").val(),
+            "recharge": $("#order-api-create-recharge").val(),
+            "remark": $("#order-api-create-remark").val(),
+            "list":[]
+        };
+        if($("#order-api-create-hasItem").val() === 1){
+            jsonObject.list.add({
+                "goodsId": $("#order-api-create-goodsId").val(),
+                "goodsName": $("#order-api-create-goodsName").val(),
+                "price": $("#order-api-create-price").val(),
+                "count": $("#order-api-create-count").val()
+            })
+        }
+        var settings = {
+            type: "POST",
+            url: "/api/order/create",
+            dataType: "json",
+            data: JSON.stringify(jsonObject)
         };
         showResult(settings);
     },
@@ -451,6 +526,17 @@ var orderModule= {
                 "status": $("#order-status-status").val(),
                 "cancelReason": $("#order-status-cancelReason").val(),
                 "remarks": $("#order-status-remarks").val()
+            })
+        };
+        showResult(settings);
+    },
+    paid: function () {
+        var settings = {
+            type: "PUT",
+            url: "/api/order/paid",
+            dataType: "json",
+            data: JSON.stringify({
+                "id": $("#order-api-paid-id").val()
             })
         };
         showResult(settings);

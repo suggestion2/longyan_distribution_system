@@ -30,7 +30,7 @@
         </if>
     </select>
 
-    <insert id="insert" parameterType="com.longyan.distribution.domain.OrderItem" useGeneratedKeys="true" keyProperty="id">
+    <insert id="batchInsert" parameterType="com.longyan.distribution.domain.OrderItem" useGeneratedKeys="true" keyProperty="id">
         insert into `order_item`
         (
         `orderId`,
@@ -41,22 +41,22 @@
         `amount`,
         `createBy`,
         `updateBy`,
-        `status`,
         `recharge`
         )
         values
+        <foreach item="item" collection="list" separator="," >
         (
-        #{orderId},
-        #{goodsId},
-        #{goodsName},
-        #{price},
-        #{count},
-        #{amount},
-        #{createBy},
-        #{createBy},
-        #{status},
-        #{recharge}
+        #{item.orderId},
+        #{item.goodsId},
+        #{item.goodsName},
+        #{item.price},
+        #{item.count},
+        #{item.amount},
+        #{item.createBy},
+        #{item.createBy},
+        0
         )
+        </foreach>
     </insert>
 
     <update id="update" parameterType="com.longyan.distribution.domain.OrderItem">

@@ -15,8 +15,8 @@
 
     <select id="selectList" resultType="com.longyan.distribution.domain.GoodsCategory" parameterType="java.util.Map">
         select * from `goods_category` where `valid` = 1
-        <if test="id!=null">
-
+        <if test="status!=null">
+            and `status` = #{status}
         </if>
         <if test="startIndex != null and pageSize != null">
             limit #{startIndex},#{pageSize}

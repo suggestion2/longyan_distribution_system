@@ -107,6 +107,87 @@
                 <input type="button" value="列表" onclick="customerModule.inviteCode()"/><br>
             </div>
         </div>
+        <div style="float: left; width: 400px;">
+            <h2>商品品类(goods_category)</h2>
+            <div>
+                <strong>[列表]</strong><br/>
+                <input type="button" value="列表" onclick="goodsCategoryModule.listApi()"/><br>
+            </div>
+            <h2>商品(goods)</h2>
+            <div>
+                <strong>[列表]</strong><br/>
+                content:<input class="textbox" type="text" id="goods-api-list-content" style="width: 100px;"
+                               value=""/>
+                categoryId1:<input class="textbox" type="text" id="goods-api-list-categoryId1" style="width: 100px;"
+                                   value=""/><br>
+                pageIndex:<input class="textbox" type="text" id="goods-api-list-pageIndex" style="width: 100px;"
+                                 value="0"/>
+                pageSize:<input class="textbox" type="text" id="goods-api-list-pageSize" style="width: 100px;"
+                                value="10"/><br>
+                <input type="button" value="列表" onclick="goodsModule.listApi()"/><br>
+            </div>
+            <div>
+                <strong>[详情]</strong><br/>
+                id:<input class="textbox" type="text" id="goods-api-detail-id" style="width: 100px;"
+                          value=""/>
+                <input type="button" value="详情" onclick="goodsModule.detailApi()"/><br>
+            </div>
+            <h2>订单(order)</h2>
+            <div>
+                <strong>[列表]</strong><br/>
+                content:<input class="textbox" type="text" id="order-api-list-content" style="width: 100px;"
+                               value=""/>
+                status:<select class="textbox" id="order-api-list-status" style="width: 100px;">
+                <option value="">all</option>
+                <option value="0">disable</option>
+                <option value="1">enable</option>
+            </select><br>
+                pageIndex:<input class="textbox" type="text" id="order-api-list-pageIndex" style="width: 100px;"
+                                 value="0"/>
+                pageSize:<input class="textbox" type="text" id="order-api-list-pageSize" style="width: 100px;"
+                                value="10"/><br>
+                <input type="button" value="列表" onclick="orderModule.listApi()"/><br>
+            </div>
+            <div>
+                <strong>[详情]</strong><br/>
+                id:<input class="textbox" type="text" id="order-api-detail-id" style="width: 100px;"
+                          value=""/>
+                <input type="button" value="详情" onclick="orderModule.detailApi()"/><br>
+            </div>
+            <div>
+                <strong>[创建]</strong><br/>
+                amount:<input class="textbox" type="text" id="order-api-create-amount" style="width: 100px;"
+                               value=""/>
+                recharge:<select class="textbox" id="order-api-create-recharge" style="width: 100px;">
+                <option value="1">normal</option>
+                <option value="2">recharge</option>
+            </select><br>
+                remark(unnecessary):<input class="textbox" type="text" id="order-api-create-remark" style="width: 100px;"
+                                 value=""/><br>
+
+                has item?:<select class="textbox" id="order-api-create-hasItem" style="width: 100px;">
+                <option value="1">yes</option>
+                <option value="2">no</option>
+            </select><br>
+
+                orderItem:<br>
+                goodsId:<input class="textbox" type="text" id="order-api-create-goodsId" style="width: 100px;"
+                              value=""/>
+                goodsName:<input class="textbox" type="text" id="order-api-create-goodsName" style="width: 100px;"
+                                           value=""/><br>
+                price:<input class="textbox" type="text" id="order-api-create-price" style="width: 100px;"
+                               value=""/>
+                count:<input class="textbox" type="text" id="order-api-create-count" style="width: 100px;"
+                                 value=""/><br>
+                <input type="button" value="列表" onclick="orderModule.createApi()"/><br>
+            </div>
+            <div>
+                <strong>[确认支付]</strong><br/>
+                id:<input class="textbox" type="text" id="order-api-paid-id" style="width: 100px;"
+                          value=""/>
+                <input type="button" value="详情" onclick="orderModule.paid()"/><br>
+            </div>
+        </div>
     </div>
     <div id="tabs-2" style="width: 2000px;display: block">
         <div style="float: left; width: 400px;">

@@ -17,6 +17,8 @@ public interface GoodsCategoryService {
 
     List<GoodsCategory> selectAll();
 
+    List<GoodsCategory> selectAllEnable();
+
     int selectCount(Map<String, Object> map);
 
     int create(GoodsCategory goodsCategory);
