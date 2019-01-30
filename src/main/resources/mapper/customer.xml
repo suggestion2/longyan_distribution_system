@@ -19,11 +19,20 @@
     <select id="selectList" resultType="com.longyan.distribution.domain.Customer" parameterType="java.util.Map">
         select * from `customer` where `valid` = 1
         <if test="business!=null">
-            and `business` = #{business}
+            <if test="business==0">
+                and (`business` = 0 or `business` = 2)
+            </if>
+            <if test="business!=0">
+                and `business` = #{business}
+            </if>
+        </if>
+        <if test="parentId!=null">
+                and `parentId` = #{parentId}
         </if>
         <if test="managementContent!=null">
             and (`phone` like concat ('%',#{managementContent},'%') or `realName` like concat ('%',#{managementContent},'%') or `businessAccount` like concat ('%',#{managementContent},'%') or `businessName` like concat ('%',#{managementContent},'%'))
         </if>
+
         <if test="startIndex != null and pageSize != null">
             limit #{startIndex},#{pageSize}
         </if>
@@ -63,7 +72,12 @@
     <select id="selectCount" resultType="java.lang.Integer" parameterType="java.util.Map">
         select count(*) from `customer` where `valid` = 1
         <if test="business!=null">
+            <if test="business==0">
+                and (`business` = 0 or `business` = 2)
+            </if>
+            <if test="business!=0">
             and `business` = #{business}
+            </if>
         </if>
         <if test="content!=null">
             and (`businessAccount` like concat ('%',#{content},'%') or `businessName` like concat ('%',#{content},'%'))
@@ -75,6 +89,9 @@
             <if test="superParentId!=null">
                 and (`parentId` = #{parentId} or `superParentId` = #{superParentId})
             </if>
+        </if>
+        <if test="parentId!=null">
+            and `parentId` = #{parentId}
         </if>
     </select>
 
@@ -129,9 +146,34 @@
         `parentRealName` = #{parentRealName},
         `superParentRealName` = #{superParentRealName},
         `business` = #{business},
+        `businessStatus` = #{businessStatus},
+        `updateBy` = #{updateBy},
         `updateTime` = now()
         where `id` = #{id}
     </update>
+
+    <update id="updateLevel" parameterType="com.longyan.distribution.domain.Customer">
+        update `customer` set
+        `level` = #{level},
+        `updateBy` = #{updateBy},
+        `updateTime` = now()
+        where `id` = #{id}
+    </update>
+
+    <update id="updateBusiness" parameterType="com.longyan.distribution.domain.Customer">
+        update customer a inner join (select LPAD(id, 6, 0) c,id  from customer where id = #{id}) b on a.id = b.id
+        set a.businessAccount = b.c,
+        a.business=#{business},
+        a.businessName=#{businessName},
+        a.updateBy=#{updateBy};
+    </update>
+
+    <update id="updateCustomerGold" parameterType="com.longyan.distribution.request.CustomerAddGoldRecordForm">
+        update customer set
+        customerGold = customerGold+#{amount}
+        where `id` = #{id}
+    </update>
+
     <update id="updateLoginPassword" parameterType="com.longyan.distribution.domain.Customer">
         update `customer` set
         `loginPassword` = #{loginPassword},

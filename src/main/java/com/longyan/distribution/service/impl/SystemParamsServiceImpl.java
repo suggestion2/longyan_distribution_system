@@ -20,6 +20,11 @@ public class SystemParamsServiceImpl implements SystemParamsService{
     public SystemParams getById(Integer id){
         return systemParamsMapper.selectById(id);
     }
+
+    @Override
+    public SystemParams getValueByKey(Map<String, Object> map){
+        return systemParamsMapper.getValueByKey(map);
+    }
     @Override
     public SystemParams select(Map<String, Object> map){
         return systemParamsMapper.select(map);

@@ -1,6 +1,7 @@
 package com.longyan.distribution.service.impl;
 
 import com.longyan.distribution.domain.Customer;
+import com.longyan.distribution.request.CustomerAddGoldRecordForm;
 import com.longyan.distribution.response.BusinessListView;
 import com.longyan.distribution.response.BusinessView;
 import com.longyan.distribution.response.CustomerShortView;
@@ -23,6 +24,9 @@ public class CustomerServiceImpl implements CustomerService{
     public Customer getById(Integer id){
         return customerMapper.selectById(id);
     }
+
+
+
     @Override
     public Customer select(Map<String, Object> map){
         return customerMapper.select(map);
@@ -65,6 +69,21 @@ public class CustomerServiceImpl implements CustomerService{
     @Override
     public int update(Customer customer){
         return customerMapper.update(customer);
+    }
+
+    @Override
+    public int updateBusiness(Customer customer){
+        return customerMapper.updateBusiness(customer);
+    }
+
+    @Override
+    public int updateLevel(Customer customer){
+        return customerMapper.updateLevel(customer);
+    }
+
+    @Override
+    public int updateCustomerGold(CustomerAddGoldRecordForm customerAddGoldRecordForm){
+        return customerMapper.updateCustomerGold(customerAddGoldRecordForm);
     }
 
     @Override

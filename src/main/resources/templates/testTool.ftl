@@ -287,15 +287,61 @@
             </div>
             <div>
                 <strong>[重置登陆密码]</strong><br/>
-                商户id:<input class="textbox" type="text" id="distributor-m-resetLoginPassword-id" style="width: 100px;"
+                商户id:<input class="textbox" type="text" id="customer-m-resetLoginPassword-id" style="width: 100px;"
                             value="1"/>
                 <input type="button" value="重置" onclick="customerMaModule.resetLoginPasswordById()"/><br>
             </div>
             <div>
                 <strong>[重置支付密码]</strong><br/>
-                商户id:<input class="textbox" type="text" id="distributor-m-resetPaymentPassword-id" style="width: 100px;"
+                商户id:<input class="textbox" type="text" id="customer-m-resetPaymentPassword-id" style="width: 100px;"
                             value="1"/>
                 <input type="button" value="重置" onclick="customerMaModule.resetPaymentPassword()"/><br>
+            </div>
+            <div>
+                <strong>[商户启用/禁用]</strong><br/>
+                id:<input class="textbox" type="text" id="customer-m-status-id" style="width: 100px;"
+                          value=""/>
+                商户状态（1启用0   禁用）businessStatus:<select class="textbox" id="customer-m-status-businessStatus" style="width: 100px;">
+                <option value="0">disable</option>
+                <option value="1">enable</option>
+            </select><br>
+                <input type="button" value="修改" onclick="customerMaModule.resetStatus()"/><br>
+            </div>
+            <div>
+                <strong>[设为商户]</strong><br/>
+                id:<input class="textbox" type="text" id="customer-m-business-id" style="width: 100px;"
+                          value=""/>
+                商户名称:<input class="textbox" type="text" id="customer-m-business-businessName" style="width: 100px;"
+                          value=""/>
+            </select><br>
+                <input type="button" value="修改" onclick="customerMaModule.resetBusiness()"/><br>
+            </div>
+            <div>
+                <strong>[设为等级]</strong><br/>
+                id:<input class="textbox" type="text" id="customer-m-level-id" style="width: 100px;"
+                          value=""/>
+                设置等级:<input class="textbox" type="text" id="customer-m-level-level" style="width: 100px;"
+                          value=""/>
+            </select><br>
+                <input type="button" value="修改" onclick="customerMaModule.resetLevel()"/><br>
+            </div>
+            <div>
+                <strong>[上级]</strong><br/>
+                id:<input class="textbox" type="text" id="customer-m-customerParent-id" style="width: 100px;"
+                          value=""/>
+            </select><br>
+                <input type="button" value="查找" onclick="customerMaModule.customerParent()"/><br>
+            </div>
+            <div>
+                <strong>[下级列表]</strong><br/>
+                id:<input class="textbox" type="text" id="customer-m-customerLowList-id" style="width: 100px;"
+                          value=""/>
+                startIndex:<input class="textbox" type="text" id="customer-m-customerLowList-startIndex" style="width: 100px;"
+                                  value="0"/>
+                pageSize:<input class="textbox" type="text" id="customer-m-customerLowList-pageSize" style="width: 100px;"
+                                value="10"/><br>
+            </select><br>
+                <input type="button" value="列表" onclick="customerMaModule.customerLowList()"/><br>
             </div>
         </div>
         <div style="float: left; width: 400px;">

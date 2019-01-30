@@ -11,6 +11,8 @@ import java.util.Map;
 public interface SystemParamsService {
     SystemParams getById(Integer id);
 
+    SystemParams getValueByKey(Map<String, Object> map);
+
     SystemParams select(Map<String, Object> map);
 
     List<SystemParams> selectList(Map<String, Object> map);
@@ -24,4 +26,5 @@ public interface SystemParamsService {
     int update(SystemParams systemParams);
 
     int deleteById(Integer id);
+
 }

@@ -486,7 +486,7 @@ var customerMaModule= {
             url: "/management/customer/loginPassword",
             dataType: "json",
             data: JSON.stringify({
-                "id": $("#distributor-m-resetLoginPassword-id").val()
+                "id": $("#customer-m-resetLoginPassword-id").val()
             })
         };
         showResult(settings);
@@ -497,7 +497,64 @@ var customerMaModule= {
             url: "/management/customer/paymentPassword",
             dataType: "json",
             data: JSON.stringify({
-                "id": $("#distributor-m-resetPaymentPassword-id").val()
+                "id": $("#customer-m-resetPaymentPassword-id").val()
+            })
+        };
+        showResult(settings);
+    },
+    resetStatus: function () {
+        var settings = {
+            type: "PUT",
+            url: "/management/customer/resetBusinessStatus",
+            dataType: "json",
+            data: JSON.stringify({
+                "id": $("#customer-m-status-id").val(),
+                "businessStatus": $("#customer-m-status-businessStatus").val()
+            })
+        };
+        showResult(settings);
+    },
+    resetBusiness: function () {
+        var settings = {
+            type: "PUT",
+            url: "/management/customer/resetBusiness",
+            dataType: "json",
+            data: JSON.stringify({
+                "id": $("#customer-m-business-id").val(),
+                "businessName": $("#customer-m-business-businessName").val()
+            })
+        };
+        showResult(settings);
+    },
+    resetLevel: function () {
+        var settings = {
+            type: "PUT",
+            url: "/management/customer/resetLevel",
+            dataType: "json",
+            data: JSON.stringify({
+                "id": $("#customer-m-level-id").val(),
+                "level": $("#customer-m-level-level").val()
+            })
+        };
+        showResult(settings);
+    },
+    customerParent: function () {
+        var settings = {
+            type: "GET",
+            url: "/management/customer/customerParent/"+ $("#customer-m-customerParent-id").val(),
+            dataType: "json"
+        };
+        showResult(settings);
+    },
+    customerLowList: function () {
+        var settings = {
+            type: "POST",
+            url: "/management/customer/customerLowList",
+            dataType: "json",
+            data: JSON.stringify({
+                "id": $("#customer-m-customerLowList-id").val(),
+                "pageIndex": $("#customer-m-customerLowList-startIndex").val(),
+                "pageSize": $("#customer-m-customerLowList-pageSize").val()
             })
         };
         showResult(settings);

@@ -28,6 +28,7 @@ import java.util.Objects;
 
 import static com.longyan.distribution.constants.CommonConstants.*;
 import static com.longyan.distribution.constants.CustomerConstants.*;
+import static com.longyan.distribution.constants.CustomerConstants.INVITETWOLEVEL;
 
 @RestController("customerApiController")
 @RequestMapping(value = "/api/customer")
@@ -58,13 +59,14 @@ public class CustomerController {
         //下下级设置type为2
         for(int i =0;i<list.size();i++){
             if(Objects.equals(list.get(i).getSuperParentPhone(),customer.getPhone())){
-                list.get(i).setType(TWOLEVEL);
+                list.get(i).setType(INVITETWOLEVEL);
             }else{
-                list.get(i).setType(ONELEVEL);
+                list.get(i).setType(INVITEONELEVEL);
             }
         }
         return new CustomerListShortView(list,customerService.selectCount(query));
     }
+
 
     @RequestMapping(value = "/businessList",method = RequestMethod.POST)
     @CustomerLoginRequired
