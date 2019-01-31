@@ -1,7 +1,6 @@
 package com.longyan.distribution.mapper;
 
 import com.longyan.distribution.domain.Customer;
-import com.longyan.distribution.request.CustomerAddGoldRecordForm;
 import com.longyan.distribution.response.BusinessListView;
 import com.longyan.distribution.response.BusinessView;
 import com.longyan.distribution.response.CustomerShortView;
@@ -30,7 +29,9 @@ public interface CustomerMapper {
 
     int updateBusiness(Customer customer);
 
-    int updateCustomerGold(Customer customer);
+    int updateAddCustomerGold(Customer customer);
+
+    int updateReduceCustomerGold(Customer customer);
 
     int updateLevel(Customer customer);
 

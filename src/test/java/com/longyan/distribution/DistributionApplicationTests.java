@@ -8,9 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.math.BigDecimal;
 import java.util.Collections;
 
-import static com.longyan.distribution.constants.SystemParamsConstants.INVITECOMMONRECHARGEGOLDCOIN;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -22,6 +22,9 @@ public class DistributionApplicationTests {
 	public void contextLoads() {
 //		SystemParams s = systemParamsService.getValueByKey(Collections.singletonMap("key",COMMONCHARGE));
 //		System.out.println(s.getValue()+"ERROR");
+		BigDecimal decimal = new BigDecimal(123);
+		decimal = decimal.multiply(new BigDecimal(-1));
+		System.out.println(decimal);
 	}
 
 }

@@ -1,7 +1,6 @@
 package com.longyan.distribution.service.impl;
 
 import com.longyan.distribution.domain.Customer;
-import com.longyan.distribution.request.CustomerAddGoldRecordForm;
 import com.longyan.distribution.response.BusinessListView;
 import com.longyan.distribution.response.BusinessView;
 import com.longyan.distribution.response.CustomerShortView;
@@ -82,8 +81,13 @@ public class CustomerServiceImpl implements CustomerService{
     }
 
     @Override
-    public int updateCustomerGold(Customer customer){
-        return customerMapper.updateCustomerGold(customer);
+    public int updateAddCustomerGold(Customer customer){
+        return customerMapper.updateAddCustomerGold(customer);
+    }
+
+    @Override
+    public int updateReduceCustomerGold(Customer customer){
+        return customerMapper.updateReduceCustomerGold(customer);
     }
 
     @Override

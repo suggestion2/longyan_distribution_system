@@ -424,6 +424,21 @@
             </select><br>
                 <input type="button" value="列表" onclick="customerMaModule.customerLowList()"/><br>
             </div>
+            <h2>增减金币</h2>
+            <div>
+                <strong>[用户增减金币]</strong><br/>
+                id:<input class="textbox" type="text" id="customer-m-addReduceGold-id" style="width: 100px;"
+                          value="1"/><br/>
+                增加或减少（1充值，4后台减少，5后台增加）:<br/>
+                <select class="textbox" id="customer-m-addReduceGold-type" style="width: 100px;">
+                    <option value="1">充值</option>
+                    <option value="4">后台减少</option>
+                    <option value="5">后台增加</option>
+                </select><br>
+                充值（人民币）:<input class="textbox" type="text" id="customer-m-addReduceGold-amount" style="width: 100px;"
+                          value="888"/>
+                <input type="button" value="提交" onclick="customerMaModule.addReduceGold()"/><br>
+            </div>
         </div>
         <div style="float: left; width: 400px;">
             <h2>订单(order)</h2>
@@ -465,7 +480,6 @@
             </div>
         </div>
     </div>
-
     <div style="clear: both;"></div>
 </div>
 

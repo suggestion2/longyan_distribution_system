@@ -168,9 +168,15 @@
         a.updateBy=#{updateBy};
     </update>
 
-    <update id="updateCustomerGold" parameterType="com.longyan.distribution.domain.Customer">
+    <update id="updateAddCustomerGold" parameterType="com.longyan.distribution.domain.Customer">
         update customer set
-        customerGold = customerGold+#{amount}
+        customerGold = customerGold+#{customerGold}
+        where `id` = #{id}
+    </update>
+
+    <update id="updateReduceCustomerGold" parameterType="com.longyan.distribution.domain.Customer">
+        update customer set
+        customerGold = customerGold-#{customerGold}
         where `id` = #{id}
     </update>
 

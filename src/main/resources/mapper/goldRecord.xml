@@ -40,10 +40,7 @@
         `businessAccount`,
         `customerPhone`,
         `createBy`,
-        `updateBy`,
-        `status`,
-        `type`,
-        `refuseReason`
+        `type`
         )
         values
         (
@@ -54,10 +51,7 @@
         #{businessAccount},
         #{customerPhone},
         #{createBy},
-        #{createBy},
-        #{status},
-        #{type},
-        #{refuseReason}
+        #{type}
         )
     </insert>
 

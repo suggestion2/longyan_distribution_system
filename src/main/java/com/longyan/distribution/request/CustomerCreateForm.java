@@ -25,6 +25,7 @@ public class CustomerCreateForm {
     @NotEmpty
     @Pattern(regexp=RegexUtils.REGEX_NUM  ,message = RegexUtils.REGEX_NUM_MESSAGE  )
     private String customerBankAccount;
+
     private Integer parentId;
     @NotEmpty
     @Pattern(regexp = RegexUtils.REGEX_ENGNNUM,message = RegexUtils.REGEX_ENGNNUM_MESSAGE)

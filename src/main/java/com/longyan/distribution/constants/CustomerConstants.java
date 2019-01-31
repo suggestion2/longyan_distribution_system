@@ -23,6 +23,12 @@ public class CustomerConstants {
     //启用 禁用商户
     public static final Integer ENABLE = 1;
     public static final Integer DISABLE = 0;
+    //没有上级
+    public static final Integer NOTPARENT = 0;
+    //没有上上级
+    public static final Integer NOTSUPERPARENT = 0;
+
+
 
 
 

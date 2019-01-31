@@ -645,4 +645,17 @@ var customerMaModule= {
         };
         showResult(settings);
     },
+    addReduceGold: function () {
+        var settings = {
+            type: "POST",
+            url: "management/goldRecord/customerAddReduceGold",
+            dataType: "json",
+            data: JSON.stringify({
+                "id": $("#customer-m-addReduceGold-id").val(),
+                "type": $("#customer-m-addReduceGold-type").val(),
+                "amount": $("#customer-m-addReduceGold-amount").val()
+            })
+        };
+        showResult(settings);
+    },
 };

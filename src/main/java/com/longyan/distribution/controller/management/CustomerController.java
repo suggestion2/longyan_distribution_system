@@ -33,7 +33,7 @@ import static com.longyan.distribution.constants.CustomerConstants.*;
 
 @RestController("customerManagementController")
 @RequestMapping(value = "/management/customer")
-
+@UserLoginRequired
 public class CustomerController {
     private static final Logger logger = LoggerFactory.getLogger(CustomerController.class);
 

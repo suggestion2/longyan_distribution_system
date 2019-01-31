@@ -8,10 +8,8 @@ import java.util.regex.Pattern;
 public class SystemParamsConstants {
     public static final String VIPINVITECOIN = "VIPINVITECOIN ";//VIP邀请获得的钢镚百分比
     public static final String INVITEVIPCOIN = "/create";//合伙人邀请VIP获得的钢镚百分比
-    public static final String INVITECOMMONRECHARGEGOLDCOIN = "INVITECOMMONRECHARGEGOLDCOIN";//合伙人邀请普通会员,普通会员充值金币，合伙人获得的钢镚百分比
     public static final String INVITEVIPRECHARGEGOLDCOIN = "INVITEVIPRECHARGEGOLDCOIN";//合伙人邀请VIP,vip充值金币，合伙人获得的钢镚百分比
     public static final String VIPINVITECOMMONRECHARGEGOLDCOIN = "VIPINVITECOMMONRECHARGEGOLDCOIN";//VIP邀请普通会员,普通会员充值金币，vip获得的钢镚百分比
-    public static final String AINVITEBINVITEC = "AINVITEBINVITEC";//合伙人邀请vip，vip邀请普通会员，普通会员充值，合伙人获得的钢镚百分比
     public static final String COMMONGOLDCHARGE  = "COMMONGOLDCHARGE";//普通会员充值金币的充值折扣
     public static final String VIPREGOLDCHARGE  = "VIPREGOLDCHARGE";//VIP充值金币的充值折扣
     public static final String PARTNEGOLDRRECHARGE = "PARTNEGOLDRRECHARGE";//合伙人充值金币的充值折扣

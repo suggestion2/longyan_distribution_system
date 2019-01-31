@@ -6,7 +6,7 @@ import com.sug.core.util.RegexUtils;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
-public class CustomerAddGoldRecordForm {
+public class CustomerAddReduceGoldForm {
     @NotNull
     private Integer id;
     @NotNull
