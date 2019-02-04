@@ -107,28 +107,36 @@ public class GoldRecordController {
         }
         //进行当前用户按等级分配折扣充值增加金币
         if(Objects.equals(customer.getLevel(), CUSTOPMERONELEVEL)){
-            Integer value= Integer.parseInt(systemParamsService.getValueByKey(Collections.singletonMap("key",COMMONGOLDCHARGE)).getValue());
-            customer.setCustomerGold(BigDecimalUtils.divide(form.getAmount(), value));
+//            Integer value= Integer.parseInt(systemParamsService.getValueByKey(Collections.singletonMap("key",COMMONGOLDCHARGE)).getValue());
+            BigDecimal value = new BigDecimal(systemParamsService.getValueByKey(Collections.singletonMap("key",COMMONGOLDCHARGE)).getValue());
+            BigDecimal currentAmount=amount.divide(value, 2, BigDecimal.ROUND_UP);
+            customer.setCustomerGold(currentAmount);
             customerService.updateAddCustomerGold(customer);
             //添加增加金币记录
-            goldRecord.setAmount(amount);
+            goldRecord.setAmount(currentAmount);
             goldRecordService.create(goldRecord);
         }
         if(Objects.equals(customer.getLevel(), CUSTOPMERTWOLEVEL)){
-            Integer value= Integer.parseInt(systemParamsService.getValueByKey(Collections.singletonMap("key",VIPREGOLDCHARGE)).getValue());
-            customer.setCustomerGold(BigDecimalUtils.divide(form.getAmount(), value));
+            BigDecimal value = new BigDecimal(systemParamsService.getValueByKey(Collections.singletonMap("key",VIPREGOLDCHARGE)).getValue());
+
+//            Integer value= Integer.parseInt(systemParamsService.getValueByKey(Collections.singletonMap("key",VIPREGOLDCHARGE)).getValue());
+            BigDecimal currentAmount=amount.divide(value, 2, BigDecimal.ROUND_UP);
+            customer.setCustomerGold(currentAmount);
             customerService.updateAddCustomerGold(customer);
             //添加增加金币记录
-            goldRecord.setAmount(amount);
+            goldRecord.setAmount(currentAmount);
             goldRecordService.create(goldRecord);
         }
         //如果当前用户会员等级是最高，充值就不用给其他人分红;
         if(Objects.equals(customer.getLevel(), CUSTOPMERTHREELEVEL)){
-            Integer value= Integer.parseInt(systemParamsService.getValueByKey(Collections.singletonMap("key",PARTNEGOLDRRECHARGE)).getValue());
-            customer.setCustomerGold(BigDecimalUtils.divide(form.getAmount(), value));
+            BigDecimal value = new BigDecimal(systemParamsService.getValueByKey(Collections.singletonMap("key",PARTNEGOLDRRECHARGE)).getValue());
+
+//            Integer value= Integer.parseInt(systemParamsService.getValueByKey(Collections.singletonMap("key",PARTNEGOLDRRECHARGE)).getValue());
+            BigDecimal currentAmount=amount.divide(value, 2, BigDecimal.ROUND_UP);
+            customer.setCustomerGold(currentAmount);
             customerService.updateAddCustomerGold(customer);
             //添加增加金币记录
-            goldRecord.setAmount(amount);
+            goldRecord.setAmount(currentAmount);
             goldRecordService.create(goldRecord);
             return new ResponseView();
         }
