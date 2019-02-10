@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.longyan.distribution.mapper.OilDrillRecordMapper">
+
+    <select id="selectById" resultType="com.longyan.distribution.domain.OilDrillRecord" parameterType="java.lang.Integer">
+        select * from `oil_drill_record` where id= #{id} and `valid` = 1
+    </select>
+
+    <select id="select" resultType="com.longyan.distribution.domain.OilDrillRecord" parameterType="java.util.Map">
+        select * from `oil_drill_record` where `valid` = 1
+        <if test="id!=null">
+            and `id` = #{id}
+        </if>
+    </select>
+
+    <select id="selectList" resultType="com.longyan.distribution.domain.OilDrillRecord" parameterType="java.util.Map">
+        select * from `oil_drill_record` where `valid` = 1
+        <if test="id!=null">
+
+        </if>
+        <if test="startIndex != null and pageSize != null">
+            limit #{startIndex},#{pageSize}
+        </if>
+    </select>
+
+    <select id="selectCount" resultType="java.lang.Integer" parameterType="java.util.Map">
+        select count(*) from `oil_drill_record` where `valid` = 1
+        <if test="id!=null">
+
+        </if>
+    </select>
+
+    <insert id="insert" parameterType="com.longyan.distribution.domain.OilDrillRecord" useGeneratedKeys="true" keyProperty="id">
+        insert into `oil_drill_record`
+        (
+        `customerId`,
+        `businessId`,
+        `amount`,
+        `businessName`,
+        `businessAccount`,
+        `customerPhone`,
+        `createBy`,
+        `type`
+        )
+        values
+        (
+        #{customerId},
+        #{businessId},
+        #{amount},
+        #{businessName},
+        #{businessAccount},
+        #{customerPhone},
+        #{createBy},
+        #{type}
+        )
+    </insert>
+
+    <update id="update" parameterType="com.longyan.distribution.domain.OilDrillRecord">
+        update `oil_drill_record` set
+        `customerId` = #{customerId},
+        `businessId` = #{businessId},
+        `amount` = #{amount},
+        `businessName` = #{businessName},
+        `businessAccount` = #{businessAccount},
+        `customerPhone` = #{customerPhone},
+        `updateBy` = #{updateBy},
+        `status` = #{status},
+        `type` = #{type},
+        `refuseReason` = #{refuseReason},
+        `updateTime` = now()
+        where `id` = #{id}
+    </update>
+
+    <delete id="deleteById" parameterType="java.lang.Integer">
+        update `oil_drill_record` set valid = 0 where `id` = #{id}
+    </delete>
+</mapper>

@@ -31,7 +31,17 @@ public interface CustomerMapper {
 
     int updateAddCustomerGold(Customer customer);
 
+    int updateAddCustomerCoin(Customer customer);
+
     int updateReduceCustomerGold(Customer customer);
+
+    int updateAddCustomerOilDrill(Customer customer);
+
+    int updateReduceCustomerOilDrill(Customer customer);
+
+    int updateReduceBusinessGold(Customer customer);
+
+    int updateAddBusinessGold(Customer customer);
 
     int updateLevel(Customer customer);
 

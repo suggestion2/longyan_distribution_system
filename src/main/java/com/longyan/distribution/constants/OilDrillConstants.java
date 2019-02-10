@@ -1,6 +1,6 @@
 package com.longyan.distribution.constants;
 
-public class GoldRecordConstans {
+public class OilDrillConstants {
     //后台添加金币
     public static final int USERADD = 5;
     public static final int USERREDUCE = 4;
@@ -11,7 +11,5 @@ public class GoldRecordConstans {
     public static final int NOTCUSTOMER = 1;
     //小数位数
     public static final int DECIMAL = 2;
-
-
 
 }

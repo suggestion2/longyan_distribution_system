@@ -38,10 +38,7 @@
         `amount`,
         `customerPhone`,
         `createBy`,
-        `updateBy`,
-        `status`,
         `type`,
-        `refuseReason`,
         `sourceCustomerLevel`,
         `sourceCustomerPhone`
         )
@@ -52,10 +49,7 @@
         #{amount},
         #{customerPhone},
         #{createBy},
-        #{createBy},
-        #{status},
         #{type},
-        #{refuseReason},
         #{sourceCustomerLevel},
         #{sourceCustomerPhone}
         )

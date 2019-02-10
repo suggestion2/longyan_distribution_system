@@ -436,8 +436,45 @@
                     <option value="5">后台增加</option>
                 </select><br>
                 充值（人民币）:<input class="textbox" type="text" id="customer-m-addReduceGold-amount" style="width: 100px;"
-                          value="888"/>
+                          value="900"/>
                 <input type="button" value="提交" onclick="customerMaModule.addReduceGold()"/><br>
+                <strong>[商户增减金币]</strong><br/>
+                id:<input class="textbox" type="text" id="business-m-addReduceGold-id" style="width: 100px;"
+                          value="1"/><br/>
+                增加或减少（4后台减少，5后台增加）:<br/>
+                <select class="textbox" id="business-m-addReduceGold-type" style="width: 100px;">
+                    <option value="4">后台减少</option>
+                    <option value="5">后台增加</option>
+                </select><br>
+                充值（人民币）:<input class="textbox" type="text" id="business-m-addReduceGold-amount" style="width: 100px;"
+                          value="900"/>
+                <input type="button" value="提交" onclick="customerMaModule.businessAddReduceGold()"/><br>
+            </div>
+            <h2>增减油钻</h2>
+            <div>
+                <strong>[用户增减油钻]</strong><br/>
+                id:<input class="textbox" type="text" id="customer-m-addReduceOilDrill-id" style="width: 100px;"
+                          value="1"/><br/>
+                增加或减少（1充值，4后台减少，5后台增加）:<br/>
+                <select class="textbox" id="customer-m-addReduceOilDrill-type" style="width: 100px;">
+                    <option value="1">充值</option>
+                    <option value="4">后台减少</option>
+                    <option value="5">后台增加</option>
+                </select><br>
+                充值（人民币）:<input class="textbox" type="text" id="customer-m-addReduceOilDrill-amount" style="width: 100px;"
+                          value="900"/>
+                <input type="button" value="提交" onclick="customerMaModule.addReduceOilDrill()"/><br>
+                <strong>[商户增减油钻]</strong><br/>
+                id:<input class="textbox" type="text" id="business-m-businessAddReduceOil-id" style="width: 100px;"
+                          value="1"/><br/>
+                增加或减少（4后台减少，5后台增加）:<br/>
+                <select class="textbox" id="business-m-businessAddReduceOil-type" style="width: 100px;">
+                    <option value="4">后台减少</option>
+                    <option value="5">后台增加</option>
+                </select><br>
+                充值（人民币）:<input class="textbox" type="text" id="business-m-businessAddReduceOil-amount" style="width: 100px;"
+                          value="900"/>
+                <input type="button" value="提交" onclick="customerMaModule.businessAddReduceOil()"/><br>
             </div>
         </div>
         <div style="float: left; width: 400px;">

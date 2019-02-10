@@ -9,10 +9,15 @@ public class SystemParamsConstants {
     public static final String VIPINVITECOIN = "VIPINVITECOIN ";//VIP邀请获得的钢镚百分比
     public static final String INVITEVIPCOIN = "/create";//合伙人邀请VIP获得的钢镚百分比
     public static final String INVITEVIPRECHARGEGOLDCOIN = "INVITEVIPRECHARGEGOLDCOIN";//合伙人邀请VIP,vip充值金币，合伙人获得的钢镚百分比
+    public static final String INVITEVIPRECHARGEOILCOIN = "INVITEVIPRECHARGEOILCOIN";//合伙人邀请VIP,vip充值油钻，合伙人获得的钢镚百分比
     public static final String VIPINVITECOMMONRECHARGEGOLDCOIN = "VIPINVITECOMMONRECHARGEGOLDCOIN";//VIP邀请普通会员,普通会员充值金币，vip获得的钢镚百分比
+    public static final String VIPINVITECOMMONRECHARGEOILCOIN = "VIPINVITECOMMONRECHARGEOILCOIN";//VIP邀请普通会员,普通会员充值油钻，vip获得的钢镚百分比
     public static final String COMMONGOLDCHARGE  = "COMMONGOLDCHARGE";//普通会员充值金币的充值折扣
     public static final String VIPREGOLDCHARGE  = "VIPREGOLDCHARGE";//VIP充值金币的充值折扣
     public static final String PARTNEGOLDRRECHARGE = "PARTNEGOLDRRECHARGE";//合伙人充值金币的充值折扣
+    public static final String COMMONOILCHARGE  = "COMMONOILCHARGE";//普通会员充值油钻的充值折扣
+    public static final String VIPREOILCHARGE  = "VIPREOILCHARGE";//VIP充值油钻的充值折扣
+    public static final String PARTNEOILRRECHARGE = "PARTNEOILRRECHARGE";//合伙人充值油钻的充值折扣
     public static final String VIPINVITENUM = "/create";//VIP邀请x人升级为合伙人
     public static final String COINCASH = "/create";//钢镚提现手续费费率
     public static final String BUSINESSCASH = "/create";//商户金币提现手续费费率

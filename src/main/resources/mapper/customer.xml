@@ -174,9 +174,39 @@
         where `id` = #{id}
     </update>
 
+    <update id="updateAddCustomerCoin" parameterType="com.longyan.distribution.domain.Customer">
+        update customer set
+        customerCoin = customerCoin+#{customerCoin}
+        where `id` = #{id}
+    </update>
+
+
     <update id="updateReduceCustomerGold" parameterType="com.longyan.distribution.domain.Customer">
         update customer set
         customerGold = customerGold-#{customerGold}
+        where `id` = #{id}
+    </update>
+
+    <update id="updateReduceCustomerOilDrill" parameterType="com.longyan.distribution.domain.Customer">
+        update customer set
+        customerOilDrill = customerOilDrill-#{customerOilDrill}
+        where `id` = #{id}
+    </update>
+
+    <update id="updateAddCustomerOilDrill" parameterType="com.longyan.distribution.domain.Customer">
+        update customer set
+        customerOilDrill = customerOilDrill+#{customerOilDrill}
+        where `id` = #{id}
+    </update>
+
+    <update id="updateReduceBusinessGold" parameterType="com.longyan.distribution.domain.Customer">
+        update customer set
+        businessGold = businessGold-#{businessGold}
+        where `id` = #{id}
+    </update>
+    <update id="updateAddBusinessGold" parameterType="com.longyan.distribution.domain.Customer">
+        update customer set
+        businessGold = businessGold+#{businessGold}
         where `id` = #{id}
     </update>
 

@@ -658,4 +658,43 @@ var customerMaModule= {
         };
         showResult(settings);
     },
+    businessAddReduceGold: function () {
+        var settings = {
+            type: "POST",
+            url: "management/goldRecord/businessAddGoldRecord",
+            dataType: "json",
+            data: JSON.stringify({
+                "id": $("#business-m-addReduceGold-id").val(),
+                "type": $("#business-m-addReduceGold-type").val(),
+                "amount": $("#business-m-addReduceGold-amount").val()
+            })
+        };
+        showResult(settings);
+    },
+    addReduceOilDrill: function () {
+        var settings = {
+            type: "POST",
+            url: "management/oilDrillRecord/customerAddReduceOil",
+            dataType: "json",
+            data: JSON.stringify({
+                "id": $("#customer-m-addReduceOilDrill-id").val(),
+                "type": $("#customer-m-addReduceOilDrill-type").val(),
+                "amount": $("#customer-m-addReduceOilDrill-amount").val()
+            })
+        };
+        showResult(settings);
+    },
+    businessAddReduceOil: function () {
+        var settings = {
+            type: "POST",
+            url: "management/oilDrillRecord/businessAddGoldOil",
+            dataType: "json",
+            data: JSON.stringify({
+                "id": $("#business-m-businessAddReduceOil-id").val(),
+                "type": $("#business-m-businessAddReduceOil-type").val(),
+                "amount": $("#business-m-businessAddReduceOil-amount").val()
+            })
+        };
+        showResult(settings);
+    },
 };

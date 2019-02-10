@@ -86,8 +86,33 @@ public class CustomerServiceImpl implements CustomerService{
     }
 
     @Override
+    public int updateAddCustomerCoin(Customer customer){
+        return customerMapper.updateAddCustomerCoin(customer);
+    }
+
+    @Override
+    public int updateAddBusinessGold(Customer customer){
+        return customerMapper.updateAddBusinessGold(customer);
+    }
+
+    @Override
     public int updateReduceCustomerGold(Customer customer){
         return customerMapper.updateReduceCustomerGold(customer);
+    }
+
+    @Override
+    public int updateReduceCustomerOilDrill(Customer customer){
+        return customerMapper.updateReduceCustomerOilDrill(customer);
+    }
+
+    @Override
+    public int updateAddCustomerOilDrill(Customer customer){
+        return customerMapper.updateAddCustomerOilDrill(customer);
+    }
+
+    @Override
+    public int updateReduceBusinessGold(Customer customer){
+        return customerMapper.updateReduceBusinessGold(customer);
     }
 
     @Override

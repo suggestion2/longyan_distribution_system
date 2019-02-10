@@ -35,7 +35,17 @@ public interface CustomerService {
 
     int updateAddCustomerGold(Customer customer);
 
+    int updateAddCustomerCoin(Customer customer);
+
+    int updateAddBusinessGold(Customer customer);
+
     int updateReduceCustomerGold(Customer customer);
+
+    int updateReduceCustomerOilDrill(Customer customer);
+
+    int updateAddCustomerOilDrill(Customer customer);
+
+    int updateReduceBusinessGold(Customer customer);
 
     int updateLoginPassword(Customer customer);
 
