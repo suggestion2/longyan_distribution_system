@@ -15,11 +15,15 @@ public interface CoinRecordService {
 
     List<CoinRecord> selectList(Map<String, Object> map);
 
+    List<CoinRecord> selectCoinRecordAndCustomerList(Map<String, Object> map);
+
     int selectCount(Map<String, Object> map);
 
     int create(CoinRecord coinRecord);
 
     int update(CoinRecord coinRecord);
+
+    int updateStatus(CoinRecord coinRecord);
 
     int deleteById(Integer id);
 }

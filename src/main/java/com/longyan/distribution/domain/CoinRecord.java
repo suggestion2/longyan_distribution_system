@@ -1,5 +1,9 @@
 package com.longyan.distribution.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.sug.core.util.jsonFormat.SimpleDateTimeSerializer;
+
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -10,16 +14,30 @@ public class CoinRecord {
     private Integer sourceCustomerId;
     private BigDecimal amount;
     private String customerPhone;
+    @JsonSerialize(using = SimpleDateTimeSerializer.class)
     private Date createTime;
+    @JsonIgnore
     private Date updateTime;
+    @JsonIgnore
     private Integer createBy;
+    @JsonIgnore
     private Integer updateBy;
     private Integer status;
+    @JsonIgnore
     private Integer valid;
     private Integer type;
     private String refuseReason;
     private Integer sourceCustomerLevel;
     private String sourceCustomerPhone;
+    private Customer customer;
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
 
     public Integer getId() {
         return id;

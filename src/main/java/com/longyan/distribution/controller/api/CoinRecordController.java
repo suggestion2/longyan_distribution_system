@@ -20,7 +20,7 @@ import java.util.Objects;
 
 import static com.longyan.distribution.constants.CommonConstants.*;
 
-@RestController
+@RestController("CoinRecordApiController")
 @RequestMapping(value = "/coinRecord")
 public class CoinRecordController {
 

@@ -31,6 +31,11 @@ public class CoinRecordServiceImpl implements CoinRecordService{
     }
 
     @Override
+    public List<CoinRecord> selectCoinRecordAndCustomerList(Map<String, Object> map){
+        return coinRecordMapper.selectCoinRecordAndCustomerList(map);
+    }
+
+    @Override
     public int selectCount(Map<String, Object> map){
         return coinRecordMapper.selectCount(map);
     }
@@ -43,6 +48,10 @@ public class CoinRecordServiceImpl implements CoinRecordService{
     @Override
     public int update(CoinRecord coinRecord){
         return coinRecordMapper.update(coinRecord);
+    }
+    @Override
+    public int updateStatus(CoinRecord coinRecord){
+        return coinRecordMapper.updateStatus(coinRecord);
     }
 
     @Override

@@ -19,7 +19,7 @@ public class SystemParamsConstants {
     public static final String VIPREOILCHARGE  = "VIPREOILCHARGE";//VIP充值油钻的充值折扣
     public static final String PARTNEOILRRECHARGE = "PARTNEOILRRECHARGE";//合伙人充值油钻的充值折扣
     public static final String VIPINVITENUM = "/2";//VIP邀请x人升级为合伙人
-    public static final String COINCASH = "/3";//钢镚提现手续费费率
+    public static final String COINCASH = "COINCASH";//钢镚提现手续费费率
     public static final String BUSINESSGOLDCASH = "BUSINESSGOLDCASH";//商户金币提现手续费费率
     public static final String BUSINESSOILDRILLCASH = "BUSINESSOILDRILLCASH";//商户油钻提现手续费费率
     public static final String COINCHANGEGOLD= "/4";//钢镚转金币手续费费率

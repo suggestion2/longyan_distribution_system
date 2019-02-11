@@ -13,10 +13,58 @@
         </if>
     </select>
 
+    <resultMap id="CoinRecordAndCustomerList" type="com.longyan.distribution.domain.CoinRecord">
+        <id column="coinRecord_id"/>
+        <id property="id" column="coinRecord_id"/>
+        <result property="amount" column="coinRecord_amount"/>
+        <result property="createTime" column="coinRecord_createTime"/>
+        <association property="customer" javaType="com.longyan.distribution.domain.Customer">
+            <id property="id" column="customer_id"/>
+            <result property="phone" column="phone"/>
+            <result property="realName" column="realName"/>
+            <result property="level" column="level"/>
+            <result property="customerCoin" column="customerCoin"/>
+        </association>
+    </resultMap>
+
+    <select id="selectCoinRecordAndCustomerList" resultMap="CoinRecordAndCustomerList" parameterType="java.util.Map">
+        select
+        a.`id` as coinRecord_id,
+        a.`amount` as coinRecord_amount,
+        a.`createTime` as coinRecord_createTime,
+        b.`id` as customer_id,
+        b.`phone`,
+        b.`realName`,
+        b.`level`,
+        b.`customerCoin`
+        from `coin_record` a LEFT join customer b on a.customerId = b.id  where a.`valid` = 1 and b.valid = 1
+        <if test="type!=null">
+            and a.`type` = #{type}
+        </if>
+        <if test="phone!=null">
+            and (a.`customerPhone` like concat ('%',#{phone},'%'))
+        </if>
+        <if test="startIndex != null and pageSize != null">
+            limit #{startIndex},#{pageSize}
+        </if>
+    </select>
+
+    <update id="updateStatus" parameterType="com.longyan.distribution.domain.CoinRecord">
+        update `coin_record` set
+        `status` = #{status},
+        `refuseReason` = #{refuseReason},
+        `updateBy` = #{updateBy},
+        `updateTime` = now()
+        where `id` = #{id}
+    </update>
+
     <select id="selectList" resultType="com.longyan.distribution.domain.CoinRecord" parameterType="java.util.Map">
         select * from `coin_record` where `valid` = 1
-        <if test="id!=null">
-
+        <if test="type!=null">
+            and `type` = #{type}
+        </if>
+        <if test="phone!=null">
+            and (`customerPhone` like concat ('%',#{phone},'%'))
         </if>
         <if test="startIndex != null and pageSize != null">
             limit #{startIndex},#{pageSize}
@@ -25,8 +73,11 @@
 
     <select id="selectCount" resultType="java.lang.Integer" parameterType="java.util.Map">
         select count(*) from `coin_record` where `valid` = 1
-        <if test="id!=null">
-
+        <if test="type!=null">
+            and `type` = #{type}
+        </if>
+        <if test="phone!=null">
+            and (`customerPhone` like concat ('%',#{phone},'%'))
         </if>
     </select>
 

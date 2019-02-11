@@ -679,6 +679,38 @@
             申请提现金币数：<input class="textbox" type="text" id="oilDrillRecord-m-resetStatus-applyCount" style="width: 100px;"
                         value="900"/><br/>
             <input type="button" value="提交" onclick="oilDrillRecordMaModule.resetStatus()"/><br>
+            <h2>钢镚提现管理</h2>
+            <strong>[提现列表]</strong><br/>
+            搜索内容:<input class="textbox" type="text" id="coinRecord-m-list-phone" style="width: 100px;"
+                        value=""/><br/>
+            type:<select class="textbox" id="coinRecord-m-list-status" style="width: 100px;">
+            <option value="" selected>全部</option>
+            <option value="0" >待审核</option>
+            <option value="1" >审核通过</option>
+            <option value="-2" >审核驳回</option>
+            <option value="-1" >取消</option>
+            </select><br>
+            startIndex:<input class="textbox" type="text" id="coinRecord-m-List-startIndex" style="width: 100px;"
+                              value="0"/>
+            pageSize:<input class="textbox" type="text" id="coinRecord-m-List-pageSize" style="width: 100px;"
+                            value="10"/><br>
+            <input type="button" value="列表" onclick="coinRecordMaModule.list()"/><br>
+            <strong>[打款处理]</strong><br/>
+            油钻提现记录id:<input class="textbox" type="text" id="coinRecord-m-moneyHandle-id" style="width: 100px;"
+                        value=""/><br/>
+            <input type="button" value="提交" onclick="coinRecordMaModule.moneyHandle()"/><br>
+            <strong>[改变状态]</strong><br/>
+            油钻提现记录id:<input class="textbox" type="text" id="coinRecord-m-resetStatus-id" style="width: 100px;"
+                        value=""/><br/>
+            type:<select class="textbox" id="coinRecord-m-resetStatus-status" style="width: 100px;">
+            <option value="1" >审核通过</option>
+            <option value="-2" >审核驳回</option>
+             </select><br>
+            拒绝理由：<input class="textbox" type="text" id="coinRecord-m-resetStatus-refuseReason" style="width: 100px;"
+                        value="不给提"/><br/>
+            申请提现金币数：<input class="textbox" type="text" id="coinRecord-m-resetStatus-applyCount" style="width: 100px;"
+                        value="900"/><br/>
+            <input type="button" value="提交" onclick="coinRecordMaModule.resetStatus()"/><br>
         </div>
 
 

@@ -8,16 +8,16 @@ import java.util.List;
 
 public class CoinRecordListView extends PaginationView<CoinRecord>{
 
-        @Autowired
-        public CoinRecordListView() {
-        }
+    @Autowired
+    public CoinRecordListView() {
+    }
 
-        public CoinRecordListView(List<CoinRecord> list,int count) {
-            this.setList(list);
-            this.setCount(count);
-        }
+    public CoinRecordListView(List<CoinRecord> list,int count) {
+        this.setList(list);
+        this.setCount(count);
+    }
 
-        public CoinRecordListView(List<CoinRecord> list) {
-            this.setList(list);
-        }
+    public CoinRecordListView(List<CoinRecord> list) {
+        this.setList(list);
+    }
 }

@@ -957,3 +957,44 @@ var oilDrillRecordMaModule= {
         showResult(settings);
     },
 };
+var coinRecordMaModule= {
+    list: function () {
+        var settings = {
+            type: "POST",
+            url: "/management/coinRecord/cashList",
+            dataType: "json",
+            data: JSON.stringify({
+                "phone": $("#coinRecord-m-list-phone").val(),
+                "status": $("#coinRecord-m-list-status").val(),
+                "pageIndex": $("#coinRecord-m-List-startIndex").val(),
+                "pageSize": $("#coinRecord-m-List-pageSize").val()
+            })
+        };
+        showResult(settings);
+    },
+    moneyHandle: function () {
+        var settings = {
+            type: "POST",
+            url: "/management/coinRecord/moneyHandle",
+            dataType: "json",
+            data: JSON.stringify({
+                "id": $("#coinRecord-m-moneyHandle-id").val()
+            })
+        };
+        showResult(settings);
+    },
+    resetStatus: function () {
+        var settings = {
+            type: "PUT",
+            url: "/management/coinRecord/resetStatus",
+            dataType: "json",
+            data: JSON.stringify({
+                "id": $("#coinRecord-m-resetStatus-id").val(),
+                "status": $("#coinRecord-m-resetStatus-status").val(),
+                "refuseReason": $("#coinRecord-m-resetStatus-refuseReason").val(),
+                "applyCount": $("#coinRecord-m-resetStatus-applyCount").val()
+            })
+        };
+        showResult(settings);
+    },
+};
