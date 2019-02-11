@@ -14,8 +14,6 @@ public class OilDrillConstants {
     //提现
     public static final int WITHDRAW = 2;
 
-    public static final int WITHDRAW = 2;
-
     public static final int TRANSFER = 3;
 
     public static final int WITHDRAW_CUSTOMERID = 0;

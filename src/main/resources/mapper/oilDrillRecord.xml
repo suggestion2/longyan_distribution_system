@@ -40,6 +40,9 @@
         <if test="phone!=null">
             and (`customerPhone` like concat ('%',#{phone},'%'))
         </if>
+        <if test="phone!=null">
+            and (`customerPhone` like concat ('%',#{phone},'%'))
+        </if>
     </select>
 
     <insert id="insert" parameterType="com.longyan.distribution.domain.OilDrillRecord" useGeneratedKeys="true" keyProperty="id">
