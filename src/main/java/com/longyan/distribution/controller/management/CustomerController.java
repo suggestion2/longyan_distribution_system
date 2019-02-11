@@ -1,7 +1,9 @@
 package com.longyan.distribution.controller.management;
 
 import com.longyan.distribution.context.SessionContext;
+import com.longyan.distribution.domain.CoinRecord;
 import com.longyan.distribution.domain.Customer;
+import com.longyan.distribution.domain.Goods;
 import com.longyan.distribution.interceptor.CustomerLoginRequired;
 import com.longyan.distribution.interceptor.UserLoginRequired;
 import com.longyan.distribution.request.*;
@@ -9,27 +11,37 @@ import com.longyan.distribution.response.CustomerInviteListView;
 import com.longyan.distribution.response.CustomerListShortView;
 import com.longyan.distribution.response.CustomerListView;
 import com.longyan.distribution.response.CustomerShortView;
+import com.longyan.distribution.service.CoinRecordService;
 import com.longyan.distribution.service.CustomerService;
+import com.longyan.distribution.service.GoodsService;
+import com.longyan.distribution.service.SystemParamsService;
 import com.sug.core.platform.crypto.MD5;
 import com.sug.core.platform.exception.ResourceNotFoundException;
 import com.sug.core.platform.web.rest.exception.InvalidRequestException;
 import com.sug.core.rest.view.ResponseView;
+import com.sug.core.util.BigDecimalUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import static com.longyan.distribution.constants.CoinRecordConstants.INVITEREWARD;
+import static com.longyan.distribution.constants.CoinRecordConstants.RECHARGEREWARD;
 import static com.longyan.distribution.constants.CommonConstants.DETAIL;
 import static com.longyan.distribution.constants.CommonConstants.LIST;
 import static com.longyan.distribution.constants.CommonConstants.MD5_SALT;
 import static com.longyan.distribution.constants.CustomerConstants.*;
+import static com.longyan.distribution.constants.GoodsConstants.VIPCARD;
+import static com.longyan.distribution.constants.SystemParamsConstants.*;
 
 @RestController("customerManagementController")
 @RequestMapping(value = "/management/customer")
@@ -42,6 +54,17 @@ public class CustomerController {
 
     @Autowired
     private SessionContext sessionContext;
+
+    @Autowired
+    private GoodsService goodsService;
+
+    @Autowired
+    private SystemParamsService systemParamsService;
+
+    @Autowired
+    private CoinRecordService coinRecordService;
+
+
 
 
     @RequestMapping(value = LIST,method = RequestMethod.POST)
@@ -117,6 +140,88 @@ public class CustomerController {
             customer.setLevel(form.getLevel());
             customer.setUpdateBy(sessionContext.getUser().getId());
             customerService.updateLevel(customer);
+        }
+        return new ResponseView();
+    }
+
+    //升级vip
+    @Transactional
+    @RequestMapping(value = "/becomeVip", method = RequestMethod.PUT)
+    public ResponseView becomeVip(@Valid @RequestBody CustomerBecomeVipForm form) {
+        Customer customer = customerService.getById(form.getId());
+        if (Objects.isNull(customer)) {
+            throw new ResourceNotFoundException("customer not exists");
+        }
+        if (customer.getLevel().equals(CUSTOPMERTWOLEVEL)||customer.getLevel().equals(CUSTOPMERTHREELEVEL)) {
+            throw new InvalidRequestException("invalidStatus", "invalid status");
+        }
+        if(customer.getLevel().equals(CUSTOPMERONELEVEL)){
+            customer.setLevel(CUSTOPMERTWOLEVEL);
+            customer.setUpdateBy(sessionContext.getUser().getId());
+            customerService.updateLevel(customer);
+            //判断是否有上级
+            if(!Objects.equals(customer.getParentId(),NOTPARENT)){
+                int userId= sessionContext.getUser().getId();
+                CoinRecord coinRecord = new CoinRecord();
+                coinRecord.setCreateBy(userId);
+                coinRecord.setSourceCustomerId(customer.getId());
+                coinRecord.setSourceCustomerLevel(customer.getLevel());
+                coinRecord.setSourceCustomerPhone(customer.getPhone());
+                Customer parentCustomer = customerService.getById(customer.getParentId());
+                //判断上级等级是不是vip
+                if(Objects.equals(parentCustomer.getLevel(), CUSTOPMERTWOLEVEL)){
+                    //拿出分红比
+                    BigDecimal value = new BigDecimal(systemParamsService.getValueByKey(Collections.singletonMap("key",INVITECOMMONBECOMEVIPCOIN)).getValue());
+                    BigDecimal vipCard= goodsService.select(Collections.singletonMap("name",VIPCARD)).getPrice();
+                    BigDecimal parentAmount = BigDecimalUtils.multiply(value,vipCard);
+                    parentCustomer.setCustomerCoin(parentAmount);
+                    customerService.updateAddCustomerCoin(parentCustomer);
+                    //添加分红记录
+                    coinRecord.setCustomerId(parentCustomer.getId());
+                    coinRecord.setCustomerPhone(parentCustomer.getPhone());
+                    coinRecord.setAmount(parentAmount);
+                    coinRecord.setType(INVITEREWARD);
+                    coinRecordService.create(coinRecord);
+                    //判断该vip上级是否有十个用户申请成vip,有的话把该vip上级升为合伙人
+                    if(customerService.selectList(Collections.singletonMap("parentId",parentCustomer.getId())).size()>=10){
+                        parentCustomer.setLevel(CUSTOPMERTHREELEVEL);
+                        parentCustomer.setUpdateBy(userId);
+                        customerService.updateLevel(parentCustomer);
+                    }
+                    //判断是否有上上级
+                    if(!Objects.equals(customer.getParentId(),NOTSUPERPARENT)){
+                        Customer superParentCustomer = customerService.getById(customer.getSuperParentId());
+                        //判断上上级是不是合伙人
+                        if(Objects.equals(superParentCustomer.getLevel(), CUSTOPMERTHREELEVEL)){
+                            //拿出分红比
+                            BigDecimal superValue = new BigDecimal(systemParamsService.getValueByKey(Collections.singletonMap("key",INVITEVIPINVITECOMMONCOIN)).getValue());
+                            BigDecimal superParentAmount = BigDecimalUtils.multiply(superValue,vipCard);
+                            superParentCustomer.setCustomerCoin(superParentAmount);
+                            customerService.updateAddCustomerCoin(superParentCustomer);
+                            //添加分红记录
+                            coinRecord.setCustomerId(superParentCustomer.getId());
+                            coinRecord.setCustomerPhone(superParentCustomer.getPhone());
+                            coinRecord.setAmount(superParentAmount);
+                            coinRecord.setType(INVITEREWARD);
+                            coinRecordService.create(coinRecord);
+                        }
+                    }
+                }
+                //判断上级等级是不是合伙人，是合伙人上上级没有分红
+                if(Objects.equals(parentCustomer.getLevel(), CUSTOPMERTHREELEVEL)){
+                    BigDecimal value = new BigDecimal(systemParamsService.getValueByKey(Collections.singletonMap("key",INVITECOMMONBECOMEVIPCOIN)).getValue());
+                    BigDecimal vipCard= goodsService.select(Collections.singletonMap("name",VIPCARD)).getPrice();
+                    BigDecimal parentAmount = BigDecimalUtils.multiply(value,vipCard);
+                    parentCustomer.setCustomerCoin(parentAmount);
+                    customerService.updateAddCustomerCoin(parentCustomer);
+                    //添加分红记录
+                    coinRecord.setCustomerId(parentCustomer.getId());
+                    coinRecord.setCustomerPhone(parentCustomer.getPhone());
+                    coinRecord.setAmount(parentAmount);
+                    coinRecord.setType(INVITEREWARD);
+                    coinRecordService.create(coinRecord);
+                }
+            }
         }
         return new ResponseView();
     }

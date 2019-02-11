@@ -476,6 +476,13 @@
                           value="900"/>
                 <input type="button" value="提交" onclick="customerMaModule.businessAddReduceOil()"/><br>
             </div>
+            <h2>升级vip</h2>
+            <div>
+                <strong>[用户升级vip]</strong><br/>
+                id:<input class="textbox" type="text" id="customer-m-becomeVip-id" style="width: 100px;"
+                          value="1"/><br/>
+                <input type="button" value="提交" onclick="customerMaModule.becomeVip()"/><br>
+            </div>
         </div>
         <div style="float: left; width: 400px;">
             <h2>订单(order)</h2>

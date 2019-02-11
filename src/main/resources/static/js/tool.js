@@ -697,4 +697,15 @@ var customerMaModule= {
         };
         showResult(settings);
     },
+    becomeVip: function () {
+        var settings = {
+            type: "put",
+            url: "/management/customer/becomeVip",
+            dataType: "json",
+            data: JSON.stringify({
+                "id": $("#customer-m-becomeVip-id").val()
+            })
+        };
+        showResult(settings);
+    },
 };

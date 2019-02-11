@@ -11,6 +11,9 @@
         <if test="id!=null">
             and `id` = #{id}
         </if>
+        <if test="name!=null">
+            and `name` =#{name}
+        </if>
     </select>
 
     <select id="selectList" resultType="com.longyan.distribution.domain.Goods" parameterType="java.util.Map">
