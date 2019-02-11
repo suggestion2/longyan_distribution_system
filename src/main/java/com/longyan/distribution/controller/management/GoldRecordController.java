@@ -7,6 +7,7 @@ import com.longyan.distribution.domain.GoldRecord;
 import com.longyan.distribution.interceptor.UserLoginRequired;
 import com.longyan.distribution.request.*;
 import com.longyan.distribution.response.CustomerListView;
+import com.longyan.distribution.response.GoldRecordHandleView;
 import com.longyan.distribution.response.GoldRecordListView;
 import com.longyan.distribution.service.CoinRecordService;
 import com.longyan.distribution.service.CustomerService;
@@ -61,6 +62,74 @@ public class GoldRecordController {
     public GoldRecordListView list(@Valid @RequestBody GoldRecordListForm form){
         return new GoldRecordListView(goldRecordService.selectList(form.getQueryMap()));
     }
+
+    @RequestMapping(value = "cashList",method = RequestMethod.POST)
+    public GoldRecordListView cashList(@Valid @RequestBody GoldRecordCheckListForm form){
+        Map<String,Object> map = form.getQueryMap();
+        map.put("type",WITHDRAW);
+        return new GoldRecordListView(goldRecordService.selectList(map),goldRecordService.selectCount(map));
+    }
+
+    //打款展示处理
+    @RequestMapping(value = "moneyHandle",method = RequestMethod.POST)
+    public GoldRecordHandleView moneyHandle(@Valid @RequestBody GoldRecordMoneyHandleForm form){
+        GoldRecord goldRecord = goldRecordService.getById(form.getId());
+        if (Objects.isNull(goldRecord)) {
+            throw new ResourceNotFoundException("goldRecord not exists");
+        }
+        Customer customer = customerService.getById(goldRecord.getCustomerId());
+        if (Objects.isNull(customer)) {
+            throw new ResourceNotFoundException("customer not exists");
+        }
+        if(!Objects.equals(goldRecord.getType(),WITHDRAW)) {
+            throw new InvalidRequestException("invalidStatus", "invalid status");
+        }
+        //计算手续费，拿出系统参数手续费,减掉手续费
+        BigDecimal value = new BigDecimal(systemParamsService.getValueByKey(Collections.singletonMap("key",BUSINESSGOLDCASH)).getValue());
+        BigDecimal handleMoney = BigDecimalUtils.multiply(goldRecord.getAmount(),value);
+        BigDecimal cash = goldRecord.getAmount().subtract(handleMoney);
+        GoldRecordHandleView goldRecordHandleView = new GoldRecordHandleView();
+        BeanUtils.copyProperties(customer, goldRecordHandleView);
+        goldRecordHandleView.setApplyCount(goldRecord.getAmount());
+        goldRecordHandleView.setHandleMoney(handleMoney);
+        goldRecordHandleView.setExchangeCash(cash);
+        return goldRecordHandleView;
+    }
+
+
+    //改变状态
+    @Transactional
+    @RequestMapping(value = "/resetStatus", method = RequestMethod.PUT)
+    public ResponseView resetStatus(@Valid @RequestBody GoldRecordStatusForm form) {
+        GoldRecord goldRecord = goldRecordService.getById(form.getId());
+        if (Objects.isNull(goldRecord)) {
+            throw new ResourceNotFoundException("goldRecord not exists");
+        }
+        //审核通过减少用户金币
+        if(Objects.equals(form.getStatus(),PASS)&&Objects.equals(goldRecord.getStatus(),WAITCHECK)){
+            Customer customer = customerService.getById(goldRecord.getCustomerId());
+            if (Objects.isNull(customer)) {
+                throw new ResourceNotFoundException("customer not exists");
+            }
+//            if(customer.getBusinessGold().compareTo(form.getApplyCount())){
+//
+//            }
+            goldRecord.setStatus(PASS);
+            goldRecordService.updateStatus(goldRecord);
+            customer.setBusinessGold(form.getApplyCount());
+            customerService.updateReduceBusinessGold(customer);
+        }
+        //审核没通过添加拒绝理由
+        if(Objects.equals(form.getStatus(),REFUSE)){
+            goldRecord.setStatus(form.getStatus());
+            goldRecord.setRefuseReason(form.getRefuseReason());
+            goldRecord.setUpdateBy(sessionContext.getUser().getId());
+            goldRecordService.updateStatus(goldRecord);
+        }
+        return new ResponseView();
+    }
+
+
 
     @RequestMapping(value = DETAIL,method = RequestMethod.GET)
     public GoldRecord detail(@PathVariable Integer id){

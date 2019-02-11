@@ -12,7 +12,14 @@ public class GoldRecordConstans {
     //小数位数
     public static final int DECIMAL = 2;
 
+    //提现
     public static final int WITHDRAW = 2;
+    //通过
+    public static final int PASS = 1;
+    //待审核
+    public static final int WAITCHECK = 0;
+    //驳回
+    public static final int REFUSE = -2;
 
     public static final int TRANSFER = 3;
 

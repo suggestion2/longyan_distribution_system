@@ -193,6 +193,7 @@
         where `id` = #{id}
     </update>
 
+
     <update id="updateReduceCustomerOilDrill" parameterType="com.longyan.distribution.domain.Customer">
         update customer set
         customerOilDrill = customerOilDrill-#{customerOilDrill}
@@ -208,7 +209,7 @@
     <update id="updateReduceBusinessGold" parameterType="com.longyan.distribution.domain.Customer">
         update customer set
         businessGold = businessGold-#{businessGold}
-        where `id` = #{id}
+        where `id` = #{id} and businessGold >= businessGold
     </update>
     <update id="updateAddBusinessGold" parameterType="com.longyan.distribution.domain.Customer">
         update customer set

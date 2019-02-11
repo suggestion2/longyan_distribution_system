@@ -20,5 +20,7 @@ public interface GoldRecordMapper {
 
     int update(GoldRecord goldRecord);
 
+    int updateStatus(GoldRecord goldRecord);
+
     int deleteById(Integer id);
 }

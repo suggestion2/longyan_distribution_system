@@ -11,6 +11,8 @@ public class OilDrillConstants {
     public static final int NOTCUSTOMER = 1;
     //小数位数
     public static final int DECIMAL = 2;
+    //提现
+    public static final int WITHDRAW = 2;
 
     public static final int WITHDRAW = 2;
 

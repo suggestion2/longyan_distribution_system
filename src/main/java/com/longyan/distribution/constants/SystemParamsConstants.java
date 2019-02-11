@@ -20,12 +20,14 @@ public class SystemParamsConstants {
     public static final String PARTNEOILRRECHARGE = "PARTNEOILRRECHARGE";//合伙人充值油钻的充值折扣
     public static final String VIPINVITENUM = "/2";//VIP邀请x人升级为合伙人
     public static final String COINCASH = "/3";//钢镚提现手续费费率
-    public static final String BUSINESSCASH = "/4";//商户金币提现手续费费率
-    public static final String COINCHANGEGOLD= "/5";//钢镚转金币手续费费率
-    public static final String COINCHANGEOIL = "/6";//钢镚转油钻的手续费费率
-    public static final String OILPRICE = "/7";//当日油价,展示在前台页面，仅做展示
+    public static final String BUSINESSGOLDCASH = "BUSINESSGOLDCASH";//商户金币提现手续费费率
+    public static final String BUSINESSOILDRILLCASH = "BUSINESSOILDRILLCASH";//商户油钻提现手续费费率
+    public static final String COINCHANGEGOLD= "/4";//钢镚转金币手续费费率
+    public static final String COINCHANGEOIL = "/5";//钢镚转油钻的手续费费率
+    public static final String OILPRICE = "/6";//当日油价,展示在前台页面，仅做展示
     public static final String INVITECOMMONBECOMEVIPCOIN = "INVITECOMMONBECOMEVIPCOIN";//合伙人或VIP邀请普通会员,普通会员升级vip，vip获得的钢镚百分比
     public static final String INVITEVIPINVITECOMMONCOIN = "INVITEVIPINVITECOMMONCOIN";//合伙人邀请vip，vip邀请普通会员,普通会员升级vip，合伙人获得的钢蹦百分比
+    public static final String VIPCARD = "VIPCARD";//vip会员卡
 
     public static final String VIPINVITECOIN_REGEX = "^[A-Z]*$";//VIP邀请获得的钢镚百分比
     public static final String INVITEVIPCOIN_REGEX = "/create";//合伙人邀请VIP获得的钢镚百分比
@@ -39,12 +41,12 @@ public class SystemParamsConstants {
     public static final String COMMONOILCHARGE_REGEX  = "COMMONOILCHARGE";//普通会员充值油钻的充值折扣
     public static final String VIPREOILCHARGE_REGEX  = "VIPREOILCHARGE";//VIP充值油钻的充值折扣
     public static final String PARTNEOILRRECHARGE_REGEX = "PARTNEOILRRECHARGE";//合伙人充值油钻的充值折扣
-    public static final String VIPINVITENUM_REGEX = "/create";//VIP邀请x人升级为合伙人
-    public static final String COINCASH_REGEX = "/create";//钢镚提现手续费费率
-    public static final String BUSINESSCASH_REGEX = "/create";//商户金币提现手续费费率
-    public static final String COINCHANGEGOLD_REGEX= "/create";//钢镚转金币手续费费率
-    public static final String COINCHANGEOIL_REGEX = "/create";//钢镚转油钻的手续费费率
-    public static final String OILPRICE_REGEX = "/create";//当日油价,展示在前台页面，仅做展示
+    public static final String VIPINVITENUM_REGEX = "/1";//VIP邀请x人升级为合伙人
+    public static final String COINCASH_REGEX = "/2";//钢镚提现手续费费率
+    public static final String BUSINESSGOLDCASH_REGEX = "/3";//商户金币提现手续费费率
+    public static final String COINCHANGEGOLD_REGEX= "/4";//钢镚转金币手续费费率
+    public static final String COINCHANGEOIL_REGEX = "/5";//钢镚转油钻的手续费费率
+    public static final String OILPRICE_REGEX = "/6";//当日油价,展示在前台页面，仅做展示
     public static final String INVITECOMMONBECOMEVIPCOIN_REGEX = "INVITECOMMONBECOMEVIPCOIN";//合伙人或VIP邀请普通会员,普通会员升级vip，vip获得的钢镚百分比
     public static final String INVITEVIPINVITECOMMONCOIN_REGEX = "INVITEVIPINVITECOMMONCOIN";//合伙人邀请vip，vip邀请普通会员,普通会员升级vip，合伙人获得的钢蹦百分比
 
@@ -78,8 +80,8 @@ public class SystemParamsConstants {
                 return Pattern.matches(VIPINVITENUM_REGEX,value);
             case COINCASH:
                 return Pattern.matches(COINCASH_REGEX,value);
-            case BUSINESSCASH:
-                return Pattern.matches(BUSINESSCASH_REGEX,value);
+            case BUSINESSGOLDCASH:
+                return Pattern.matches(BUSINESSGOLDCASH_REGEX,value);
             case COINCHANGEGOLD:
                 return Pattern.matches(COINCHANGEGOLD_REGEX,value);
             case COINCHANGEOIL:
