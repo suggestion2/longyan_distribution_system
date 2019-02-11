@@ -1,6 +1,7 @@
 package com.longyan.distribution.service.impl;
 
 import com.longyan.distribution.domain.Customer;
+import com.longyan.distribution.mapper.TransferParams;
 import com.longyan.distribution.response.BusinessListView;
 import com.longyan.distribution.response.BusinessView;
 import com.longyan.distribution.response.CustomerShortView;
@@ -128,6 +129,26 @@ public class CustomerServiceImpl implements CustomerService{
     @Override
     public int updatePaymentPassword(Customer customer){
         return customerMapper.updatePaymentPassword(customer);
+    }
+
+    @Override
+    public int subtractBusinessGold(TransferParams transferParams) {
+        return customerMapper.subtractBusinessGold(transferParams);
+    }
+
+    @Override
+    public int addCustomerGold(TransferParams transferParams) {
+        return customerMapper.addCustomerGold(transferParams);
+    }
+
+    @Override
+    public int subtractBusinessOilDrill(TransferParams transferParams) {
+        return customerMapper.subtractBusinessOilDrill(transferParams);
+    }
+
+    @Override
+    public int addCustomerOilDrill(TransferParams transferParams) {
+        return customerMapper.addCustomerOilDrill(transferParams);
     }
 
     @Override

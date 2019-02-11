@@ -30,4 +30,6 @@ public class CommonConstants {
 
     //params
     public static final String MD5_SALT = "longyan";
+
+    public static final int CREATE_BY_SERVER = 0;
 }

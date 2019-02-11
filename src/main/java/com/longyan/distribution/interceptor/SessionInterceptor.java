@@ -45,9 +45,9 @@ public class SessionInterceptor extends HandlerInterceptorAdapter {
 
         if ((((HandlerMethod) handler).getMethod().isAnnotationPresent(BusinessRequired.class)
                 || ((HandlerMethod) handler).getBeanType().isAnnotationPresent(BusinessRequired.class))
-            //&& Objects.isNull(sessionContext.getBusiness())
+            && !sessionContext.isBusiness()
                 ) {
-//            throw new ForbiddenException("business required");
+            throw new ForbiddenException("business required");
         }
 
         return true;

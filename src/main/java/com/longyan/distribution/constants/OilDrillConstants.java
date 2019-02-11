@@ -22,4 +22,11 @@ public class OilDrillConstants {
     //减少油钻操作失败
     public static final int REDUCEFAIL = 0;
 
+    public static final int TRANSFER = 3;
+
+    public static final int WITHDRAW_CUSTOMERID = 0;
+
+    public static final int WITHDRAW_CREATE_STATUS = 0;
+
+    public static final int NORMAL_TYPE_DEFAULT_STATUS = 1;
 }

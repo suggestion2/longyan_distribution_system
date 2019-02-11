@@ -15,6 +15,9 @@
 
     <select id="selectList" resultType="com.longyan.distribution.domain.OilDrillRecord" parameterType="java.util.Map">
         select * from `oil_drill_record` where `valid` = 1
+        <if test="businessId!=null">
+            and `businessId` = #{businessId}
+        </if>
         <if test="type!=null">
             and `type` = #{type}
         </if>
@@ -28,8 +31,14 @@
 
     <select id="selectCount" resultType="java.lang.Integer" parameterType="java.util.Map">
         select count(*) from `oil_drill_record` where `valid` = 1
+        <if test="businessId!=null">
+            and `businessId` = #{businessId}
+        </if>
         <if test="type!=null">
             and `type` = #{type}
+        </if>
+        <if test="phone!=null">
+            and (`customerPhone` like concat ('%',#{phone},'%'))
         </if>
         <if test="phone!=null">
             and (`customerPhone` like concat ('%',#{phone},'%'))
@@ -55,6 +64,7 @@
         `businessAccount`,
         `customerPhone`,
         `createBy`,
+        `status`,
         `type`
         )
         values
@@ -66,6 +76,7 @@
         #{businessAccount},
         #{customerPhone},
         #{createBy},
+        #{status},
         #{type}
         )
     </insert>

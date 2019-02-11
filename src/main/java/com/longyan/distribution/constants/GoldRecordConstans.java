@@ -11,6 +11,7 @@ public class GoldRecordConstans {
     public static final int NOTCUSTOMER = 1;
     //小数位数
     public static final int DECIMAL = 2;
+
     //提现
     public static final int WITHDRAW = 2;
     //通过
@@ -19,6 +20,15 @@ public class GoldRecordConstans {
     public static final int WAITCHECK = 0;
     //驳回
     public static final int REFUSE = -2;
+
+    public static final int TRANSFER = 3;
     //减少金币操作失败
     public static final int REDUCEFAIL = 0;
+
+    public static final int WITHDRAW_CUSTOMERID = 0;
+
+    public static final int WITHDRAW_CREATE_STATUS = 0;
+
+    public static final int NORMAL_TYPE_DEFAULT_STATUS = 1;
+
 }

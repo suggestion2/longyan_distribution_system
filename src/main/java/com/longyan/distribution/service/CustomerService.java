@@ -1,6 +1,7 @@
 package com.longyan.distribution.service;
 
 import com.longyan.distribution.domain.Customer;
+import com.longyan.distribution.mapper.TransferParams;
 import com.longyan.distribution.response.BusinessListView;
 import com.longyan.distribution.response.BusinessView;
 import com.longyan.distribution.response.CustomerShortView;
@@ -21,7 +22,7 @@ public interface CustomerService {
 
     List<BusinessView> selectBusinessList(Map<String, Object> map);
 
-    public List<CustomerShortView> selectShortViewList(Map<String, Object> map);
+    List<CustomerShortView> selectShortViewList(Map<String, Object> map);
 
     int selectCount(Map<String, Object> map);
 
@@ -52,6 +53,14 @@ public interface CustomerService {
     int updateLoginPassword(Customer customer);
 
     int updatePaymentPassword(Customer customer);
+
+    int subtractBusinessGold(TransferParams transferParams);
+
+    int addCustomerGold(TransferParams transferParams);
+
+    int subtractBusinessOilDrill(TransferParams transferParams);
+
+    int addCustomerOilDrill(TransferParams transferParams);
 
     int deleteById(Integer id);
 }
