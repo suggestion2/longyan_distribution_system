@@ -41,6 +41,8 @@ public interface CustomerMapper {
 
     int updateReduceBusinessGold(Customer customer);
 
+    int updateReduceBusinessOilDrill(Customer customer);
+
     int updateAddBusinessGold(Customer customer);
 
     int updateLevel(Customer customer);

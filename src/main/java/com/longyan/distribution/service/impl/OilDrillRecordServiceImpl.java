@@ -46,6 +46,11 @@ public class OilDrillRecordServiceImpl implements OilDrillRecordService{
     }
 
     @Override
+    public int updateStatus(OilDrillRecord oilDrillRecord){
+        return oilDrillRecordMapper.updateStatus(oilDrillRecord);
+    }
+
+    @Override
     public int deleteById(Integer id){
         return oilDrillRecordMapper.deleteById(id);
     }

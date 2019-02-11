@@ -794,4 +794,18 @@ var oilDrillRecordMaModule= {
         };
         showResult(settings);
     },
+    resetStatus: function () {
+        var settings = {
+            type: "PUT",
+            url: "/management/oilDrillRecord/resetStatus",
+            dataType: "json",
+            data: JSON.stringify({
+                "id": $("#oilDrillRecord-m-resetStatus-id").val(),
+                "status": $("#oilDrillRecord-m-resetStatus-status").val(),
+                "refuseReason": $("#oilDrillRecord-m-resetStatus-refuseReason").val(),
+                "applyCount": $("#oilDrillRecord-m-resetStatus-applyCount").val()
+            })
+        };
+        showResult(settings);
+    },
 };

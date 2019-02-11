@@ -119,33 +119,40 @@ public class OilDrillRecordController {
         return oilDrillRecordHandleView;
     }
     //改变状态
-//    @Transactional
-//    @RequestMapping(value = "/resetStatus", method = RequestMethod.PUT)
-//    public ResponseView resetStatus(@Valid @RequestBody GoldRecordStatusForm form) {
-//        GoldRecord goldRecord = goldRecordService.getById(form.getId());
-//        if (Objects.isNull(goldRecord)) {
-//            throw new ResourceNotFoundException("goldRecord not exists");
-//        }
-//        //审核通过减少用户金币
-//        if(Objects.equals(form.getStatus(),PASS)&&Objects.equals(goldRecord.getStatus(),WAITCHECK)){
-//            Customer customer = customerService.getById(goldRecord.getCustomerId());
-//            if (Objects.isNull(customer)) {
-//                throw new ResourceNotFoundException("customer not exists");
-//            }
-//            goldRecord.setStatus(PASS);
-//            goldRecordService.updateStatus(goldRecord);
-//            customer.setBusinessGold(form.getApplyCount());
-//            customerService.updateReduceBusinessGold(customer);
-//        }
-//        //审核没通过添加拒绝理由
-//        if(Objects.equals(form.getStatus(),REFUSE)){
-//            goldRecord.setStatus(form.getStatus());
-//            goldRecord.setRefuseReason(form.getRefuseReason());
-//            goldRecord.setUpdateBy(sessionContext.getUser().getId());
-//            goldRecordService.updateStatus(goldRecord);
-//        }
-//        return new ResponseView();
-//    }
+    @Transactional
+    @RequestMapping(value = "/resetStatus", method = RequestMethod.PUT)
+    public ResponseView resetStatus(@Valid @RequestBody OilDrillRecordStatusForm form) {
+        OilDrillRecord oilDrillRecord = oilDrillRecordService.getById(form.getId());
+        if (Objects.isNull(oilDrillRecord)) {
+            throw new ResourceNotFoundException("oilDrill not exists");
+        }
+        //审核通过减少用户油钻
+        if(Objects.equals(form.getStatus(),PASS)&&Objects.equals(oilDrillRecord.getStatus(),WAITCHECK)){
+            Customer customer = customerService.getById(oilDrillRecord.getCustomerId());
+            if (Objects.isNull(customer)) {
+                throw new ResourceNotFoundException("customer not exists");
+            }
+           //判断要减少的油钻会不会大于用户油钻
+            if(Objects.equals(customer.getBusinessOilDrill().compareTo(form.getApplyCount()),-1)){
+                throw new InvalidRequestException("reduceError","The amount of oilDrill to be reduced is greater than the user's oilDrill");
+            }
+            oilDrillRecord.setStatus(PASS);
+            oilDrillRecordService.updateStatus(oilDrillRecord);
+            customer.setBusinessOilDrill(form.getApplyCount());
+            int status= customerService.updateReduceBusinessOilDrill(customer);
+            if(Objects.equals(status,REDUCEFAIL)){
+                throw new InvalidRequestException("reduceError","The amount of oilDrill to be reduced is greater than the user's oilDrill");
+            }
+        }
+        //审核没通过添加拒绝理由
+        if(Objects.equals(form.getStatus(),REFUSE)){
+            oilDrillRecord.setStatus(form.getStatus());
+            oilDrillRecord.setRefuseReason(form.getRefuseReason());
+            oilDrillRecord.setUpdateBy(sessionContext.getUser().getId());
+            oilDrillRecordService.updateStatus(oilDrillRecord);
+        }
+        return new ResponseView();
+    }
    // 商户增减油钻
     @Transactional
     @RequestMapping(value = "/businessAddGoldOil",method = RequestMethod.POST)
@@ -218,10 +225,13 @@ public class OilDrillRecordController {
         if(Objects.equals(form.getType(),USERREDUCE)){
             //判断要减少的油钻是否大于用户油钻
             if(Objects.equals(customer.getCustomerOilDrill().compareTo(amount),-1)){
-                throw new InvalidRequestException("reduceError","The amount of gold to be reduced is greater than the user's gold");
+                throw new InvalidRequestException("reduceError","The amount of oilDrill to be reduced is greater than the user's oilDrill");
             }
             customer.setCustomerOilDrill(amount);
-            customerService.updateReduceCustomerOilDrill(customer);
+            int status = customerService.updateReduceCustomerOilDrill(customer);
+            if(Objects.equals(status,REDUCEFAIL)){
+                throw new InvalidRequestException("reduceError","The amount of oilDrill to be reduced is greater than the user's oilDrill");
+            }
             //添加减少油钻记录
             oilDrillRecord.setAmount(amount.multiply(new BigDecimal(-1)));
             oilDrillRecordService.create(oilDrillRecord);

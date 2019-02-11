@@ -36,6 +36,15 @@
         </if>
     </select>
 
+    <update id="updateStatus" parameterType="com.longyan.distribution.domain.OilDrillRecord">
+        update `oil_drill_record` set
+        `status` = #{status},
+        `refuseReason` = #{refuseReason},
+        `updateBy` = #{updateBy},
+        `updateTime` = now()
+        where `id` = #{id}
+    </update>
+
     <insert id="insert" parameterType="com.longyan.distribution.domain.OilDrillRecord" useGeneratedKeys="true" keyProperty="id">
         insert into `oil_drill_record`
         (

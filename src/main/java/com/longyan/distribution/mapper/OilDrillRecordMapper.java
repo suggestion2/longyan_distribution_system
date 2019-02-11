@@ -16,6 +16,8 @@ public interface OilDrillRecordMapper {
 
     int selectCount(Map<String, Object> map);
 
+    int updateStatus(OilDrillRecord oilDrillRecord);
+
     int insert(OilDrillRecord oilDrillRecord);
 
     int update(OilDrillRecord oilDrillRecord);

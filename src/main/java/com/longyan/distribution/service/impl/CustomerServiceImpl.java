@@ -116,6 +116,11 @@ public class CustomerServiceImpl implements CustomerService{
     }
 
     @Override
+    public int updateReduceBusinessOilDrill(Customer customer){
+        return customerMapper.updateReduceBusinessOilDrill(customer);
+    }
+
+    @Override
     public int updateLoginPassword(Customer customer){
         return customerMapper.updateLoginPassword(customer);
     }

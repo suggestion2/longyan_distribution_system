@@ -19,4 +19,6 @@ public class GoldRecordConstans {
     public static final int WAITCHECK = 0;
     //驳回
     public static final int REFUSE = -2;
+    //减少金币操作失败
+    public static final int REDUCEFAIL = 0;
 }

@@ -21,5 +21,7 @@ public interface OilDrillRecordService {
 
     int update(OilDrillRecord oilDrillRecord);
 
+    int updateStatus(OilDrillRecord oilDrillRecord);
+
     int deleteById(Integer id);
 }

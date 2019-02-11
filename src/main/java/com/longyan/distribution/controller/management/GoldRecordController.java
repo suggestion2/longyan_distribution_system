@@ -1,5 +1,6 @@
 package com.longyan.distribution.controller.management;
 
+import com.longyan.distribution.constants.GoldRecordConstans;
 import com.longyan.distribution.context.SessionContext;
 import com.longyan.distribution.domain.CoinRecord;
 import com.longyan.distribution.domain.Customer;
@@ -34,6 +35,7 @@ import static com.longyan.distribution.constants.CoinRecordConstants.RECHARGEREW
 import static com.longyan.distribution.constants.CommonConstants.*;
 import static com.longyan.distribution.constants.CustomerConstants.*;
 import static com.longyan.distribution.constants.GoldRecordConstans.*;
+import static com.longyan.distribution.constants.OilDrillConstants.REDUCEFAIL;
 import static com.longyan.distribution.constants.SystemParamsConstants.*;
 
 @RestController("goldRecordManagementController")
@@ -111,13 +113,17 @@ public class GoldRecordController {
             if (Objects.isNull(customer)) {
                 throw new ResourceNotFoundException("customer not exists");
             }
-//            if(customer.getBusinessGold().compareTo(form.getApplyCount())){
-//
-//            }
+            //判断要减少的金币会不会大于用户金币
+            if(Objects.equals(customer.getBusinessGold().compareTo(form.getApplyCount()),-1)){
+                throw new InvalidRequestException("reduceError","The amount of gold to be reduced is greater than the user's gold");
+            }
             goldRecord.setStatus(PASS);
             goldRecordService.updateStatus(goldRecord);
             customer.setBusinessGold(form.getApplyCount());
-            customerService.updateReduceBusinessGold(customer);
+            int status= customerService.updateReduceBusinessGold(customer);
+            if(Objects.equals(status,REDUCEFAIL)){
+                throw new InvalidRequestException("reduceError","The amount of gold to be reduced is greater than the user's gold");
+            }
         }
         //审核没通过添加拒绝理由
         if(Objects.equals(form.getStatus(),REFUSE)){
@@ -172,7 +178,10 @@ public class GoldRecordController {
                 throw new InvalidRequestException("reduceError","The amount of gold to be reduced is greater than the user's gold");
             }
             customer.setBusinessGold(amount);
-            customerService.updateReduceBusinessGold(customer);
+            int status = customerService.updateReduceBusinessGold(customer);
+            if(Objects.equals(status,GoldRecordConstans.REDUCEFAIL)){
+                throw new InvalidRequestException("reduceError","The amount of gold to be reduced is greater than the user's gold");
+            }
             //添加减少金币记录
             goldRecord.setAmount(amount.multiply(new BigDecimal(-1)));
             goldRecordService.create(goldRecord);

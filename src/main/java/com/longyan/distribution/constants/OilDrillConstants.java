@@ -13,5 +13,13 @@ public class OilDrillConstants {
     public static final int DECIMAL = 2;
     //提现
     public static final int WITHDRAW = 2;
+    //通过
+    public static final int PASS = 1;
+    //待审核
+    public static final int WAITCHECK = 0;
+    //驳回
+    public static final int REFUSE = -2;
+    //减少油钻操作失败
+    public static final int REDUCEFAIL = 0;
 
 }

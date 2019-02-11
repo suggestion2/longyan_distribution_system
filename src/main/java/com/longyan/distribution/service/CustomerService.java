@@ -47,6 +47,8 @@ public interface CustomerService {
 
     int updateReduceBusinessGold(Customer customer);
 
+    int updateReduceBusinessOilDrill(Customer customer);
+
     int updateLoginPassword(Customer customer);
 
     int updatePaymentPassword(Customer customer);

@@ -540,21 +540,21 @@
                             value="10"/><br>
             <input type="button" value="列表" onclick="oilDrillRecordMaModule.list()"/><br>
             <strong>[打款处理]</strong><br/>
-            金币提现记录id:<input class="textbox" type="text" id="oilDrillRecord-m-moneyHandle-id" style="width: 100px;"
+            油钻提现记录id:<input class="textbox" type="text" id="oilDrillRecord-m-moneyHandle-id" style="width: 100px;"
                         value=""/><br/>
             <input type="button" value="提交" onclick="oilDrillRecordMaModule.moneyHandle()"/><br>
             <strong>[改变状态]</strong><br/>
-            金币提现记录id:<input class="textbox" type="text" id="goldRecord-m-resetStatus-id" style="width: 100px;"
+            油钻提现记录id:<input class="textbox" type="text" id="oilDrillRecord-m-resetStatus-id" style="width: 100px;"
                         value=""/><br/>
-            status:<select class="textbox" id="goldRecord-m-resetStatus-status" style="width: 100px;">
+            status:<select class="textbox" id="oilDrillRecord-m-resetStatus-status" style="width: 100px;">
             <option value="1" >审核通过</option>
             <option value="-2" >审核驳回</option>
              </select><br>
-            拒绝理由：<input class="textbox" type="text" id="goldRecord-m-resetStatus-refuseReason" style="width: 100px;"
+            拒绝理由：<input class="textbox" type="text" id="oilDrillRecord-m-resetStatus-refuseReason" style="width: 100px;"
                         value="不给提"/><br/>
-            申请提现金币数：<input class="textbox" type="text" id="goldRecord-m-resetStatus-applyCount" style="width: 100px;"
+            申请提现金币数：<input class="textbox" type="text" id="oilDrillRecord-m-resetStatus-applyCount" style="width: 100px;"
                         value="900"/><br/>
-            <input type="button" value="提交" onclick="goldRecordMaModule.resetStatus()"/><br>
+            <input type="button" value="提交" onclick="oilDrillRecordMaModule.resetStatus()"/><br>
         </div>
 
 
