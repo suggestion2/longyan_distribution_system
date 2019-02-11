@@ -227,7 +227,10 @@ public class GoldRecordController {
                 throw new InvalidRequestException("reduceError","The amount of gold to be reduced is greater than the user's gold");
             }
             customer.setCustomerGold(amount);
-            customerService.updateReduceCustomerGold(customer);
+            int status = customerService.updateReduceCustomerGold(customer);
+            if(Objects.equals(status,GoldRecordConstans.REDUCEFAIL)){
+                throw new InvalidRequestException("reduceError","The amount of gold to be reduced is greater than the user's gold");
+            }
             //添加减少金币记录
             goldRecord.setAmount(amount.multiply(new BigDecimal(-1)));
             goldRecordService.create(goldRecord);
