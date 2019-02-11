@@ -6,18 +6,18 @@ import com.longyan.distribution.domain.GoldRecord;
 
 import java.util.List;
 
-public class GoldRecordListView extends PaginationView<GoldRecord>{
+public class GoldRecordListView extends PaginationView<GoldRecord> {
 
-        @Autowired
-        public GoldRecordListView() {
-        }
+    @Autowired
+    public GoldRecordListView() {
+    }
 
-        public GoldRecordListView(List<GoldRecord> list,int count) {
-            this.setList(list);
-            this.setCount(count);
-        }
+    public GoldRecordListView(List<GoldRecord> list, int count) {
+        this.setList(list);
+        this.setCount(count);
+    }
 
-        public GoldRecordListView(List<GoldRecord> list) {
-            this.setList(list);
-        }
+    public GoldRecordListView(List<GoldRecord> list) {
+        this.setList(list);
+    }
 }

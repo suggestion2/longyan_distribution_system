@@ -5,9 +5,11 @@ import com.sug.core.platform.web.pagination.PaginationForm;
 public class CustomerListForm extends PaginationForm{
     private Integer type;
 
-    private String Content;
+    private String content;
 
     private String customerContent;
+
+    private String phone;
 
     public Integer getType() {
         return type;
@@ -26,10 +28,18 @@ public class CustomerListForm extends PaginationForm{
     }
 
     public String getContent() {
-        return Content;
+        return content;
     }
 
     public void setContent(String content) {
-        Content = content;
+        this.content = content;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }

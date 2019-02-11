@@ -12,6 +12,14 @@ public class GoldRecordConstans {
     //小数位数
     public static final int DECIMAL = 2;
 
+    public static final int WITHDRAW = 2;
 
+    public static final int TRANSFER = 3;
+
+    public static final int WITHDRAW_CUSTOMERID = 0;
+
+    public static final int WITHDRAW_CREATE_STATUS = 0;
+
+    public static final int NORMAL_TYPE_DEFAULT_STATUS = 1;
 
 }

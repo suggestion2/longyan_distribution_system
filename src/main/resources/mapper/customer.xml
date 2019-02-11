@@ -39,7 +39,7 @@
     </select>
 
     <select id="selectShortViewList" resultType="com.longyan.distribution.response.CustomerShortView" parameterType="java.util.Map">
-        select id,phone,parentPhone,superParentPhone,rewoalName,parentRealName,superParentRealName from `customer` where `valid` = 1
+        select id,phone,parentPhone,superParentPhone,realName,parentRealName,superParentRealName from `customer` where `valid` = 1
         <if test="business!=null">
             and `business` = #{business}
         </if>
@@ -50,6 +50,9 @@
         </if>
         <if test="content!=null">
             and (`businessAccount` like concat ('%',#{content},'%') or `businessName` like concat ('%',#{content},'%'))
+        </if>
+        <if test="phone!=null">
+            and `phone` like concat ('%',#{phone},'%')
         </if>
         <if test="startIndex != null and pageSize != null">
             limit #{startIndex},#{pageSize}
@@ -81,6 +84,9 @@
         </if>
         <if test="content!=null">
             and (`businessAccount` like concat ('%',#{content},'%') or `businessName` like concat ('%',#{content},'%'))
+        </if>
+        <if test="phone!=null">
+            and `phone` like concat ('%',#{phone},'%')
         </if>
         <if test="managementContent!=null">
             and (`phone` like concat ('%',#{managementContent},'%') or `realName` like concat ('%',#{managementContent},'%') or `businessAccount` like concat ('%',#{managementContent},'%') or `businessName` like concat ('%',#{managementContent},'%'))
@@ -222,7 +228,36 @@
         `updateTime` = now()
         where `id` = #{id}
     </update>
-
+    
+    <update id="subtractBusinessGold" parameterType="com.longyan.distribution.mapper.TransferParams">
+        update `customer` set
+        `businessGold` = businessGold - #{amount},
+        `updateTime` = now()
+        where `id` = #{id} and businessGold &gt;= #{amount}
+    </update>
+    
+    <update id="addCustomerGold" parameterType="com.longyan.distribution.mapper.TransferParams">
+        update `customer` set
+        `customerGold` = customerGold + #{amount},
+        `updateTime` = now()
+        where `id` = #{id}
+    </update>
+    
+    <update id="subtractBusinessOilDrill" parameterType="com.longyan.distribution.mapper.TransferParams">
+        update `customer` set
+        `businessOilDrill` = businessOilDrill - #{amount},
+        `updateTime` = now()
+        where `id` = #{id} and businessOilDrill &gt;= #{amount}
+    </update>
+    
+    <update id="addCustomerOilDrill" parameterType="com.longyan.distribution.mapper.TransferParams">
+        update `customer` set
+        `customerOilDrill` = customerOilDrill + #{amount},
+        `updateTime` = now()
+        where `id` = #{id}
+    </update>
+    
+    
     <delete id="deleteById" parameterType="java.lang.Integer">
         update `customer` set valid = 0 where `id` = #{id}
     </delete>

@@ -73,7 +73,7 @@ public class GoodsController {
 
         return ResponseEntity.ok()
                 .contentLength(file.length())
-                .contentType(MediaType.parseMediaType("image/jpeg"))
+                .contentType(MediaType.parseMediaType("image/jpeg;image/png"))
 //                .contentType(MediaType.parseMediaType("application/octet-stream"))
                 .body(new InputStreamResource(new FileInputStream(file)));
 

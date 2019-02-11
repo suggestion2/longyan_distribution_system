@@ -15,8 +15,11 @@
 
     <select id="selectList" resultType="com.longyan.distribution.domain.GoldRecord" parameterType="java.util.Map">
         select * from `gold_record` where `valid` = 1
-        <if test="id!=null">
-
+        <if test="businessId!=null">
+            and `businessId` = #{businessId}
+        </if>
+        <if test="type!=null">
+            and `type` = #{type}
         </if>
         <if test="startIndex != null and pageSize != null">
             limit #{startIndex},#{pageSize}
@@ -25,8 +28,11 @@
 
     <select id="selectCount" resultType="java.lang.Integer" parameterType="java.util.Map">
         select count(*) from `gold_record` where `valid` = 1
-        <if test="id!=null">
-
+        <if test="businessId!=null">
+            and `businessId` = #{businessId}
+        </if>
+        <if test="type!=null">
+            and `type` = #{type}
         </if>
     </select>
 
@@ -40,6 +46,7 @@
         `businessAccount`,
         `customerPhone`,
         `createBy`,
+        `status`,
         `type`
         )
         values
@@ -51,6 +58,7 @@
         #{businessAccount},
         #{customerPhone},
         #{createBy},
+        #{status},
         #{type}
         )
     </insert>

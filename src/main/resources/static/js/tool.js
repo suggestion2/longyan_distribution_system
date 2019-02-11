@@ -262,6 +262,154 @@ var customerModule = {
     },
 };
 
+var businessModule = {
+    login: function () {
+        var settings = {
+            type: "POST",
+            url: "/api/business/login",
+            dataType: "json",
+            data: JSON.stringify({
+                "phone": $("#business-a-login-phone").val(),
+                "loginPassword": $("#business-a-login-loginPassword").val()
+            })
+        };
+        showResult(settings);
+    },
+    current: function () {
+        var settings = {
+            type: "GET",
+            url: "/api/business/current",
+            dataType: "json"
+        };
+        showResult(settings);
+    },
+    update: function () {
+        var settings = {
+            type: "PUT",
+            url: "/api/business/update",
+            dataType: "json",
+            data: JSON.stringify({
+                "businessName": $("#business-a-update-businessName").val(),
+                "realName": $("#business-a-update-realName").val(),
+                "customerBank": $("#business-a-update-customerBank").val(),
+                "customerBankAccount": $("#business-a-update-customerBankAccount").val()
+            })
+        };
+        showResult(settings);
+    },
+    customerList: function () {
+        var settings = {
+            type: "POST",
+            url: "/api/business/customerList",
+            dataType: "json",
+            data: JSON.stringify({
+                "phone": $("#business-a-customerList-phone").val(),
+                "pageIndex": $("#business-a-customerList-startIndex").val(),
+                "pageSize": $("#business-a-customerList-pageSize").val()
+            })
+        };
+        showResult(settings);
+    },
+    goldRecordList: function () {
+        var settings = {
+            type: "POST",
+            url: "/api/business/goldRecordList",
+            dataType: "json",
+            data: JSON.stringify({
+                "pageIndex": $("#business-a-goldRecordList-startIndex").val(),
+                "pageSize": $("#business-a-goldRecordList-pageSize").val()
+            })
+        };
+        showResult(settings);
+    },
+    goldWithdrawList: function () {
+        var settings = {
+            type: "POST",
+            url: "/api/business/goldWithdrawList",
+            dataType: "json",
+            data: JSON.stringify({
+                "pageIndex": $("#business-a-goldWithdrawList-startIndex").val(),
+                "pageSize": $("#business-a-goldWithdrawList-pageSize").val()
+            })
+        };
+        showResult(settings);
+    },
+    goldWithdraw: function () {
+        var settings = {
+            type: "POST",
+            url: "/api/business/goldWithdraw",
+            dataType: "json",
+            data: JSON.stringify({
+                "amount": $("#business-a-goldWithdraw-amount").val(),
+                "paymentPassword": $("#business-a-goldWithdraw-paymentPassword").val()
+            })
+        };
+        showResult(settings);
+    },
+    goldTransfer: function () {
+        var settings = {
+            type: "POST",
+            url: "/api/business/goldTransfer",
+            dataType: "json",
+            data: JSON.stringify({
+                "customerId": $("#business-a-goldTransfer-customerId").val(),
+                "amount": $("#business-a-goldTransfer-amount").val(),
+                "paymentPassword": $("#business-a-goldTransfer-paymentPassword").val()
+            })
+        };
+        showResult(settings);
+    },
+    oilDrillRecordList: function () {
+        var settings = {
+            type: "POST",
+            url: "/api/business/oilDrillRecordList",
+            dataType: "json",
+            data: JSON.stringify({
+                "pageIndex": $("#business-a-oilDrillRecordList-startIndex").val(),
+                "pageSize": $("#business-a-oilDrillRecordList-pageSize").val()
+            })
+        };
+        showResult(settings);
+    },
+    oilDrillWithdrawList: function () {
+        var settings = {
+            type: "POST",
+            url: "/api/business/oilDrillWithdrawList",
+            dataType: "json",
+            data: JSON.stringify({
+                "pageIndex": $("#business-a-oilDrillWithdrawList-startIndex").val(),
+                "pageSize": $("#business-a-oilDrillWithdrawList-pageSize").val()
+            })
+        };
+        showResult(settings);
+    },
+    oilDrillWithdraw: function () {
+        var settings = {
+            type: "POST",
+            url: "/api/business/oilDrillWithdraw",
+            dataType: "json",
+            data: JSON.stringify({
+                "amount": $("#business-a-oilDrillWithdraw-amount").val(),
+                "paymentPassword": $("#business-a-oilDrillWithdraw-paymentPassword").val()
+            })
+        };
+        showResult(settings);
+    },
+    oilDrillTransfer: function () {
+        var settings = {
+            type: "POST",
+            url: "/api/business/oilDrillTransfer",
+            dataType: "json",
+            data: JSON.stringify({
+                "customerId": $("#business-a-oilDrillTransfer-customerId").val(),
+                "amount": $("#business-a-oilDrillTransfer-amount").val(),
+                "paymentPassword": $("#business-a-oilDrillTransfer-paymentPassword").val()
+            })
+        };
+        showResult(settings);
+    }
+};
+
 var systemParamsModule= {
     list: function () {
         var settings = {

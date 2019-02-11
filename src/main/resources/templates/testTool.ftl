@@ -108,6 +108,130 @@
             </div>
         </div>
         <div style="float: left; width: 400px;">
+            <h2>商户(business)</h2>
+            <div>
+                <strong>[登录]</strong><br/>
+                手机:<input class="textbox" type="text" id="business-a-login-phone" style="width: 100px;"
+                          value="15059592132"/>
+                密码:<input class="textbox" type="text" id="business-a-login-loginPassword" style="width: 100px;"
+                          value="123456"/>
+                <input type="button" value="登录" onclick="businessModule.login()"/><br>
+            </div>
+            <div>
+                <strong>[当前商户信息]</strong><br/>
+                <input type="button" value="详情" onclick="businessModule.current()"/><br>
+            </div>
+            <div>
+                <strong>[修改登录密码]</strong><br/>
+                使用用户修改密码接口
+            </div>
+            <div>
+                <strong>[修改支付密码]</strong><br/>
+                使用用户修改密码接口
+            </div>
+            <div>
+                <strong>[修改]</strong><br/>
+                商户名:<input class="textbox" type="text" id="business-a-update-businessName" style="width: 100px;"
+                           value="真实姓名"/><br>
+                真实姓名:<input class="textbox" type="text" id="business-a-update-realName" style="width: 100px;"
+                            value="真实姓名"/><br>
+                银行:<input class="textbox" type="text" id="business-a-update-customerBank" style="width: 100px;"
+                          value="农行"/><br>
+                银行账号:<input class="textbox" type="text" id="business-a-update-customerBankAccount" style="width: 100px;"
+                            value="6222600260001072442"/><br>
+                <input type="button" value="修改" onclick="businessModule.update()"/><br>
+            </div>
+            <div>
+                <strong>[用户列表]</strong><br/>
+                用户手机:<input class="textbox" type="text" id="business-a-customerList-phone" style="width: 100px;"
+                            value=""/><br>
+                startIndex:<input class="textbox" type="text" id="business-a-customerList-startIndex"
+                                  style="width: 100px;"
+                                  value="0"/>
+                pageSize:<input class="textbox" type="text" id="business-a-customerList-pageSize" style="width: 100px;"
+                                value="10"/><br>
+                <input type="button" value="列表" onclick="businessModule.customerList()"/><br>
+            </div>
+            <div>
+                <strong>[金币记录]</strong><br/>
+                startIndex:<input class="textbox" type="text" id="business-a-goldRecordList-startIndex"
+                                  style="width: 100px;"
+                                  value="0"/>
+                pageSize:<input class="textbox" type="text" id="business-a-goldRecordList-pageSize" style="width: 100px;"
+                                value="10"/><br>
+                <input type="button" value="列表" onclick="businessModule.goldRecordList()"/><br>
+            </div>
+            <div>
+                <strong>[金币提现记录]</strong><br/>
+                startIndex:<input class="textbox" type="text" id="business-a-goldWithdrawList-startIndex"
+                                  style="width: 100px;"
+                                  value="0"/>
+                pageSize:<input class="textbox" type="text" id="business-a-goldWithdrawList-pageSize" style="width: 100px;"
+                                value="10"/><br>
+                <input type="button" value="列表" onclick="businessModule.goldWithdrawList()"/><br>
+            </div>
+            <div>
+                <strong>[金币提现]</strong><br/>
+                amount:<input class="textbox" type="text" id="business-a-goldWithdraw-amount"
+                              style="width: 100px;"
+                              value=""/>
+                paymentPassword:<input class="textbox" type="text" id="business-a-goldWithdraw-paymentPassword" style="width: 100px;"
+                                       value=""/><br>
+                <input type="button" value="提现" onclick="businessModule.goldWithdraw()"/><br>
+            </div>
+            <div>
+                <strong>[金币转账]</strong><br/>
+                customerId:<input class="textbox" type="text" id="business-a-goldTransfer-customerId"
+                                  style="width: 100px;"
+                                  value=""/><br>
+                amount:<input class="textbox" type="text" id="business-a-goldTransfer-amount"
+                              style="width: 100px;"
+                              value=""/>
+                paymentPassword:<input class="textbox" type="text" id="business-a-goldTransfer-paymentPassword" style="width: 100px;"
+                                       value=""/><br>
+                <input type="button" value="转账" onclick="businessModule.goldTransfer()"/><br>
+            </div>
+            <div>
+                <strong>[油钻记录]</strong><br/>
+                startIndex:<input class="textbox" type="text" id="business-a-oilDrillRecordList-startIndex"
+                                  style="width: 100px;"
+                                  value="0"/>
+                pageSize:<input class="textbox" type="text" id="business-a-oilDrillRecordList-pageSize" style="width: 100px;"
+                                value="10"/><br>
+                <input type="button" value="列表" onclick="businessModule.oilDrillRecordList()"/><br>
+            </div>
+            <div>
+                <strong>[油钻提现记录]</strong><br/>
+                startIndex:<input class="textbox" type="text" id="business-a-oilDrillWithdrawList-startIndex"
+                                  style="width: 100px;"
+                                  value="0"/>
+                pageSize:<input class="textbox" type="text" id="business-a-oilDrillWithdrawList-pageSize" style="width: 100px;"
+                                value="10"/><br>
+                <input type="button" value="列表" onclick="businessModule.oilDrillWithdrawList()"/><br>
+            </div>
+            <div>
+                <strong>[油钻提现]</strong><br/>
+                amount:<input class="textbox" type="text" id="business-a-oilDrillWithdraw-amount"
+                              style="width: 100px;"
+                              value=""/>
+                paymentPassword:<input class="textbox" type="text" id="business-a-oilDrillWithdraw-paymentPassword" style="width: 100px;"
+                                       value=""/><br>
+                <input type="button" value="提现" onclick="businessModule.oilDrillWithdraw()"/><br>
+            </div>
+            <div>
+                <strong>[油钻转账]</strong><br/>
+                customerId:<input class="textbox" type="text" id="business-a-oilDrillTransfer-customerId"
+                                  style="width: 100px;"
+                                  value=""/><br>
+                amount:<input class="textbox" type="text" id="business-a-oilDrillTransfer-amount"
+                              style="width: 100px;"
+                              value=""/>
+                paymentPassword:<input class="textbox" type="text" id="business-a-oilDrillTransfer-paymentPassword" style="width: 100px;"
+                                       value=""/><br>
+                <input type="button" value="转账" onclick="businessModule.oilDrillTransfer()"/><br>
+            </div>
+        </div>
+        <div style="float: left; width: 400px;">
             <h2>商品品类(goods_category)</h2>
             <div>
                 <strong>[列表]</strong><br/>
