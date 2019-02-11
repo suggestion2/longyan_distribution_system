@@ -111,6 +111,9 @@ public class GoldRecordController {
             if (Objects.isNull(customer)) {
                 throw new ResourceNotFoundException("customer not exists");
             }
+//            if(customer.getBusinessGold().compareTo(form.getApplyCount())){
+//
+//            }
             goldRecord.setStatus(PASS);
             goldRecordService.updateStatus(goldRecord);
             customer.setBusinessGold(form.getApplyCount());

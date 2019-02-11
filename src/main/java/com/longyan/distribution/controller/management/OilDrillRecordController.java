@@ -37,7 +37,6 @@ import static com.longyan.distribution.constants.CoinRecordConstants.RECHARGEREW
 import static com.longyan.distribution.constants.CommonConstants.*;
 import static com.longyan.distribution.constants.CustomerConstants.*;
 import static com.longyan.distribution.constants.CustomerConstants.CUSTOPMERTHREELEVEL;
-import static com.longyan.distribution.constants.GoldRecordConstans.WITHDRAW;
 import static com.longyan.distribution.constants.OilDrillConstants.*;
 import static com.longyan.distribution.constants.OilDrillConstants.NOTCUSTOMER;
 import static com.longyan.distribution.constants.OilDrillConstants.RECHARGE;
@@ -119,7 +118,34 @@ public class OilDrillRecordController {
         oilDrillRecordHandleView.setExchangeCash(cash);
         return oilDrillRecordHandleView;
     }
-
+    //改变状态
+//    @Transactional
+//    @RequestMapping(value = "/resetStatus", method = RequestMethod.PUT)
+//    public ResponseView resetStatus(@Valid @RequestBody GoldRecordStatusForm form) {
+//        GoldRecord goldRecord = goldRecordService.getById(form.getId());
+//        if (Objects.isNull(goldRecord)) {
+//            throw new ResourceNotFoundException("goldRecord not exists");
+//        }
+//        //审核通过减少用户金币
+//        if(Objects.equals(form.getStatus(),PASS)&&Objects.equals(goldRecord.getStatus(),WAITCHECK)){
+//            Customer customer = customerService.getById(goldRecord.getCustomerId());
+//            if (Objects.isNull(customer)) {
+//                throw new ResourceNotFoundException("customer not exists");
+//            }
+//            goldRecord.setStatus(PASS);
+//            goldRecordService.updateStatus(goldRecord);
+//            customer.setBusinessGold(form.getApplyCount());
+//            customerService.updateReduceBusinessGold(customer);
+//        }
+//        //审核没通过添加拒绝理由
+//        if(Objects.equals(form.getStatus(),REFUSE)){
+//            goldRecord.setStatus(form.getStatus());
+//            goldRecord.setRefuseReason(form.getRefuseReason());
+//            goldRecord.setUpdateBy(sessionContext.getUser().getId());
+//            goldRecordService.updateStatus(goldRecord);
+//        }
+//        return new ResponseView();
+//    }
    // 商户增减油钻
     @Transactional
     @RequestMapping(value = "/businessAddGoldOil",method = RequestMethod.POST)

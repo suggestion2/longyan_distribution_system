@@ -393,6 +393,21 @@ var goodsModule= {
         };
         showResult(settings);
     },
+    imageApi: function () {
+        var url = window.location.href;
+        var arr = url.split("/");
+        var result = arr[0] + "//" + arr[2];
+        window.open(
+            result +"/api/goods/image/" + $("#goods-api-image-fileName").val(),
+            '_blank' // <- This is what makes it open in a new window.
+        );
+        /*var settings = {
+            type: "GET",
+            url: ,
+            dataType: "json"
+        };
+        showResult(settings);*/
+    },
     create: function () {
         var settings = {
             type: "POST",

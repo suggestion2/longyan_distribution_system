@@ -15,9 +15,20 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.support.ServletContextResource;
 
+import javax.servlet.ServletContext;
 import javax.validation.Valid;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.nio.file.Paths;
 import java.util.Map;
 import java.util.Objects;
 
@@ -30,6 +41,9 @@ import static com.longyan.distribution.constants.GoodsConstants.ENABLE;
 public class GoodsController {
 
     private static final Logger logger = LoggerFactory.getLogger(GoodsController.class);
+
+    @Value("${path.image}")
+    private String imagePath;
 
     @Autowired
     private GoodsService goodsService;
@@ -48,5 +62,20 @@ public class GoodsController {
             throw new ResourceNotFoundException("goods not found");
         }
         return goods;
+    }
+
+    @RequestMapping(value = "/image/{fileName}",method = RequestMethod.GET)
+    public ResponseEntity<Resource> getImage(@PathVariable String fileName) throws FileNotFoundException {
+        File file = new File(imagePath + fileName);
+        if(!file.exists()){
+            throw new ResourceNotFoundException("image not found");
+        }
+
+        return ResponseEntity.ok()
+                .contentLength(file.length())
+                .contentType(MediaType.parseMediaType("image/jpeg"))
+//                .contentType(MediaType.parseMediaType("application/octet-stream"))
+                .body(new InputStreamResource(new FileInputStream(file)));
+
     }
 }

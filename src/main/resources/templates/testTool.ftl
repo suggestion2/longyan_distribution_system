@@ -132,6 +132,12 @@
                           value=""/>
                 <input type="button" value="详情" onclick="goodsModule.detailApi()"/><br>
             </div>
+            <div>
+                <strong>[图片]</strong><br/>
+                id:<input class="textbox" type="text" id="goods-api-image-fileName" style="width: 100px;"
+                          value="1.jpg"/>
+                <input type="button" value="图片" onclick="goodsModule.imageApi()"/><br>
+            </div>
             <h2>订单(order)</h2>
             <div>
                 <strong>[列表]</strong><br/>
