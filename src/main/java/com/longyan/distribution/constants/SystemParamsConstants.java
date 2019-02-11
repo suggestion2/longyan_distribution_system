@@ -20,12 +20,14 @@ public class SystemParamsConstants {
     public static final String PARTNEOILRRECHARGE = "PARTNEOILRRECHARGE";//合伙人充值油钻的充值折扣
     public static final String VIPINVITENUM = "/create";//VIP邀请x人升级为合伙人
     public static final String COINCASH = "/create";//钢镚提现手续费费率
-    public static final String BUSINESSCASH = "/create";//商户金币提现手续费费率
+    public static final String BUSINESSGOLDCASH = "BUSINESSGOLDCASH";//商户金币提现手续费费率
+    public static final String BUSINESSOILDRILLCASH = "BUSINESSOILDRILLCASH";//商户油钻提现手续费费率
     public static final String COINCHANGEGOLD= "/create";//钢镚转金币手续费费率
     public static final String COINCHANGEOIL = "/create";//钢镚转油钻的手续费费率
     public static final String OILPRICE = "/create";//当日油价,展示在前台页面，仅做展示
     public static final String INVITECOMMONBECOMEVIPCOIN = "INVITECOMMONBECOMEVIPCOIN";//合伙人或VIP邀请普通会员,普通会员升级vip，vip获得的钢镚百分比
     public static final String INVITEVIPINVITECOMMONCOIN = "INVITEVIPINVITECOMMONCOIN";//合伙人邀请vip，vip邀请普通会员,普通会员升级vip，合伙人获得的钢蹦百分比
+    public static final String VIPCARD = "VIPCARD";//vip会员卡
 
 
 

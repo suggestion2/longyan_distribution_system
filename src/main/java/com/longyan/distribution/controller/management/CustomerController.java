@@ -172,7 +172,7 @@ public class CustomerController {
                 if(Objects.equals(parentCustomer.getLevel(), CUSTOPMERTWOLEVEL)){
                     //拿出分红比
                     BigDecimal value = new BigDecimal(systemParamsService.getValueByKey(Collections.singletonMap("key",INVITECOMMONBECOMEVIPCOIN)).getValue());
-                    BigDecimal vipCard= goodsService.select(Collections.singletonMap("name",VIPCARD)).getPrice();
+                    BigDecimal vipCard = new BigDecimal(systemParamsService.getValueByKey(Collections.singletonMap("key",VIPCARD)).getValue());
                     BigDecimal parentAmount = BigDecimalUtils.multiply(value,vipCard);
                     parentCustomer.setCustomerCoin(parentAmount);
                     customerService.updateAddCustomerCoin(parentCustomer);
@@ -210,7 +210,7 @@ public class CustomerController {
                 //判断上级等级是不是合伙人，是合伙人上上级没有分红
                 if(Objects.equals(parentCustomer.getLevel(), CUSTOPMERTHREELEVEL)){
                     BigDecimal value = new BigDecimal(systemParamsService.getValueByKey(Collections.singletonMap("key",INVITECOMMONBECOMEVIPCOIN)).getValue());
-                    BigDecimal vipCard= goodsService.select(Collections.singletonMap("name",VIPCARD)).getPrice();
+                    BigDecimal vipCard = new BigDecimal(systemParamsService.getValueByKey(Collections.singletonMap("key",VIPCARD)).getValue());
                     BigDecimal parentAmount = BigDecimalUtils.multiply(value,vipCard);
                     parentCustomer.setCustomerCoin(parentAmount);
                     customerService.updateAddCustomerCoin(parentCustomer);

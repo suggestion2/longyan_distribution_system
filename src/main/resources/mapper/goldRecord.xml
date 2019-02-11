@@ -15,8 +15,14 @@
 
     <select id="selectList" resultType="com.longyan.distribution.domain.GoldRecord" parameterType="java.util.Map">
         select * from `gold_record` where `valid` = 1
-        <if test="id!=null">
-
+        <if test="type!=null">
+          and `type` = #{type}
+        </if>
+        <if test="phone!=null">
+            and (`customerPhone` like concat ('%',#{phone},'%'))
+        </if>
+        <if test="status!=null">
+          and `status` = #{status}
         </if>
         <if test="startIndex != null and pageSize != null">
             limit #{startIndex},#{pageSize}
@@ -25,8 +31,14 @@
 
     <select id="selectCount" resultType="java.lang.Integer" parameterType="java.util.Map">
         select count(*) from `gold_record` where `valid` = 1
-        <if test="id!=null">
-
+        <if test="type!=null">
+            and `type` = #{type}
+        </if>
+        <if test="phone!=null">
+            and (`customerPhone` like concat ('%',#{phone},'%'))
+        </if>
+        <if test="status!=null">
+            and `status` = #{status}
         </if>
     </select>
 
@@ -67,6 +79,15 @@
         `status` = #{status},
         `type` = #{type},
         `refuseReason` = #{refuseReason},
+        `updateTime` = now()
+        where `id` = #{id}
+    </update>
+
+    <update id="updateStatus" parameterType="com.longyan.distribution.domain.GoldRecord">
+        update `gold_record` set
+        `status` = #{status},
+        `refuseReason` = #{refuseReason},
+        `updateBy` = #{updateBy},
         `updateTime` = now()
         where `id` = #{id}
     </update>

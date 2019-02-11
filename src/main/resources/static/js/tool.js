@@ -709,3 +709,74 @@ var customerMaModule= {
         showResult(settings);
     },
 };
+
+var goldRecordMaModule= {
+    list: function () {
+        var settings = {
+            type: "POST",
+            url: "/management/goldRecord/cashList",
+            dataType: "json",
+            data: JSON.stringify({
+                "phone": $("#goldRecord-m-list-phone").val(),
+                "status": $("#goldRecord-m-list-status").val(),
+                "pageIndex": $("#goldRecord-m-List-startIndex").val(),
+                "pageSize": $("#goldRecord-m-List-pageSize").val()
+            })
+        };
+        showResult(settings);
+    },
+    moneyHandle: function () {
+        var settings = {
+            type: "POST",
+            url: "/management/goldRecord/moneyHandle",
+            dataType: "json",
+            data: JSON.stringify({
+                "id": $("#goldRecord-m-moneyHandle-id").val()
+            })
+        };
+        showResult(settings);
+    },
+    resetStatus: function () {
+        var settings = {
+            type: "PUT",
+            url: "/management/goldRecord/resetStatus",
+            dataType: "json",
+            data: JSON.stringify({
+                "id": $("#goldRecord-m-resetStatus-id").val(),
+                "status": $("#goldRecord-m-resetStatus-status").val(),
+                "refuseReason": $("#goldRecord-m-resetStatus-refuseReason").val(),
+                "applyCount": $("#goldRecord-m-resetStatus-applyCount").val()
+            })
+        };
+        showResult(settings);
+    },
+
+};
+
+var oilDrillRecordMaModule= {
+    list: function () {
+        var settings = {
+            type: "POST",
+            url: "/management/oilDrillRecord/cashList",
+            dataType: "json",
+            data: JSON.stringify({
+                "phone": $("#oilDrillRecord-m-list-phone").val(),
+                "status": $("#oilDrillRecord-m-list-status").val(),
+                "pageIndex": $("#oilDrillRecord-m-List-startIndex").val(),
+                "pageSize": $("#oilDrillRecord-m-List-pageSize").val()
+            })
+        };
+        showResult(settings);
+    },
+    moneyHandle: function () {
+        var settings = {
+            type: "POST",
+            url: "/management/oilDrillRecord/moneyHandle",
+            dataType: "json",
+            data: JSON.stringify({
+                "id": $("#oilDrillRecord-m-moneyHandle-id").val()
+            })
+        };
+        showResult(settings);
+    },
+};

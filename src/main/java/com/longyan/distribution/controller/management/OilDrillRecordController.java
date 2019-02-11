@@ -6,6 +6,8 @@ import com.longyan.distribution.domain.Customer;
 import com.longyan.distribution.domain.GoldRecord;
 import com.longyan.distribution.interceptor.UserLoginRequired;
 import com.longyan.distribution.request.*;
+import com.longyan.distribution.response.GoldRecordHandleView;
+import com.longyan.distribution.response.OilDrillRecordHandleView;
 import com.longyan.distribution.service.CoinRecordService;
 import com.longyan.distribution.service.CustomerService;
 import com.longyan.distribution.service.SystemParamsService;
@@ -28,17 +30,19 @@ import javax.validation.Valid;
 
 import java.math.BigDecimal;
 import java.util.Collections;
+import java.util.Map;
 import java.util.Objects;
 
 import static com.longyan.distribution.constants.CoinRecordConstants.RECHARGEREWARD;
 import static com.longyan.distribution.constants.CommonConstants.*;
 import static com.longyan.distribution.constants.CustomerConstants.*;
 import static com.longyan.distribution.constants.CustomerConstants.CUSTOPMERTHREELEVEL;
-import static com.longyan.distribution.constants.GoldRecordConstans.NOTCUSTOMER;
-import static com.longyan.distribution.constants.GoldRecordConstans.USERADD;
-import static com.longyan.distribution.constants.GoldRecordConstans.USERREDUCE;
+import static com.longyan.distribution.constants.GoldRecordConstans.WITHDRAW;
 import static com.longyan.distribution.constants.OilDrillConstants.*;
+import static com.longyan.distribution.constants.OilDrillConstants.NOTCUSTOMER;
 import static com.longyan.distribution.constants.OilDrillConstants.RECHARGE;
+import static com.longyan.distribution.constants.OilDrillConstants.USERADD;
+import static com.longyan.distribution.constants.OilDrillConstants.USERREDUCE;
 import static com.longyan.distribution.constants.SystemParamsConstants.*;
 import static com.longyan.distribution.constants.SystemParamsConstants.VIPINVITECOMMONRECHARGEGOLDCOIN;
 
@@ -80,6 +84,40 @@ public class OilDrillRecordController {
         BeanUtils.copyProperties(form,oilDrillRecord);
         oilDrillRecordService.create(oilDrillRecord);
         return new SuccessView();
+    }
+
+    //提现列表
+    @RequestMapping(value = "cashList",method = RequestMethod.POST)
+    public OilDrillRecordListView cashList(@Valid @RequestBody OilDrillCashListForm form){
+        Map<String,Object> map = form.getQueryMap();
+        map.put("type",WITHDRAW);
+        return new OilDrillRecordListView(oilDrillRecordService.selectList(map),oilDrillRecordService.selectCount(map));
+    }
+
+    //打款展示处理
+    @RequestMapping(value = "moneyHandle",method = RequestMethod.POST)
+    public OilDrillRecordHandleView moneyHandle(@Valid @RequestBody GoldRecordMoneyHandleForm form){
+        OilDrillRecord oilDrillRecord = oilDrillRecordService.getById(form.getId());
+        if (Objects.isNull(oilDrillRecord)) {
+            throw new ResourceNotFoundException("goldRecord not exists");
+        }
+        Customer customer = customerService.getById(oilDrillRecord.getCustomerId());
+        if (Objects.isNull(customer)) {
+            throw new ResourceNotFoundException("customer not exists");
+        }
+        if(!Objects.equals(oilDrillRecord.getType(),WITHDRAW)) {
+            throw new InvalidRequestException("invalidStatus", "invalid status");
+        }
+        //计算手续费，拿出系统参数手续费,减掉手续费
+        BigDecimal value = new BigDecimal(systemParamsService.getValueByKey(Collections.singletonMap("key",BUSINESSOILDRILLCASH)).getValue());
+        BigDecimal handleMoney = BigDecimalUtils.multiply(oilDrillRecord.getAmount(),value);
+        BigDecimal cash = oilDrillRecord.getAmount().subtract(handleMoney);
+        OilDrillRecordHandleView oilDrillRecordHandleView = new OilDrillRecordHandleView();
+        BeanUtils.copyProperties(customer, oilDrillRecordHandleView);
+        oilDrillRecordHandleView.setApplyCount(oilDrillRecord.getAmount());
+        oilDrillRecordHandleView.setHandleMoney(handleMoney);
+        oilDrillRecordHandleView.setExchangeCash(cash);
+        return oilDrillRecordHandleView;
     }
 
    // 商户增减油钻

@@ -46,6 +46,11 @@ public class GoldRecordServiceImpl implements GoldRecordService{
     }
 
     @Override
+    public int updateStatus(GoldRecord goldRecord){
+        return goldRecordMapper.updateStatus(goldRecord);
+    }
+
+    @Override
     public int deleteById(Integer id){
         return goldRecordMapper.deleteById(id);
     }

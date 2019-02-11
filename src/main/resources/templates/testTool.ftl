@@ -485,6 +485,74 @@
             </div>
         </div>
         <div style="float: left; width: 400px;">
+            <h2>金币提现管理</h2>
+            <strong>[提现列表]</strong><br/>
+            搜索内容:<input class="textbox" type="text" id="goldRecord-m-list-phone" style="width: 100px;"
+                        value=""/><br/>
+            status:<select class="textbox" id="goldRecord-m-list-status" style="width: 100px;">
+            <option value="" selected>全部</option>
+            <option value="0" >待审核</option>
+            <option value="1" >审核通过</option>
+            <option value="-2" >审核驳回</option>
+            <option value="-1" >取消</option>
+            </select><br>
+            startIndex:<input class="textbox" type="text" id="goldRecord-m-List-startIndex" style="width: 100px;"
+                              value="0"/>
+            pageSize:<input class="textbox" type="text" id="goldRecord-m-List-pageSize" style="width: 100px;"
+                            value="10"/><br>
+            <input type="button" value="列表" onclick="goldRecordMaModule.list()"/><br>
+            <strong>[打款处理]</strong><br/>
+            金币提现记录id:<input class="textbox" type="text" id="goldRecord-m-moneyHandle-id" style="width: 100px;"
+                        value=""/><br/>
+            <input type="button" value="提交" onclick="goldRecordMaModule.moneyHandle()"/><br>
+            <strong>[改变状态]</strong><br/>
+            金币提现记录id:<input class="textbox" type="text" id="goldRecord-m-resetStatus-id" style="width: 100px;"
+                        value=""/><br/>
+            status:<select class="textbox" id="goldRecord-m-resetStatus-status" style="width: 100px;">
+            <option value="1" >审核通过</option>
+            <option value="-2" >审核驳回</option>
+             </select><br>
+            拒绝理由：<input class="textbox" type="text" id="goldRecord-m-resetStatus-refuseReason" style="width: 100px;"
+                        value="不给提"/><br/>
+            申请提现金币数：<input class="textbox" type="text" id="goldRecord-m-resetStatus-applyCount" style="width: 100px;"
+                        value="900"/><br/>
+            <input type="button" value="提交" onclick="goldRecordMaModule.resetStatus()"/><br>
+            <h2>油钻提现管理</h2>
+            <strong>[提现列表]</strong><br/>
+            搜索内容:<input class="textbox" type="text" id="oilDrillRecord-m-list-phone" style="width: 100px;"
+                        value=""/><br/>
+            status:<select class="textbox" id="oilDrillRecord-m-list-status" style="width: 100px;">
+            <option value="" selected>全部</option>
+            <option value="0" >待审核</option>
+            <option value="1" >审核通过</option>
+            <option value="-2" >审核驳回</option>
+            <option value="-1" >取消</option>
+            </select><br>
+            startIndex:<input class="textbox" type="text" id="oilDrillRecord-m-List-startIndex" style="width: 100px;"
+                              value="0"/>
+            pageSize:<input class="textbox" type="text" id="oilDrillRecord-m-List-pageSize" style="width: 100px;"
+                            value="10"/><br>
+            <input type="button" value="列表" onclick="oilDrillRecordMaModule.list()"/><br>
+            <strong>[打款处理]</strong><br/>
+            金币提现记录id:<input class="textbox" type="text" id="oilDrillRecord-m-moneyHandle-id" style="width: 100px;"
+                        value=""/><br/>
+            <input type="button" value="提交" onclick="oilDrillRecordMaModule.moneyHandle()"/><br>
+            <strong>[改变状态]</strong><br/>
+            金币提现记录id:<input class="textbox" type="text" id="goldRecord-m-resetStatus-id" style="width: 100px;"
+                        value=""/><br/>
+            status:<select class="textbox" id="goldRecord-m-resetStatus-status" style="width: 100px;">
+            <option value="1" >审核通过</option>
+            <option value="-2" >审核驳回</option>
+             </select><br>
+            拒绝理由：<input class="textbox" type="text" id="goldRecord-m-resetStatus-refuseReason" style="width: 100px;"
+                        value="不给提"/><br/>
+            申请提现金币数：<input class="textbox" type="text" id="goldRecord-m-resetStatus-applyCount" style="width: 100px;"
+                        value="900"/><br/>
+            <input type="button" value="提交" onclick="goldRecordMaModule.resetStatus()"/><br>
+        </div>
+
+
+        <div style="float: left; width: 400px;">
             <h2>订单(order)</h2>
             <div>
                 <strong>[列表]</strong><br/>
