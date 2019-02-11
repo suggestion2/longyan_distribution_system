@@ -69,7 +69,7 @@ public class GoldRecordController {
     public GoldRecordListView cashList(@Valid @RequestBody GoldRecordCheckListForm form){
         Map<String,Object> map = form.getQueryMap();
         map.put("type",WITHDRAW);
-        return new GoldRecordListView(goldRecordService.selectList(map),goldRecordService.selectCount(map));
+        return new GoldRecordListView(goldRecordService.selectGoldRecordAndCustomerList(map),goldRecordService.selectCount(map));
     }
 
     //打款展示处理

@@ -14,6 +14,8 @@ public interface GoldRecordMapper {
 
     List<GoldRecord> selectList(Map<String, Object> map);
 
+    List<GoldRecord> selectGoldRecordAndCustomerList(Map<String, Object> map);
+
     int selectCount(Map<String, Object> map);
 
     int insert(GoldRecord goldRecord);

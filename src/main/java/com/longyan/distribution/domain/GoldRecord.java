@@ -29,6 +29,15 @@ public class GoldRecord {
     private Integer valid;
     private Integer type;
     private String refuseReason;
+    private Customer customer;
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
 
     public Integer getId() {
         return id;

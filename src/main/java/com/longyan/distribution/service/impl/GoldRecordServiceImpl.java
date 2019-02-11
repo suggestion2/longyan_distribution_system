@@ -31,6 +31,11 @@ public class GoldRecordServiceImpl implements GoldRecordService{
     }
 
     @Override
+    public List<GoldRecord> selectGoldRecordAndCustomerList(Map<String, Object> map){
+        return goldRecordMapper.selectGoldRecordAndCustomerList(map);
+    }
+
+    @Override
     public int selectCount(Map<String, Object> map){
         return goldRecordMapper.selectCount(map);
     }
