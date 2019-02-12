@@ -43,6 +43,8 @@ public interface CustomerMapper {
 
     int updateReduceBusinessGold(Customer customer);
 
+    int updateAddBusinessOilDrill(Customer customer);
+
     int updateReduceBusinessOilDrill(Customer customer);
 
     int updateAddBusinessGold(Customer customer);

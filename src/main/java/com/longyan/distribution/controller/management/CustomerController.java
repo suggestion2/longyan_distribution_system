@@ -64,44 +64,44 @@ public class CustomerController {
     @Autowired
     private CoinRecordService coinRecordService;
 
-
-
-
-    @RequestMapping(value = LIST,method = RequestMethod.POST)
-    public CustomerListView list(@Valid @RequestBody CustomerManagementlistForm form){
-        Map<String,Object> query = form.getQueryMap();
+    @RequestMapping(value = LIST, method = RequestMethod.POST)
+    public CustomerListView list(@Valid @RequestBody CustomerManagementlistForm form) {
+        Map<String, Object> query = form.getQueryMap();
         //判断是商户，用户，申请商户状态
-        if(Objects.equals(form.getType(),CUSTOMER)){
-            query.put("business",CUSTOMER);
+        if (Objects.equals(form.getType(), CUSTOMER)) {
+            query.put("business", CUSTOMER);
         }
-        if(Objects.equals(form.getType(),BUSINESS)){
-            query.put("business",BUSINESS);
+        if (Objects.equals(form.getType(), BUSINESS)) {
+            query.put("business", BUSINESS);
         }
-        if(Objects.equals(form.getType(),APPLYBUSINESS)){
-            query.put("business",APPLYBUSINESS);
+        if (Objects.equals(form.getType(), APPLYBUSINESS)) {
+            query.put("business", APPLYBUSINESS);
         }
-        return new CustomerListView(customerService.selectList(query),customerService.selectCount(query));
+        return new CustomerListView(customerService.selectList(query), customerService.selectCount(query));
     }
 
     //邀请关系上级
-    @RequestMapping(value = "/customerParent/{id}",method = RequestMethod.GET)
-    public Customer customerList(@PathVariable Integer id){
+    @RequestMapping(value = "/customerParent/{id}", method = RequestMethod.GET)
+    public Customer customerList(@PathVariable Integer id) {
         Customer customer = customerService.getById(id);
         if (Objects.isNull(customer)) {
             throw new ResourceNotFoundException("customer not exists");
+        }
+        if (Objects.isNull(customer.getParentId()) || customer.getParentPhone().equals(NOTINVITE)) {
+            return new Customer();
         }
         return customerService.getById(customer.getParentId());
     }
 
     //邀请下级表
-    @RequestMapping(value = "/customerLowList",method = RequestMethod.POST)
-    public CustomerListView customerList(@Valid @RequestBody InviteCustomerListForm form){
+    @RequestMapping(value = "/customerLowList", method = RequestMethod.POST)
+    public CustomerListView customerList(@Valid @RequestBody InviteCustomerListForm form) {
         Customer customer = customerService.getById(form.getId());
         if (Objects.isNull(customer)) {
             throw new ResourceNotFoundException("customer not exists");
         }
-        Map<String,Object> query = Collections.singletonMap("parentId",form.getId());
-        return new CustomerListView(customerService.selectList(query),customerService.selectCount(query));
+        Map<String, Object> query = Collections.singletonMap("parentId", form.getId());
+        return new CustomerListView(customerService.selectList(query), customerService.selectCount(query));
     }
 
     //启用/禁用 商户
@@ -112,13 +112,13 @@ public class CustomerController {
             throw new ResourceNotFoundException("customer not exists");
         }
         //先判断是不是商户
-        if(Objects.equals(customer.getBusiness(),CUSTOMER)){
-            throw new InvalidRequestException("invalidStatus","customer not a business");
+        if (Objects.equals(customer.getBusiness(), CUSTOMER)) {
+            throw new InvalidRequestException("invalidStatus", "customer not a business");
         }
-        if (!form.getBusinessStatus().equals(ENABLE) && !form.getBusinessStatus().equals(DISABLE)){
-            throw new InvalidRequestException("invalidStatus","invalid status");
+        if (!form.getBusinessStatus().equals(ENABLE) && !form.getBusinessStatus().equals(DISABLE)) {
+            throw new InvalidRequestException("invalidStatus", "invalid status");
         }
-        if (!customer.getBusinessStatus().equals(form.getBusinessStatus())){
+        if (!customer.getBusinessStatus().equals(form.getBusinessStatus())) {
             customer.setBusinessStatus(form.getBusinessStatus());
             customer.setUpdateBy(sessionContext.getUser().getId());
             customerService.update(customer);
@@ -133,10 +133,10 @@ public class CustomerController {
         if (Objects.isNull(customer)) {
             throw new ResourceNotFoundException("customer not exists");
         }
-        if (!form.getLevel().equals(CUSTOPMERONELEVEL) && !form.getLevel().equals(CUSTOPMERTWOLEVEL)&& !form.getLevel().equals(CUSTOPMERTHREELEVEL)){
-            throw new InvalidRequestException("invalidStatus","invalid status");
+        if (!form.getLevel().equals(CUSTOPMERONELEVEL) && !form.getLevel().equals(CUSTOPMERTWOLEVEL) && !form.getLevel().equals(CUSTOPMERTHREELEVEL)) {
+            throw new InvalidRequestException("invalidStatus", "invalid status");
         }
-        if (!customer.getLevel().equals(form.getLevel())){
+        if (!customer.getLevel().equals(form.getLevel())) {
             customer.setLevel(form.getLevel());
             customer.setUpdateBy(sessionContext.getUser().getId());
             customerService.updateLevel(customer);
@@ -152,79 +152,80 @@ public class CustomerController {
         if (Objects.isNull(customer)) {
             throw new ResourceNotFoundException("customer not exists");
         }
-        if (customer.getLevel().equals(CUSTOPMERTWOLEVEL)||customer.getLevel().equals(CUSTOPMERTHREELEVEL)) {
+        if (customer.getLevel().equals(CUSTOPMERTWOLEVEL) || customer.getLevel().equals(CUSTOPMERTHREELEVEL)) {
             throw new InvalidRequestException("invalidStatus", "invalid status");
         }
-        if(customer.getLevel().equals(CUSTOPMERONELEVEL)){
-            customer.setLevel(CUSTOPMERTWOLEVEL);
-            customer.setUpdateBy(sessionContext.getUser().getId());
-            customerService.updateLevel(customer);
-            //判断是否有上级
-            if(!Objects.equals(customer.getParentId(),NOTPARENT)){
-                int userId= sessionContext.getUser().getId();
-                CoinRecord coinRecord = new CoinRecord();
-                coinRecord.setCreateBy(userId);
-                coinRecord.setSourceCustomerId(customer.getId());
-                coinRecord.setSourceCustomerLevel(customer.getLevel());
-                coinRecord.setSourceCustomerPhone(customer.getPhone());
-                Customer parentCustomer = customerService.getById(customer.getParentId());
-                //判断上级等级是不是vip
-                if(Objects.equals(parentCustomer.getLevel(), CUSTOPMERTWOLEVEL)){
-                    //拿出分红比
-                    BigDecimal value = new BigDecimal(systemParamsService.getValueByKey(Collections.singletonMap("key",INVITECOMMONBECOMEVIPCOIN)).getValue());
-                    BigDecimal vipCard = new BigDecimal(systemParamsService.getValueByKey(Collections.singletonMap("key",VIPCARD)).getValue());
-                    BigDecimal parentAmount = BigDecimalUtils.multiply(value,vipCard);
-                    parentCustomer.setCustomerCoin(parentAmount);
-                    customerService.updateAddCustomerCoin(parentCustomer);
-                    //添加分红记录
-                    coinRecord.setCustomerId(parentCustomer.getId());
-                    coinRecord.setCustomerPhone(parentCustomer.getPhone());
-                    coinRecord.setAmount(parentAmount);
-                    coinRecord.setType(INVITEREWARD);
-                    coinRecordService.create(coinRecord);
-                    //判断该vip上级是否有十个用户申请成vip,有的话把该vip上级升为合伙人
-                    if(customerService.selectList(Collections.singletonMap("parentId",parentCustomer.getId())).size()>=10){
-                        parentCustomer.setLevel(CUSTOPMERTHREELEVEL);
-                        parentCustomer.setUpdateBy(userId);
-                        customerService.updateLevel(parentCustomer);
-                    }
-                    //判断是否有上上级
-                    if(!Objects.equals(customer.getParentId(),NOTSUPERPARENT)){
-                        Customer superParentCustomer = customerService.getById(customer.getSuperParentId());
-                        //判断上上级是不是合伙人
-                        if(Objects.equals(superParentCustomer.getLevel(), CUSTOPMERTHREELEVEL)){
-                            //拿出分红比
-                            BigDecimal superValue = new BigDecimal(systemParamsService.getValueByKey(Collections.singletonMap("key",INVITEVIPINVITECOMMONCOIN)).getValue());
-                            BigDecimal superParentAmount = BigDecimalUtils.multiply(superValue,vipCard);
-                            superParentCustomer.setCustomerCoin(superParentAmount);
-                            customerService.updateAddCustomerCoin(superParentCustomer);
-                            //添加分红记录
-                            coinRecord.setCustomerId(superParentCustomer.getId());
-                            coinRecord.setCustomerPhone(superParentCustomer.getPhone());
-                            coinRecord.setAmount(superParentAmount);
-                            coinRecord.setType(INVITEREWARD);
-                            coinRecordService.create(coinRecord);
-                        }
-                    }
+
+        customer.setLevel(CUSTOPMERTWOLEVEL);
+        customer.setUpdateBy(sessionContext.getUser().getId());
+        customerService.updateLevel(customer);
+        //判断是否有上级
+        if (!Objects.equals(customer.getParentId(), NOTPARENT)) {
+            int userId = sessionContext.getUser().getId();
+            CoinRecord coinRecord = new CoinRecord();
+            coinRecord.setCreateBy(userId);
+            coinRecord.setSourceCustomerId(customer.getId());
+            coinRecord.setSourceCustomerLevel(customer.getLevel());
+            coinRecord.setSourceCustomerPhone(customer.getPhone());
+            Customer parentCustomer = customerService.getById(customer.getParentId());
+            //判断上级等级是不是vip
+            if (Objects.equals(parentCustomer.getLevel(), CUSTOPMERTWOLEVEL)) {
+                //拿出分红比
+                BigDecimal value = new BigDecimal(systemParamsService.getValueByKey(Collections.singletonMap("key", INVITECOMMONBECOMEVIPCOIN)).getValue());
+                BigDecimal vipCard = new BigDecimal(systemParamsService.getValueByKey(Collections.singletonMap("key", VIPCARD)).getValue());
+                BigDecimal parentAmount = BigDecimalUtils.multiply(value, vipCard);
+                parentCustomer.setCustomerCoin(parentAmount);
+                customerService.updateAddCustomerCoin(parentCustomer);
+                //添加分红记录
+                coinRecord.setCustomerId(parentCustomer.getId());
+                coinRecord.setCustomerPhone(parentCustomer.getPhone());
+                coinRecord.setAmount(parentAmount);
+                coinRecord.setType(INVITEREWARD);
+                coinRecordService.create(coinRecord);
+                //判断该vip上级是否有十个用户申请成vip,有的话把该vip上级升为合伙人
+                if (customerService.selectSubVipCount(parentCustomer.getId()) >= 10) {
+                    parentCustomer.setLevel(CUSTOPMERTHREELEVEL);
+                    parentCustomer.setUpdateBy(userId);
+                    customerService.updateLevel(parentCustomer);
                 }
-                //判断上级等级是不是合伙人，是合伙人上上级没有分红
-                if(Objects.equals(parentCustomer.getLevel(), CUSTOPMERTHREELEVEL)){
-                    BigDecimal value = new BigDecimal(systemParamsService.getValueByKey(Collections.singletonMap("key",INVITECOMMONBECOMEVIPCOIN)).getValue());
-                    BigDecimal vipCard = new BigDecimal(systemParamsService.getValueByKey(Collections.singletonMap("key",VIPCARD)).getValue());
-                    BigDecimal parentAmount = BigDecimalUtils.multiply(value,vipCard);
-                    parentCustomer.setCustomerCoin(parentAmount);
-                    customerService.updateAddCustomerCoin(parentCustomer);
-                    //添加分红记录
-                    coinRecord.setCustomerId(parentCustomer.getId());
-                    coinRecord.setCustomerPhone(parentCustomer.getPhone());
-                    coinRecord.setAmount(parentAmount);
-                    coinRecord.setType(INVITEREWARD);
-                    coinRecordService.create(coinRecord);
+                //判断是否有上上级
+                if (!Objects.equals(customer.getParentId(), NOTSUPERPARENT)) {
+                    Customer superParentCustomer = customerService.getById(customer.getSuperParentId());
+                    //判断上上级是不是合伙人
+                    if (Objects.equals(superParentCustomer.getLevel(), CUSTOPMERTHREELEVEL)) {
+                        //拿出分红比
+                        BigDecimal superValue = new BigDecimal(systemParamsService.getValueByKey(Collections.singletonMap("key", INVITEVIPINVITECOMMONCOIN)).getValue());
+                        BigDecimal superParentAmount = BigDecimalUtils.multiply(superValue, vipCard);
+                        superParentCustomer.setCustomerCoin(superParentAmount);
+                        customerService.updateAddCustomerCoin(superParentCustomer);
+                        //添加分红记录
+                        coinRecord.setCustomerId(superParentCustomer.getId());
+                        coinRecord.setCustomerPhone(superParentCustomer.getPhone());
+                        coinRecord.setAmount(superParentAmount);
+                        coinRecord.setType(INVITEREWARD);
+                        coinRecordService.create(coinRecord);
+                    }
                 }
             }
+            //判断上级等级是不是合伙人，是合伙人上上级没有分红
+            if (Objects.equals(parentCustomer.getLevel(), CUSTOPMERTHREELEVEL)) {
+                BigDecimal value = new BigDecimal(systemParamsService.getValueByKey(Collections.singletonMap("key", INVITECOMMONBECOMEVIPCOIN)).getValue());
+                BigDecimal vipCard = new BigDecimal(systemParamsService.getValueByKey(Collections.singletonMap("key", VIPCARD)).getValue());
+                BigDecimal parentAmount = BigDecimalUtils.multiply(value, vipCard);
+                parentCustomer.setCustomerCoin(parentAmount);
+                customerService.updateAddCustomerCoin(parentCustomer);
+                //添加分红记录
+                coinRecord.setCustomerId(parentCustomer.getId());
+                coinRecord.setCustomerPhone(parentCustomer.getPhone());
+                coinRecord.setAmount(parentAmount);
+                coinRecord.setType(INVITEREWARD);
+                coinRecordService.create(coinRecord);
+            }
         }
+
         return new ResponseView();
     }
+
     //设为商户
     @RequestMapping(value = "/resetBusiness", method = RequestMethod.PUT)
     public ResponseView resetBusiness(@Valid @RequestBody CustomerBusinessForm form) {
@@ -232,17 +233,19 @@ public class CustomerController {
         if (Objects.isNull(customer)) {
             throw new ResourceNotFoundException("customer not exists");
         }
-        customer.setBusinessName(form.getBusinessName());
-        customer.setBusiness(BUSINESS);
-        customer.setUpdateBy(sessionContext.getUser().getId());
-        customerService.updateBusiness(customer);
+        if (customer.getBusiness().equals(CUSTOMER)) {
+            customer.setBusinessName(form.getBusinessName());
+            customer.setBusiness(BUSINESS);
+            customer.setUpdateBy(sessionContext.getUser().getId());
+            customerService.updateBusiness(customer);
+        }
         return new ResponseView();
     }
 
-    @RequestMapping(value = DETAIL,method = RequestMethod.GET)
-    public Customer detail(@PathVariable Integer id){
-        Customer customer=customerService.getById(id);
-        if(Objects.isNull(customer)){
+    @RequestMapping(value = DETAIL, method = RequestMethod.GET)
+    public Customer detail(@PathVariable Integer id) {
+        Customer customer = customerService.getById(id);
+        if (Objects.isNull(customer)) {
             throw new ResourceNotFoundException("customer not found");
         }
         return customer;
@@ -252,18 +255,19 @@ public class CustomerController {
     @RequestMapping(value = "/loginPassword", method = RequestMethod.PUT)
     public ResponseView resetLoginPassword(@Valid @RequestBody ResetCustomerPasswordForm form) {
         Customer customer = customerService.getById(form.getId());
-        if(Objects.isNull(customer)){
+        if (Objects.isNull(customer)) {
             throw new ResourceNotFoundException("customer not exists");
         }
         customer.setLoginPassword(MD5.encrypt(INIT_PASSWORD + MD5_SALT));
         customerService.updateLoginPassword(customer);
         return new ResponseView();
     }
+
     //重置支付密码
     @RequestMapping(value = "/paymentPassword", method = RequestMethod.PUT)
     public ResponseView resetPaymentPassword(@Valid @RequestBody ResetCustomerPasswordForm form) {
         Customer customer = customerService.getById(form.getId());
-        if(Objects.isNull(customer)){
+        if (Objects.isNull(customer)) {
             throw new ResourceNotFoundException("customer not exists");
         }
         customer.setPaymentPassword(MD5.encrypt(INIT_PASSWORD + MD5_SALT));

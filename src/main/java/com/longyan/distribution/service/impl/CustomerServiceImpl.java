@@ -14,6 +14,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.longyan.distribution.constants.CustomerConstants.CUSTOPMERTHREELEVEL;
+import static com.longyan.distribution.constants.CustomerConstants.CUSTOPMERTWOLEVEL;
+
 @Service
 public class CustomerServiceImpl implements CustomerService{
 
@@ -59,6 +62,15 @@ public class CustomerServiceImpl implements CustomerService{
     @Override
     public int selectCount(Map<String, Object> map){
         return customerMapper.selectCount(map);
+    }
+
+    @Override
+    public int selectSubVipCount(Integer customerId) {
+        Map<String,Object> query = new HashMap<>();
+        query.put("parentId",customerId);
+        query.put("level",CUSTOPMERTWOLEVEL);
+
+        return customerMapper.selectCount(query);
     }
 
     @Override
@@ -119,6 +131,11 @@ public class CustomerServiceImpl implements CustomerService{
     @Override
     public int updateReduceBusinessGold(Customer customer){
         return customerMapper.updateReduceBusinessGold(customer);
+    }
+
+    @Override
+    public int updateAddBusinessOilDrill(Customer customer) {
+        return customerMapper.updateAddBusinessOilDrill(customer);
     }
 
     @Override

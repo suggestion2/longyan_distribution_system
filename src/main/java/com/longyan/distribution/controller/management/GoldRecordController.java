@@ -270,6 +270,11 @@ public class GoldRecordController {
         }
         //如果是后台手动添加，不是前台充值，就直接返回,不用给其他人分红
         if(Objects.equals(form.getType(), USERADD)){
+            customer.setCustomerGold(amount);
+            customerService.updateAddCustomerGold(customer);
+            goldRecord.setAmount(amount);
+            goldRecordService.create(goldRecord);
+
             return new ResponseView();
         }
         if(Objects.equals(form.getType(),RECHARGE)) {
@@ -292,7 +297,7 @@ public class GoldRecordController {
                         coinRecord.setType(RECHARGEREWARD);
                         coinRecordService.create(coinRecord);
                         //判断是否有上上级
-                        if(!Objects.equals(customer.getParentId(),NOTSUPERPARENT)){
+                        if(!Objects.equals(customer.getSuperParentId(),NOTSUPERPARENT)){
                             Customer superParentCustomer = customerService.getById(customer.getSuperParentId());
                             //判断上上级是不是合伙人
                             if(Objects.equals(superParentCustomer.getLevel(), CUSTOPMERTHREELEVEL)){

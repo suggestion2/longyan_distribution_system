@@ -181,7 +181,7 @@ public class OilDrillRecordController {
                 throw new InvalidRequestException("reduceError","The amount of oilDrill to be reduced is greater than the user's oilDrill");
             }
             customer.setCustomerOilDrill(amount);
-            customerService.updateReduceCustomerOilDrill(customer);
+            customerService.updateReduceBusinessOilDrill(customer);
             //添加减少油钻记录
             oilDrillRecord.setAmount(amount.multiply(new BigDecimal(-1)));
             oilDrillRecordService.create(oilDrillRecord);
@@ -189,7 +189,7 @@ public class OilDrillRecordController {
         }
         if(Objects.equals(form.getType(),USERADD)){
             customer.setCustomerOilDrill(amount);
-            customerService.updateAddCustomerOilDrill(customer);
+            customerService.updateAddBusinessOilDrill(customer);
             //添加增加油钻记录
             oilDrillRecord.setAmount(amount);
             oilDrillRecordService.create(oilDrillRecord);
@@ -271,6 +271,11 @@ public class OilDrillRecordController {
         }
         //如果是后台手动添加，不是前台充值，就直接返回,不用给其他人分红
         if(Objects.equals(form.getType(), USERADD)){
+            customer.setCustomerGold(amount);
+            customerService.updateAddCustomerOilDrill(customer);
+            oilDrillRecord.setAmount(amount);
+            oilDrillRecordService.create(oilDrillRecord);
+
             return new ResponseView();
         }
         if(Objects.equals(form.getType(),RECHARGE)) {
@@ -282,7 +287,7 @@ public class OilDrillRecordController {
                     //判断上级等级是不是vip
                     if(Objects.equals(parentCustomer.getLevel(), CUSTOPMERTWOLEVEL)){
                         //添加vip分红
-                        BigDecimal value = new BigDecimal(systemParamsService.getValueByKey(Collections.singletonMap("key",VIPINVITECOMMONRECHARGEGOLDCOIN)).getValue());
+                        BigDecimal value = new BigDecimal(systemParamsService.getValueByKey(Collections.singletonMap("key",VIPINVITECOMMONRECHARGEOILCOIN)).getValue());
                         BigDecimal parentAmount = BigDecimalUtils.multiply(value,amount);
                         parentCustomer.setCustomerCoin(parentAmount);
                         customerService.updateAddCustomerCoin(parentCustomer);
@@ -293,7 +298,7 @@ public class OilDrillRecordController {
                         coinRecord.setType(RECHARGEREWARD);
                         coinRecordService.create(coinRecord);
                         //判断是否有上上级
-                        if(!Objects.equals(customer.getParentId(),NOTSUPERPARENT)){
+                        if(!Objects.equals(customer.getSuperParentId(),NOTSUPERPARENT)){
                             Customer superParentCustomer = customerService.getById(customer.getSuperParentId());
                             //判断上上级是不是合伙人
                             if(Objects.equals(superParentCustomer.getLevel(), CUSTOPMERTHREELEVEL)){
