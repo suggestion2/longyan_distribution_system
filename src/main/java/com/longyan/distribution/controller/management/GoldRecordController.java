@@ -62,7 +62,7 @@ public class GoldRecordController {
 
     @RequestMapping(value = LIST,method = RequestMethod.POST)
     public GoldRecordListView list(@Valid @RequestBody GoldRecordListForm form){
-        return new GoldRecordListView(goldRecordService.selectList(form.getQueryMap()));
+        return new GoldRecordListView(goldRecordService.selectList(form.getQueryMap()),goldRecordService.selectCount(form.getQueryMap()));
     }
 
     @RequestMapping(value = "cashList",method = RequestMethod.POST)
@@ -274,7 +274,6 @@ public class GoldRecordController {
             customerService.updateAddCustomerGold(customer);
             goldRecord.setAmount(amount);
             goldRecordService.create(goldRecord);
-
             return new ResponseView();
         }
         if(Objects.equals(form.getType(),RECHARGE)) {

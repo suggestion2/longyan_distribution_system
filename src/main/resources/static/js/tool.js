@@ -1010,6 +1010,30 @@ var customerMaModule= {
         };
         showResult(settings);
     },
+    GoldList: function () {
+        var settings = {
+            type: "POST",
+            url: "/management/goldRecord/list",
+            dataType: "json",
+            data: JSON.stringify({
+                "pageIndex": $("#customer-m-GoldList-startIndex").val(),
+                "pageSize": $("#customer-m-GoldList-pageSize").val()
+            })
+        };
+        showResult(settings);
+    },
+    oilDrillList: function () {
+        var settings = {
+            type: "POST",
+            url: "/management/oilDrillRecord/list",
+            dataType: "json",
+            data: JSON.stringify({
+                "pageIndex": $("#customer-m-oilDrillList-startIndex").val(),
+                "pageSize": $("#customer-m-oilDrillList-pageSize").val()
+            })
+        };
+        showResult(settings);
+    },
 };
 
 var goldRecordMaModule= {

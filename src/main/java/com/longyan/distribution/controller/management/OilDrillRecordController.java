@@ -69,7 +69,7 @@ public class OilDrillRecordController {
 
     @RequestMapping(value = LIST,method = RequestMethod.POST)
     public OilDrillRecordListView list(@Valid @RequestBody OilDrillRecordListForm form){
-        return new OilDrillRecordListView(oilDrillRecordService.selectList(form.getQueryMap()));
+        return new OilDrillRecordListView(oilDrillRecordService.selectList(form.getQueryMap()),oilDrillRecordService.selectCount(form.getQueryMap()));
     }
 
     @RequestMapping(value = DETAIL,method = RequestMethod.GET)

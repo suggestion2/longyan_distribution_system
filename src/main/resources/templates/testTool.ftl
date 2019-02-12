@@ -711,6 +711,23 @@
                           value="900"/>
                 <input type="button" value="提交" onclick="customerMaModule.businessAddReduceOil()"/><br>
             </div>
+            <h2>列表</h2>
+            <div>
+                <strong>[金币收支记录]</strong><br/>
+                startIndex:<input class="textbox" type="text" id="customer-m-GoldList-startIndex"
+                                  style="width: 100px;" value="0"/>
+                pageSize:<input class="textbox" type="text" id="customer-m-GoldList-pageSize" style="width: 100px;"
+                                value="10"/><br>
+                <input type="button" value="列表" onclick="customerMaModule.GoldList()"/><br>
+            </div>
+            <div>
+                <strong>[油钻收支记录]</strong><br/>
+                startIndex:<input class="textbox" type="text" id="customer-m-oilDrillList-startIndex"
+                                  style="width: 100px;" value="0"/>
+                pageSize:<input class="textbox" type="text" id="customer-m-oilDrillList-pageSize" style="width: 100px;"
+                                value="10"/><br>
+                <input type="button" value="列表" onclick="customerMaModule.oilDrillList()"/><br>
+            </div>
             <h2>升级vip</h2>
             <div>
                 <strong>[用户升级vip]</strong><br/>
