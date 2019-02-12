@@ -282,8 +282,8 @@
                 <input type="button" value="详情" onclick="goodsModule.detailApi()"/><br>
             </div>
             <div>
-                <strong>[图片]</strong><br/>
-                id:<input class="textbox" type="text" id="goods-api-image-fileName" style="width: 100px;"
+                <strong>[获取商品图片]</strong><br/>
+                fileName:<input class="textbox" type="text" id="goods-api-image-fileName" style="width: 100px;"
                           value="1.jpg"/>
                 <input type="button" value="图片" onclick="goodsModule.imageApi()"/><br>
             </div>
@@ -505,10 +505,18 @@
                 <input type="button" value="删除" onclick="goodsModule.deleteById()"/><br>
             </div>
             <div>
-                <strong>[图片]</strong><br/>
-                id:<input class="textbox" type="file" id="goods-m-image-fileName" accept="image/png, image/jpeg" style="width: 100px;"
-                          value="1.jpg"/>
+                <strong>[上传图片]</strong><br/>
+                fileName:<input class="textbox" type="text" id="goods-m-image-fileName" style="width: 100px;"
+                             value="test.jpg"/>
+                image:<input class="textbox" type="file" id="goods-m-image-file" accept="image/png, image/jpeg" style="width: 100px;"
+                          value="1.jpg"/><br>
                 <input type="button" value="图片" onclick="goodsModule.imageManagement()"/><br>
+            </div>
+            <div>
+                <strong>[获取商品图片]</strong><br/>
+                fileName:<input class="textbox" type="text" id="goods-mG-image-fileName" style="width: 100px;"
+                                value="test.jpg"/>
+                <input type="button" value="图片" onclick="goodsModule.imageGetM()"/><br>
             </div>
         </div>
         <div style="float: left; width: 400px;">
@@ -560,9 +568,18 @@
                 id:<input class="textbox" type="text" id="customer-m-business-id" style="width: 100px;"
                           value=""/>
                 商户名称:<input class="textbox" type="text" id="customer-m-business-businessName" style="width: 100px;"
-                          value=""/>
-            </select><br>
+                          value=""/><br>
                 <input type="button" value="修改" onclick="customerMaModule.resetBusiness()"/><br>
+            </div>
+            <div>
+                <strong>[审核商户]</strong><br/>
+                id:<input class="textbox" type="text" id="customer-m-businessVerify-id" style="width: 100px;"
+                          value=""/>
+                审核结果:<select class="textbox" id="customer-m-businessVerify-status" style="width: 100px;">
+                <option value="0">审核不通过</option>
+                <option value="1">审核通过</option>
+            </select><br>
+                <input type="button" value="修改" onclick="customerMaModule.businessVerify()"/><br>
             </div>
             <div>
                 <strong>[设为等级]</strong><br/>
@@ -570,14 +587,14 @@
                           value=""/>
                 设置等级:<input class="textbox" type="text" id="customer-m-level-level" style="width: 100px;"
                           value=""/>
-            </select><br>
+            <br>
                 <input type="button" value="修改" onclick="customerMaModule.resetLevel()"/><br>
             </div>
             <div>
                 <strong>[上级]</strong><br/>
                 id:<input class="textbox" type="text" id="customer-m-customerParent-id" style="width: 100px;"
                           value=""/>
-            </select><br>
+            <br>
                 <input type="button" value="查找" onclick="customerMaModule.customerParent()"/><br>
             </div>
             <div>
@@ -588,7 +605,7 @@
                                   value="0"/>
                 pageSize:<input class="textbox" type="text" id="customer-m-customerLowList-pageSize" style="width: 100px;"
                                 value="10"/><br>
-            </select><br>
+            <br>
                 <input type="button" value="列表" onclick="customerMaModule.customerLowList()"/><br>
             </div>
             <h2>增减金币</h2>

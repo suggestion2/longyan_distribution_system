@@ -27,7 +27,7 @@
             </if>
         </if>
         <if test="parentId!=null">
-                and `parentId` = #{parentId}
+            and `parentId` = #{parentId}
         </if>
         <if test="managementContent!=null">
             and (`phone` like concat ('%',#{managementContent},'%') or `realName` like concat ('%',#{managementContent},'%') or `businessAccount` like concat ('%',#{managementContent},'%') or `businessName` like concat ('%',#{managementContent},'%'))
@@ -43,10 +43,8 @@
         <if test="business!=null">
             and `business` = #{business}
         </if>
-        <if test="parentId!=null">
-            <if test="superParentId!=null">
-                and (`parentId` = #{parentId} or `superParentId` = #{superParentId})
-            </if>
+        <if test="parentId!=null and superParentId!=null">
+              and (`parentId` = #{parentId} or `superParentId` = #{superParentId})
         </if>
         <if test="content!=null">
             and (`businessAccount` like concat ('%',#{content},'%') or `businessName` like concat ('%',#{content},'%'))
@@ -91,13 +89,14 @@
         <if test="managementContent!=null">
             and (`phone` like concat ('%',#{managementContent},'%') or `realName` like concat ('%',#{managementContent},'%') or `businessAccount` like concat ('%',#{managementContent},'%') or `businessName` like concat ('%',#{managementContent},'%'))
         </if>
-        <if test="parentId!=null">
-            <if test="superParentId!=null">
-                and (`parentId` = #{parentId} or `superParentId` = #{superParentId})
-            </if>
+        <if test="parentId!=null and superParentId!=null">
+            and (`parentId` = #{parentId} or `superParentId` = #{superParentId})
         </if>
         <if test="parentId!=null">
             and `parentId` = #{parentId}
+        </if>
+        <if test="level!=null">
+            and `level` = #{level}
         </if>
     </select>
 
@@ -173,7 +172,13 @@
         a.businessName=#{businessName},
         a.updateBy=#{updateBy};
     </update>
-
+    
+    <update id="updateBusinessApplication" parameterType="com.longyan.distribution.domain.Customer">
+        update customer SET
+        business = #{business}
+        where id = #{id}
+    </update>
+    
     <update id="updateAddCustomerGold" parameterType="com.longyan.distribution.domain.Customer">
         update customer set
         customerGold = customerGold+#{customerGold}
@@ -198,7 +203,6 @@
         customerGold = customerGold-#{customerGold}
         where `id` = #{id} and customerGold >= #{customerGold}
     </update>
-
     <update id="updateReduceCustomerOilDrill" parameterType="com.longyan.distribution.domain.Customer">
         update customer set
         customerOilDrill = customerOilDrill-#{customerOilDrill}
@@ -216,7 +220,13 @@
         businessGold = businessGold-#{businessGold}
         where `id` = #{id} and businessGold >= #{businessGold}
     </update>
-
+    
+    <update id="updateAddBusinessOilDrill" parameterType="com.longyan.distribution.domain.Customer">
+        update customer set
+        businessOilDrill = businessOilDrill+#{businessOilDrill}
+        where `id` = #{id}
+    </update>
+    
     <update id="updateReduceBusinessOilDrill" parameterType="com.longyan.distribution.domain.Customer">
         update customer set
         businessOilDrill = businessOilDrill-#{businessOilDrill}

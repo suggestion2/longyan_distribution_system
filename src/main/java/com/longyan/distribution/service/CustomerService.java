@@ -26,21 +26,25 @@ public interface CustomerService {
 
     int selectCount(Map<String, Object> map);
 
+    int selectSubVipCount(Integer customerId);
+
     int create(Customer customer);
 
     int update(Customer customer);
 
     int updateBusiness(Customer customer);
 
+    int updateBusinessApplication(Customer customer);
+
     int updateLevel(Customer customer);
 
     int updateAddCustomerGold(Customer customer);
 
+    int updateReduceCustomerGold(Customer customer);
+
     int updateAddCustomerCoin(Customer customer);
 
     int updateAddBusinessGold(Customer customer);
-
-    int updateReduceCustomerGold(Customer customer);
 
     int updateReduceCustomerCoin(Customer customer);
 
@@ -49,6 +53,8 @@ public interface CustomerService {
     int updateAddCustomerOilDrill(Customer customer);
 
     int updateReduceBusinessGold(Customer customer);
+
+    int updateAddBusinessOilDrill(Customer customer);
 
     int updateReduceBusinessOilDrill(Customer customer);
 
