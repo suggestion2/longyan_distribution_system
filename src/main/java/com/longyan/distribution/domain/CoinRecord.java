@@ -16,7 +16,7 @@ public class CoinRecord {
     private String customerPhone;
     @JsonSerialize(using = SimpleDateTimeSerializer.class)
     private Date createTime;
-    @JsonIgnore
+    @JsonSerialize(using = SimpleDateTimeSerializer.class)
     private Date updateTime;
     @JsonIgnore
     private Integer createBy;

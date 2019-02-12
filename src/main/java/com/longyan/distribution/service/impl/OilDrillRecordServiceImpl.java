@@ -31,6 +31,11 @@ public class OilDrillRecordServiceImpl implements OilDrillRecordService{
     }
 
     @Override
+    public List<OilDrillRecord> selectOilRecordAndCustomerList(Map<String, Object> map){
+        return oilDrillRecordMapper.selectOilRecordAndCustomerList(map);
+    }
+
+    @Override
     public int selectCount(Map<String, Object> map){
         return oilDrillRecordMapper.selectCount(map);
     }

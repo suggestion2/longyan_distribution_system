@@ -90,7 +90,7 @@ public class OilDrillRecordController {
     public OilDrillRecordListView cashList(@Valid @RequestBody OilDrillCashListForm form){
         Map<String,Object> map = form.getQueryMap();
         map.put("type",WITHDRAW);
-        return new OilDrillRecordListView(oilDrillRecordService.selectList(map),oilDrillRecordService.selectCount(map));
+        return new OilDrillRecordListView(oilDrillRecordService.selectOilRecordAndCustomerList(map),oilDrillRecordService.selectCount(map));
     }
 
     //打款展示处理

@@ -14,10 +14,10 @@
     </select>
 
     <resultMap id="GoldRecordAndCustomerList" type="com.longyan.distribution.domain.GoldRecord">
-        <id column="coinRecord_id"/>
         <id property="id" column="goldRecord_id"/>
         <result property="amount" column="goldRecord_amount"/>
         <result property="createTime" column="goldRecord_createTime"/>
+        <result property="updateTime" column="goldRecord_updateTime"/>
         <result property="status" column="goldRecord_status"/>
         <result property="refuseReason" column="goldRecord_refuseReason"/>
         <association property="customer" javaType="com.longyan.distribution.domain.Customer">
@@ -34,13 +34,14 @@
         a.`id` as goldRecord_id,
         a.`amount` as goldRecord_amount,
         a.`createTime` as goldRecord_createTime,
+        a.`updateTime` as goldRecord_updateTime,
         a.`status` as goldRecord_status,
         a.`refuseReason` as goldRecord_refuseReason,
         b.`id` as customer_id,
         b.`phone`,
         b.`businessName`,
         b.`businessGold`
-        from `gold_record` a LEFT join customer b on a.customerId = b.id  where a.`valid` = 1 and b.valid = 1
+        from `gold_record` a LEFT join customer b on a.businessId = b.id  where a.`valid` = 1 and b.valid = 1
         <if test="type!=null">
             and a.`type` = #{type}
         </if>

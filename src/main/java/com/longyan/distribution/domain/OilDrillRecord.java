@@ -18,9 +18,9 @@ public class OilDrillRecord {
     private String customerPhone;
     @JsonSerialize(using = SimpleDateTimeSerializer.class)
     private Date createTime;
-    @JsonIgnore
+    @JsonSerialize(using = SimpleDateTimeSerializer.class)
     private Date updateTime;
-    @JsonIgnore
+    @JsonSerialize(using = SimpleDateTimeSerializer.class)
     private Integer createBy;
     @JsonIgnore
     private Integer updateBy;
@@ -29,6 +29,15 @@ public class OilDrillRecord {
     private Integer valid;
     private Integer type;
     private String refuseReason;
+    private Customer customer;
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
 
     public Integer getId() {
         return id;

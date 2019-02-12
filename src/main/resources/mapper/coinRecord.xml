@@ -18,6 +18,9 @@
         <id property="id" column="coinRecord_id"/>
         <result property="amount" column="coinRecord_amount"/>
         <result property="createTime" column="coinRecord_createTime"/>
+        <result property="updateTime" column="coinRecord_updateTime"/>
+        <result property="refuseReason" column="coinRecord_refuseReason"/>
+        <result property="status" column="coinRecord_status"/>
         <association property="customer" javaType="com.longyan.distribution.domain.Customer">
             <id property="id" column="customer_id"/>
             <result property="phone" column="phone"/>
@@ -32,6 +35,9 @@
         a.`id` as coinRecord_id,
         a.`amount` as coinRecord_amount,
         a.`createTime` as coinRecord_createTime,
+        a.`updateTime` as coinRecord_updateTime,
+        a.`refuseReason` as coinRecord_refuseReason,
+        a.`status` as coinRecord_status,
         b.`id` as customer_id,
         b.`phone`,
         b.`realName`,

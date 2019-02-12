@@ -113,7 +113,7 @@ public class GoldRecordController {
             if (Objects.isNull(customer)) {
                 throw new ResourceNotFoundException("customer not exists");
             }
-            //判断要减少的金币会不会大于用户金币
+            //判断要减少的金币会不会大于商户金币
             if(Objects.equals(customer.getBusinessGold().compareTo(form.getApplyCount()),-1)){
                 throw new InvalidRequestException("reduceError","The amount of gold to be reduced is greater than the user's gold");
             }

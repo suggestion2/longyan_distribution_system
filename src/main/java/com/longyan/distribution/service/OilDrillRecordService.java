@@ -15,6 +15,8 @@ public interface OilDrillRecordService {
 
     List<OilDrillRecord> selectList(Map<String, Object> map);
 
+    List<OilDrillRecord> selectOilRecordAndCustomerList(Map<String, Object> map);
+
     int selectCount(Map<String, Object> map);
 
     int create(OilDrillRecord oilDrillRecord);

@@ -12,6 +12,48 @@
             and `id` = #{id}
         </if>
     </select>
+    <resultMap id="OilRecordAndCustomerList" type="com.longyan.distribution.domain.OilDrillRecord">
+        <id property="id" column="OilDrillRecord_id"/>
+        <result property="amount" column="OilDrillRecord_amount"/>
+        <result property="createTime" column="OilDrillRecord_createTime"/>
+        <result property="updateTime" column="OilDrillRecord_updateTime"/>
+        <result property="status" column="OilDrillRecord_status"/>
+        <result property="refuseReason" column="OilDrillRecord_refuseReason"/>
+        <association property="customer" javaType="com.longyan.distribution.domain.Customer">
+            <id property="id" column="customer_id"/>
+            <result property="phone" column="phone"/>
+            <result property="businessName" column="businessName"/>
+            <result property="businessAccount" column="businessAccount"/>
+            <result property="businessOilDrill" column="businessOilDrill"/>
+        </association>
+    </resultMap>
+
+    <select id="selectOilRecordAndCustomerList" resultMap="OilRecordAndCustomerList" parameterType="java.util.Map">
+        select
+        a.`id` as OilDrillRecord_id,
+        a.`amount` as OilDrillRecord_amount,
+        a.`createTime` as OilDrillRecord_createTime,
+        a.`status` as OilDrillRecord_status,
+        a.`updateTime` as OilDrillRecord_updateTime,
+        a.`refuseReason` as OilDrillRecord_refuseReason,
+        b.`id` as customer_id,
+        b.`phone`,
+        b.`businessName`,
+        b.`businessOilDrill`
+        from `oil_drill_record` a LEFT join customer b on a.businessId = b.id  where a.`valid` = 1 and b.valid = 1
+        <if test="type!=null">
+            and a.`type` = #{type}
+        </if>
+        <if test="phone!=null">
+            and (a.`customerPhone` like concat ('%',#{phone},'%'))
+        </if>
+        <if test="status!=null">
+            and a.`status` = #{status}
+        </if>
+        <if test="startIndex != null and pageSize != null">
+            limit #{startIndex},#{pageSize}
+        </if>
+    </select>
 
     <select id="selectList" resultType="com.longyan.distribution.domain.OilDrillRecord" parameterType="java.util.Map">
         select * from `oil_drill_record` where `valid` = 1
