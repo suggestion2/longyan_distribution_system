@@ -106,6 +106,31 @@
                 <strong>[生成邀请链接]</strong><br/>
                 <input type="button" value="列表" onclick="customerModule.inviteCode()"/><br>
             </div>
+            <div>
+                <strong>[兑换金币]</strong><br/>
+                钢蹦数amount:<input class="textbox" type="text" id="customer-a-exchangeGold-amount"
+                                    style="width: 100px;" value="100"/>
+                支付密码:<input class="textbox" type="text" id="customer-a-exchangeGold-paymentPassword"
+                                    style="width: 100px;" value="100"/>
+                <input type="button" value="列表" onclick="customerModule.exchangeGold()"/><br>
+            </div>
+            <div>
+                <strong>[兑换油钻]</strong><br/>
+                钢蹦数amount:<input class="textbox" type="text" id="customer-a-exchangeOilDrill-amount"
+                                    style="width: 100px;" value="100"/>
+                支付密码:<input class="textbox" type="text" id="customer-a-exchangeOilDrill-paymentPassword"
+                                    style="width: 100px;" value="100"/>
+                <input type="button" value="列表" onclick="customerModule.exchangeOilDrill()"/><br>
+            </div>
+            <div>
+                <strong>[钢蹦提现]</strong><br/>
+                amount:<input class="textbox" type="text" id="customer-a-coinWithdraw-amount"
+                              style="width: 100px;"
+                              value=""/>
+                paymentPassword:<input class="textbox" type="text" id="customer-a-coinWithdraw-paymentPassword" style="width: 100px;"
+                                       value=""/><br>
+                <input type="button" value="提现" onclick="customerModule.coinWithdraw()"/><br>
+            </div>
         </div>
         <div style="float: left; width: 400px;">
             <h2>商户(business)</h2>
@@ -316,6 +341,11 @@
                 id:<input class="textbox" type="text" id="order-api-paid-id" style="width: 100px;"
                           value=""/>
                 <input type="button" value="详情" onclick="orderModule.paid()"/><br>
+            </div>
+            <h2>系统参数(system_params)</h2>
+            <div>
+                <strong>[列表]</strong><br/>
+                <input type="button" value="列表" onclick="systemApiParamsModule.list()"/><br>
             </div>
         </div>
     </div>

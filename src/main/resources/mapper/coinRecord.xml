@@ -102,6 +102,9 @@
         `customerPhone`,
         `createBy`,
         `type`,
+        <if test="status!=null">
+        `status`,
+        </if>
         `sourceCustomerLevel`,
         `sourceCustomerPhone`
         )
@@ -113,6 +116,9 @@
         #{customerPhone},
         #{createBy},
         #{type},
+        <if test="status!=null">
+        #{status},
+        </if>
         #{sourceCustomerLevel},
         #{sourceCustomerPhone}
         )

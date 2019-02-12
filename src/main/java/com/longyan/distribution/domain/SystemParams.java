@@ -8,7 +8,6 @@ import java.util.Date;
 public class SystemParams {
 
     private Integer id;
-    @JsonIgnore
     private String key;
     private String value;
     @JsonIgnore

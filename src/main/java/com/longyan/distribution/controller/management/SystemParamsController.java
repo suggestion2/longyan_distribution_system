@@ -27,7 +27,7 @@ import static com.longyan.distribution.constants.CommonConstants.*;
 import static com.longyan.distribution.constants.SystemParamsConstants.COINCHANGEGOLD;
 import static com.longyan.distribution.constants.SystemParamsConstants.INVITECOMMONBECOMEVIPCOIN;
 
-@RestController
+@RestController("systemParamsManagementController")
 @RequestMapping(value = "/management/systemParams")
 @UserLoginRequired
 public class SystemParamsController {

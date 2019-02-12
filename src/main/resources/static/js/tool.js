@@ -260,6 +260,42 @@ var customerModule = {
         };
         showResult(settings);
     },
+    exchangeGold: function () {
+        var settings = {
+            type: "PUT",
+            url: "/api/coinRecord/exchangeGold",
+            dataType: "json",
+            data: JSON.stringify({
+                "amount": $("#customer-a-exchangeGold-amount").val(),
+                "paymentPassword": $("#customer-a-exchangeGold-paymentPassword").val()
+            })
+        };
+        showResult(settings);
+    },
+    exchangeOilDrill: function () {
+        var settings = {
+            type: "PUT",
+            url: "/api/coinRecord/exchangeOilDrill",
+            dataType: "json",
+            data: JSON.stringify({
+                "amount": $("#customer-a-exchangeOilDrill-amount").val(),
+                "paymentPassword": $("#customer-a-exchangeOilDrill-paymentPassword").val()
+            })
+        };
+        showResult(settings);
+    },
+    coinWithdraw: function () {
+        var settings = {
+            type: "POST",
+            url: "/api/coinRecord/coinWithdraw",
+            dataType: "json",
+            data: JSON.stringify({
+                "amount": $("#customer-a-coinWithdraw-amount").val(),
+                "paymentPassword": $("#customer-a-coinWithdraw-paymentPassword").val()
+            })
+        };
+        showResult(settings);
+    },
 };
 
 var businessModule = {
@@ -823,7 +859,7 @@ var customerMaModule= {
     addReduceGold: function () {
         var settings = {
             type: "POST",
-            url: "management/goldRecord/customerAddReduceGold",
+            url: "/management/goldRecord/customerAddReduceGold",
             dataType: "json",
             data: JSON.stringify({
                 "id": $("#customer-m-addReduceGold-id").val(),
@@ -1006,6 +1042,16 @@ var coinRecordMaModule= {
                 "refuseReason": $("#coinRecord-m-resetStatus-refuseReason").val(),
                 "applyCount": $("#coinRecord-m-resetStatus-applyCount").val()
             })
+        };
+        showResult(settings);
+    },
+};
+var systemApiParamsModule= {
+    list: function () {
+        var settings = {
+            type: "GET",
+            url: "/api/systemParams/list",
+            dataType: "json"
         };
         showResult(settings);
     },

@@ -112,7 +112,7 @@ public class CoinRecordController {
             coinRecordService.updateStatus(coinRecord);
             customer.setBusinessOilDrill(form.getApplyCount());
             int status= customerService.updateReduceCustomerCoin(customer);
-            if(Objects.equals(status,REDUCEFAIL)){
+            if(Objects.equals(status,REDUCE_FAIL)){
                 throw new InvalidRequestException("reduceError","The amount of oilDrill to be reduced is greater than the user's oilDrill");
             }
         }
