@@ -149,6 +149,15 @@
                                 value="10"/><br>
                 <input type="button" value="列表" onclick="customerModule.goldRecordList()"/><br>
             </div>
+            <div>
+                <strong>[油钻收支记录]</strong><br/>
+                startIndex:<input class="textbox" type="text" id="customer-a-oilDrillRecordList-startIndex"
+                                  style="width: 100px;"
+                                  value="0"/>
+                pageSize:<input class="textbox" type="text" id="customer-a-oilDrillRecordList-pageSize" style="width: 100px;"
+                                value="10"/><br>
+                <input type="button" value="列表" onclick="customerModule.oilDrillRecordList()"/><br>
+            </div>
         </div>
         <div style="float: left; width: 400px;">
             <h2>商户(business)</h2>

@@ -61,6 +61,9 @@
         <if test="businessId!=null">
             and `businessId` = #{businessId}
         </if>
+        <if test="customerId!=null">
+            and `customerId` = #{customerId}
+        </if>
         <if test="type!=null">
             and `type` = #{type}
         </if>
@@ -76,6 +79,9 @@
         select count(*) from `oil_drill_record` where `valid` = 1
         <if test="businessId!=null">
             and `businessId` = #{businessId}
+        </if>
+        <if test="customerId!=null">
+            and `customerId` = #{customerId}
         </if>
         <if test="type!=null">
             and `type` = #{type}
@@ -107,7 +113,9 @@
         `businessAccount`,
         `customerPhone`,
         `createBy`,
+        <if test="status!=null">
         `status`,
+        </if>
         `type`
         )
         values
@@ -119,7 +127,9 @@
         #{businessAccount},
         #{customerPhone},
         #{createBy},
+        <if test="status!=null">
         #{status},
+        </if>
         #{type}
         )
     </insert>

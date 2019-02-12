@@ -320,6 +320,18 @@ var customerModule = {
         };
         showResult(settings);
     },
+    oilDrillRecordList: function () {
+        var settings = {
+            type: "POST",
+            url: "/api/oilDrillRecord/oilDrillRecordList",
+            dataType: "json",
+            data: JSON.stringify({
+                "pageIndex": $("#customer-a-oilDrillRecordList-startIndex").val(),
+                "pageSize": $("#customer-a-oilDrillRecordList-pageSize").val()
+            })
+        };
+        showResult(settings);
+    },
 };
 
 var businessModule = {

@@ -20,7 +20,6 @@ public class OilDrillRecord {
     private Date createTime;
     @JsonSerialize(using = SimpleDateTimeSerializer.class)
     private Date updateTime;
-    @JsonSerialize(using = SimpleDateTimeSerializer.class)
     private Integer createBy;
     @JsonIgnore
     private Integer updateBy;
