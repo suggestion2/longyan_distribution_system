@@ -189,7 +189,7 @@ public class CustomerController {
                     customerService.updateLevel(parentCustomer);
                 }
                 //判断是否有上上级
-                if (!Objects.equals(customer.getParentId(), NOTSUPERPARENT)) {
+                if (!Objects.equals(customer.getSuperParentId(), NOTSUPERPARENT)) {
                     Customer superParentCustomer = customerService.getById(customer.getSuperParentId());
                     //判断上上级是不是合伙人
                     if (Objects.equals(superParentCustomer.getLevel(), CUSTOPMERTHREELEVEL)) {
