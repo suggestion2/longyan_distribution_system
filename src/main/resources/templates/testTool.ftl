@@ -140,6 +140,15 @@
                                 value="10"/><br>
                 <input type="button" value="列表" onclick="customerModule.coinRecordList()"/><br>
             </div>
+            <div>
+                <strong>[金币收支记录]</strong><br/>
+                startIndex:<input class="textbox" type="text" id="customer-a-goldRecordList-startIndex"
+                                  style="width: 100px;"
+                                  value="0"/>
+                pageSize:<input class="textbox" type="text" id="customer-a-goldRecordList-pageSize" style="width: 100px;"
+                                value="10"/><br>
+                <input type="button" value="列表" onclick="customerModule.goldRecordList()"/><br>
+            </div>
         </div>
         <div style="float: left; width: 400px;">
             <h2>商户(business)</h2>

@@ -62,6 +62,9 @@
         <if test="businessId!=null">
             and `businessId` = #{businessId}
         </if>
+        <if test="customerId!=null">
+            and `customerId` = #{customerId}
+        </if>
         <if test="type!=null">
             and `type` = #{type}
         </if>
@@ -84,6 +87,9 @@
         <if test="type!=null">
             and `type` = #{type}
         </if>
+        <if test="customerId!=null">
+            and `customerId` = #{customerId}
+        </if>
         <if test="phone!=null">
             and (`customerPhone` like concat ('%',#{phone},'%'))
         </if>
@@ -102,7 +108,9 @@
         `businessAccount`,
         `customerPhone`,
         `createBy`,
+        <if test="status!=null">
         `status`,
+        </if>
         `type`
         )
         values
@@ -114,7 +122,9 @@
         #{businessAccount},
         #{customerPhone},
         #{createBy},
+        <if test="status!=null">
         #{status},
+        </if>
         #{type}
         )
     </insert>

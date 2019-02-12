@@ -308,6 +308,18 @@ var customerModule = {
         };
         showResult(settings);
     },
+    goldRecordList: function () {
+        var settings = {
+            type: "POST",
+            url: "/api/goldRecord/goldRecordList",
+            dataType: "json",
+            data: JSON.stringify({
+                "pageIndex": $("#customer-a-goldRecordList-startIndex").val(),
+                "pageSize": $("#customer-a-goldRecordList-pageSize").val()
+            })
+        };
+        showResult(settings);
+    },
 };
 
 var businessModule = {
