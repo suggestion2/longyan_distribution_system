@@ -72,6 +72,9 @@
         <if test="type!=null">
             and `type` = #{type}
         </if>
+        <if test="customerId!=null">
+            and `customerId` = #{customerId}
+        </if>
         <if test="phone!=null">
             and (`customerPhone` like concat ('%',#{phone},'%'))
         </if>
@@ -84,6 +87,9 @@
         select count(*) from `coin_record` where `valid` = 1
         <if test="type!=null">
             and `type` = #{type}
+        </if>
+        <if test="customerId!=null">
+            and `customerId` = #{customerId}
         </if>
         <if test="phone!=null">
             and (`customerPhone` like concat ('%',#{phone},'%'))

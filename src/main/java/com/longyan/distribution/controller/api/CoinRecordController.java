@@ -1,5 +1,6 @@
 package com.longyan.distribution.controller.api;
 
+import com.longyan.distribution.constants.OilDrillConstants;
 import com.longyan.distribution.context.SessionContext;
 import com.longyan.distribution.domain.Customer;
 import com.longyan.distribution.domain.GoldRecord;
@@ -7,6 +8,7 @@ import com.longyan.distribution.interceptor.BusinessRequired;
 import com.longyan.distribution.interceptor.CustomerLoginRequired;
 import com.longyan.distribution.request.*;
 import com.longyan.distribution.response.GoldRecordListView;
+import com.longyan.distribution.response.OilDrillRecordListView;
 import com.longyan.distribution.service.CustomerService;
 import com.longyan.distribution.service.SystemParamsService;
 import com.sug.core.platform.crypto.MD5;
@@ -61,6 +63,13 @@ public class CoinRecordController {
     @RequestMapping(value = LIST,method = RequestMethod.POST)
     public CoinRecordListView list(@Valid @RequestBody CoinRecordListForm form){
         return new CoinRecordListView(coinRecordService.selectList(form.getQueryMap()));
+    }
+    //钢镚收支记录
+    @RequestMapping(value = "/coinRecordList",method = RequestMethod.POST)
+    public CoinRecordListView coinRecordList(@Valid @RequestBody PaginationForm form){
+        Map<String,Object> query = form.getQueryMap();
+        query.put("customerId",sessionContext.getCustomerId());
+        return new CoinRecordListView(coinRecordService.selectList(query),coinRecordService.selectCount(query));
     }
 
     @RequestMapping(value = "/exchangeGold",method = RequestMethod.PUT)

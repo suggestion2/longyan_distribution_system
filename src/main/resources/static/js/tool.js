@@ -296,6 +296,18 @@ var customerModule = {
         };
         showResult(settings);
     },
+    coinRecordList: function () {
+        var settings = {
+            type: "POST",
+            url: "/api/coinRecord/coinRecordList",
+            dataType: "json",
+            data: JSON.stringify({
+                "pageIndex": $("#customer-a-coinRecordList-startIndex").val(),
+                "pageSize": $("#customer-a-coinRecordList-pageSize").val()
+            })
+        };
+        showResult(settings);
+    },
 };
 
 var businessModule = {
