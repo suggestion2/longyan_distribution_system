@@ -88,6 +88,11 @@ public class CustomerServiceImpl implements CustomerService{
     }
 
     @Override
+    public int updateBusinessApplication(Customer customer) {
+        return customerMapper.updateBusinessApplication(customer);
+    }
+
+    @Override
     public int updateLevel(Customer customer){
         return customerMapper.updateLevel(customer);
     }

@@ -611,7 +611,8 @@ var goodsModule= {
     },
     imageManagement: function () {
         var formData = new FormData();
-        formData.append('file', $('#goods-m-image-fileName')[0].files[0]);
+        formData.append('file', $('#goods-m-image-file')[0].files[0]);
+        formData.append('fileName', $('#goods-m-image-fileName').val());
         $.ajax({
             url: '/management/goods/upload',
             type: 'POST',
@@ -620,6 +621,21 @@ var goodsModule= {
             processData: false,
             contentType: false
         })
+    },
+    imageGetM: function () {
+        var url = window.location.href;
+        var arr = url.split("/");
+        var result = arr[0] + "//" + arr[2];
+        window.open(
+            result +"/management/goods/image/" + $("#goods-mG-image-fileName").val(),
+            '_blank' // <- This is what makes it open in a new window.
+        );
+        /*var settings = {
+            type: "GET",
+            url: ,
+            dataType: "json"
+        };
+        showResult(settings);*/
     }
 };
 
@@ -783,6 +799,18 @@ var customerMaModule= {
             data: JSON.stringify({
                 "id": $("#customer-m-business-id").val(),
                 "businessName": $("#customer-m-business-businessName").val()
+            })
+        };
+        showResult(settings);
+    },
+    businessVerify: function () {
+        var settings = {
+            type: "PUT",
+            url: "/management/customer/businessVerify",
+            dataType: "json",
+            data: JSON.stringify({
+                "id": $("#customer-m-businessVerify-id").val(),
+                "status": $("#customer-m-businessVerify-status").val()
             })
         };
         showResult(settings);

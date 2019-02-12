@@ -172,7 +172,13 @@
         a.businessName=#{businessName},
         a.updateBy=#{updateBy};
     </update>
-
+    
+    <update id="updateBusinessApplication" parameterType="com.longyan.distribution.domain.Customer">
+        update customer SET
+        business = #{business}
+        where id = #{id}
+    </update>
+    
     <update id="updateAddCustomerGold" parameterType="com.longyan.distribution.domain.Customer">
         update customer set
         customerGold = customerGold+#{customerGold}

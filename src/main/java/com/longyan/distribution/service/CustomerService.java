@@ -34,6 +34,8 @@ public interface CustomerService {
 
     int updateBusiness(Customer customer);
 
+    int updateBusinessApplication(Customer customer);
+
     int updateLevel(Customer customer);
 
     int updateAddCustomerGold(Customer customer);

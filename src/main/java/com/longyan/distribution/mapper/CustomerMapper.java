@@ -29,6 +29,8 @@ public interface CustomerMapper {
 
     int updateBusiness(Customer customer);
 
+    int updateBusinessApplication(Customer customer);
+
     int updateAddCustomerGold(Customer customer);
 
     int updateAddCustomerCoin(Customer customer);

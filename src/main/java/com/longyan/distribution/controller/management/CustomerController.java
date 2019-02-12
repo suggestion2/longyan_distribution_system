@@ -271,4 +271,24 @@ public class CustomerController {
         customerService.updatePaymentPassword(customer);
         return new ResponseView();
     }
+
+    @RequestMapping(value = "/verifyBusiness", method = RequestMethod.PUT)
+    public ResponseView verifyBusiness(@Valid @RequestBody VerifyBusinessForm form) {
+        Customer customer = customerService.getById(form.getId());
+        if (Objects.isNull(customer)) {
+            throw new ResourceNotFoundException("customer not exists");
+        }
+        if (!customer.getBusiness().equals(BUSINESSAPPLICATION)) {
+            throw new InvalidRequestException("invalidBusinessApplication", "not application status");
+        }
+        if (!form.getStatus().equals(BUSINESS) && !form.getStatus().equals(CUSTOMER)) {
+            throw new InvalidRequestException("invalidStatus", "invalid status");
+        }
+
+        customer.setBusiness(form.getStatus());
+        customer.setUpdateBy(sessionContext.getUser().getId());
+        customerService.updateBusinessApplication(customer);
+
+        return new ResponseView();
+    }
 }
