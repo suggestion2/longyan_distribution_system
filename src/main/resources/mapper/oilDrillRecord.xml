@@ -30,7 +30,7 @@
 
     <select id="selectOilRecordAndCustomerList" resultMap="OilRecordAndCustomerList" parameterType="java.util.Map">
         select
-        a.`id` as OilDrillRecord_id,
+        a.`id` as OilDrillRecor d_id,
         a.`amount` as OilDrillRecord_amount,
         a.`createTime` as OilDrillRecord_createTime,
         a.`status` as OilDrillRecord_status,
@@ -39,6 +39,7 @@
         b.`id` as customer_id,
         b.`phone`,
         b.`businessName`,
+        b.`businessAccount`,
         b.`businessOilDrill`
         from `oil_drill_record` a LEFT join customer b on a.businessId = b.id  where a.`valid` = 1 and b.valid = 1
         <if test="type!=null">

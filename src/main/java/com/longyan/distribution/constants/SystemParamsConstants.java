@@ -22,38 +22,42 @@ public class SystemParamsConstants {
     public static final String COINCASH = "COINCASH";//钢镚提现手续费费率
     public static final String BUSINESSGOLDCASH = "BUSINESSGOLDCASH";//商户金币提现手续费费率
     public static final String BUSINESSOILDRILLCASH = "BUSINESSOILDRILLCASH";//商户油钻提现手续费费率
-    public static final String COINCHANGEGOLD= "/4";//钢镚转金币手续费费率
+    public static final String COINCHANGEGOLD= "COINCHANGEGOLD";//钢镚转金币手续费费率
     public static final String COINCHANGEOIL = "/5";//钢镚转油钻的手续费费率
     public static final String OILPRICE = "/6";//当日油价,展示在前台页面，仅做展示
     public static final String INVITECOMMONBECOMEVIPCOIN = "INVITECOMMONBECOMEVIPCOIN";//合伙人或VIP邀请普通会员,普通会员升级vip，vip获得的钢镚百分比
     public static final String INVITEVIPINVITECOMMONCOIN = "INVITEVIPINVITECOMMONCOIN";//合伙人邀请vip，vip邀请普通会员,普通会员升级vip，合伙人获得的钢蹦百分比
     public static final String VIPCARD = "VIPCARD";//vip会员卡
 
-    public static final String VIPINVITECOIN_REGEX = "^[A-Z]*$";//VIP邀请获得的钢镚百分比
-    public static final String INVITEVIPCOIN_REGEX = "/create";//合伙人邀请VIP获得的钢镚百分比
-    public static final String INVITEVIPRECHARGEGOLDCOIN_REGEX = "INVITEVIPRECHARGEGOLDCOIN";//合伙人邀请VIP,vip充值金币，合伙人获得的钢镚百分比
-    public static final String INVITEVIPRECHARGEOILCOIN_REGEX = "INVITEVIPRECHARGEOILCOIN";//合伙人邀请VIP,vip充值油钻，合伙人获得的钢镚百分比
-    public static final String VIPINVITECOMMONRECHARGEGOLDCOIN_REGEX = "VIPINVITECOMMONRECHARGEGOLDCOIN";//VIP邀请普通会员,普通会员充值金币，vip获得的钢镚百分比
-    public static final String VIPINVITECOMMONRECHARGEOILCOIN_REGEX = "VIPINVITECOMMONRECHARGEOILCOIN";//VIP邀请普通会员,普通会员充值油钻，vip获得的钢镚百分比
-    public static final String COMMONGOLDCHARGE_REGEX  = "COMMONGOLDCHARGE";//普通会员充值金币的充值折扣
-    public static final String VIPREGOLDCHARGE_REGEX  = "VIPREGOLDCHARGE";//VIP充值金币的充值折扣
-    public static final String PARTNEGOLDRRECHARGE_REGEX = "PARTNEGOLDRRECHARGE";//合伙人充值金币的充值折扣
-    public static final String COMMONOILCHARGE_REGEX  = "COMMONOILCHARGE";//普通会员充值油钻的充值折扣
-    public static final String VIPREOILCHARGE_REGEX  = "VIPREOILCHARGE";//VIP充值油钻的充值折扣
-    public static final String PARTNEOILRRECHARGE_REGEX = "PARTNEOILRRECHARGE";//合伙人充值油钻的充值折扣
-    public static final String VIPINVITENUM_REGEX = "/1";//VIP邀请x人升级为合伙人
-    public static final String COINCASH_REGEX = "/2";//钢镚提现手续费费率
-    public static final String BUSINESSGOLDCASH_REGEX = "/3";//商户金币提现手续费费率
-    public static final String COINCHANGEGOLD_REGEX= "/4";//钢镚转金币手续费费率
-    public static final String COINCHANGEOIL_REGEX = "/5";//钢镚转油钻的手续费费率
+    public static final String VIPINVITECOIN_REGEX = "^[0-9]+(\\.[0-9]{1,2})?$";//VIP邀请获得的钢镚百分比
+    public static final String INVITEVIPCOIN_REGEX = "^[0-9]+(\\.[0-9]{1,2})?$";//合伙人邀请VIP获得的钢镚百分比
+    public static final String INVITEVIPRECHARGEGOLDCOIN_REGEX = "^[0-9]+(\\.[0-9]{1,2})?$";//合伙人邀请VIP,vip充值金币，合伙人获得的钢镚百分比
+    public static final String INVITEVIPRECHARGEOILCOIN_REGEX = "^[0-9]+(\\.[0-9]{1,2})?$";//合伙人邀请VIP,vip充值油钻，合伙人获得的钢镚百分比
+    public static final String VIPINVITECOMMONRECHARGEGOLDCOIN_REGEX = "^[0-9]+(\\.[0-9]{1,2})?$";//VIP邀请普通会员,普通会员充值金币，vip获得的钢镚百分比
+    public static final String VIPINVITECOMMONRECHARGEOILCOIN_REGEX = "^[0-9]+(\\.[0-9]{1,2})?$";//VIP邀请普通会员,普通会员充值油钻，vip获得的钢镚百分比
+    public static final String COMMONGOLDCHARGE_REGEX  = "^[0-9]+(\\.[0-9]{1,2})?$";//普通会员充值金币的充值折扣
+    public static final String VIPREGOLDCHARGE_REGEX  = "^[0-9]+(\\.[0-9]{1,2})?$";//VIP充值金币的充值折扣
+    public static final String PARTNEGOLDRRECHARGE_REGEX = "^[0-9]+(\\.[0-9]{1,2})?$";//合伙人充值金币的充值折扣
+    public static final String COMMONOILCHARGE_REGEX  = "^[0-9]+(\\.[0-9]{1,2})?$";//普通会员充值油钻的充值折扣
+    public static final String VIPREOILCHARGE_REGEX  = "^[0-9]+(\\.[0-9]{1,2})?$";//VIP充值油钻的充值折扣
+    public static final String PARTNEOILRRECHARGE_REGEX = "^[0-9]+(\\.[0-9]{1,2})?$";//合伙人充值油钻的充值折扣
+    public static final String VIPINVITENUM_REGEX = "^[0-9]+(\\.[0-9]{1,2})?$";//VIP邀请x人升级为合伙人
+    public static final String COINCASH_REGEX = "^[0-9]+(\\.[0-9]{1,2})?$";//钢镚提现手续费费率
+    public static final String BUSINESSGOLDCASH_REGEX = "^[0-9]+(\\.[0-9]{1,2})?$";//商户金币提现手续费费率
+    public static final String COINCHANGEGOLD_REGEX= "^[0-9]+(\\.[0-9]{1,2})?$";//钢镚转金币手续费费率
+    public static final String COINCHANGEOIL_REGEX = "^[0-9]+(\\.[0-9]{1,2})?$";//钢镚转油钻的手续费费率
     public static final String OILPRICE_REGEX = "/6";//当日油价,展示在前台页面，仅做展示
-    public static final String INVITECOMMONBECOMEVIPCOIN_REGEX = "INVITECOMMONBECOMEVIPCOIN";//合伙人或VIP邀请普通会员,普通会员升级vip，vip获得的钢镚百分比
-    public static final String INVITEVIPINVITECOMMONCOIN_REGEX = "INVITEVIPINVITECOMMONCOIN";//合伙人邀请vip，vip邀请普通会员,普通会员升级vip，合伙人获得的钢蹦百分比
+    public static final String INVITECOMMONBECOMEVIPCOIN_REGEX = "^[0-9]+(\\.[0-9]{1,2})?$";//合伙人或VIP邀请普通会员,普通会员升级vip，vip获得的钢镚百分比
+    public static final String INVITEVIPINVITECOMMONCOIN_REGEX = "^[0-9]+(\\.[0-9]{1,2})?$";//合伙人邀请vip，vip邀请普通会员,普通会员升级vip，合伙人获得的钢蹦百分比
+    public static final String VIPCARD_REGEX = "^[0-9]*$";//vip会员卡
+
 
     public static boolean matches(String key,String value){
         switch (key){
             case VIPINVITECOIN:
                 return Pattern.matches(VIPINVITECOIN_REGEX,value);
+            case VIPCARD:
+                return Pattern.matches(VIPCARD_REGEX,value);
             case INVITEVIPCOIN:
                 return Pattern.matches(INVITEVIPCOIN_REGEX,value);
             case INVITEVIPRECHARGEGOLDCOIN:

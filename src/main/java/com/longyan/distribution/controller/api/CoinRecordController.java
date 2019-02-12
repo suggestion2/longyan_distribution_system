@@ -21,7 +21,7 @@ import java.util.Objects;
 import static com.longyan.distribution.constants.CommonConstants.*;
 
 @RestController("CoinRecordApiController")
-@RequestMapping(value = "/coinRecord")
+@RequestMapping(value = "/api/coinRecord")
 public class CoinRecordController {
 
     private static final Logger logger = LoggerFactory.getLogger(CoinRecordController.class);
@@ -33,6 +33,9 @@ public class CoinRecordController {
     public CoinRecordListView list(@Valid @RequestBody CoinRecordListForm form){
         return new CoinRecordListView(coinRecordService.selectList(form.getQueryMap()));
     }
+
+
+
 
     @RequestMapping(value = DETAIL,method = RequestMethod.GET)
     public CoinRecord detail(@PathVariable Integer id){

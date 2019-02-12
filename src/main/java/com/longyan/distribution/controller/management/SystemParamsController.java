@@ -3,6 +3,7 @@ package com.longyan.distribution.controller.management;
 import com.longyan.distribution.constants.SystemParamsConstants;
 import com.longyan.distribution.context.SessionContext;
 import com.longyan.distribution.interceptor.UserLoginRequired;
+import com.longyan.distribution.request.SystemParmasGetForm;
 import com.sug.core.platform.exception.ResourceNotFoundException;
 import com.sug.core.platform.web.rest.exception.InvalidRequestException;
 import com.sug.core.rest.view.ResponseView;
@@ -19,9 +20,12 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+import java.util.Collections;
 import java.util.Objects;
 
 import static com.longyan.distribution.constants.CommonConstants.*;
+import static com.longyan.distribution.constants.SystemParamsConstants.COINCHANGEGOLD;
+import static com.longyan.distribution.constants.SystemParamsConstants.INVITECOMMONBECOMEVIPCOIN;
 
 @RestController
 @RequestMapping(value = "/management/systemParams")
@@ -55,4 +59,6 @@ public class SystemParamsController {
         systemParamsService.update(systemParams);
         return new ResponseView();
     }
+
+
 }

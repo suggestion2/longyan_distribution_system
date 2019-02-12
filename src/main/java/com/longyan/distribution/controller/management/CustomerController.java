@@ -56,15 +56,10 @@ public class CustomerController {
     private SessionContext sessionContext;
 
     @Autowired
-    private GoodsService goodsService;
-
-    @Autowired
     private SystemParamsService systemParamsService;
 
     @Autowired
     private CoinRecordService coinRecordService;
-
-
 
 
     @RequestMapping(value = LIST,method = RequestMethod.POST)
@@ -89,6 +84,9 @@ public class CustomerController {
         Customer customer = customerService.getById(id);
         if (Objects.isNull(customer)) {
             throw new ResourceNotFoundException("customer not exists");
+        }
+        if(Objects.equals(customer.getParentId(),NOTPARENT)){
+            throw new ResourceNotFoundException("customer not parent");
         }
         return customerService.getById(customer.getParentId());
     }

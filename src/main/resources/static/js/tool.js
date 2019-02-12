@@ -430,7 +430,7 @@ var systemParamsModule= {
             })
         };
         showResult(settings);
-    }
+    },
 };
 
 var goodsCategoryModule= {
@@ -608,6 +608,18 @@ var goodsModule= {
             dataType: "json"
         };
         showResult(settings);
+    },
+    imageManagement: function () {
+        var formData = new FormData();
+        formData.append('file', $('#goods-m-image-fileName')[0].files[0]);
+        $.ajax({
+            url: '/management/goods/upload',
+            type: 'POST',
+            cache: false,
+            data: formData,
+            processData: false,
+            contentType: false
+        })
     }
 };
 
