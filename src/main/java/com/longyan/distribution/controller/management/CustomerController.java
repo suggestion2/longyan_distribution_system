@@ -56,9 +56,6 @@ public class CustomerController {
     private SessionContext sessionContext;
 
     @Autowired
-    private GoodsService goodsService;
-
-    @Autowired
     private SystemParamsService systemParamsService;
 
     @Autowired

@@ -40,6 +40,7 @@
         b.`id` as customer_id,
         b.`phone`,
         b.`businessName`,
+        b.`businessAccount`,
         b.`businessGold`
         from `gold_record` a LEFT join customer b on a.businessId = b.id  where a.`valid` = 1 and b.valid = 1
         <if test="type!=null">

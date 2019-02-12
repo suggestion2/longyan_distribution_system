@@ -143,6 +143,10 @@ public class CustomerController {
     @CustomerLoginRequired
     public ResponseView businessApplication(@Valid @RequestBody BusinessApplicationForm form){
         Customer customer = sessionContext.getCustomer();
+        //如果不是合伙人不让申请成为商户
+        if(!Objects.equals(customer.getLevel(),CUSTOPMERTWOLEVEL)){
+            throw new InvalidRequestException("invalidLevel","invalid level");
+        }
         BeanUtils.copyProperties(form,customer);
         customer.setBusiness(BUSINESSAPPLICATION);
         customerService.update(customer);

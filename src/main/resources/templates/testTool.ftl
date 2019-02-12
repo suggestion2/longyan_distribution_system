@@ -438,6 +438,7 @@
                 price:<input class="textbox" type="text" id="goods-create-price" style="width: 100px;"
                              value=""/><br>
                 <input type="button" value="创建" onclick="goodsModule.create()"/><br>
+
             </div>
             <div>
                 <strong>[修改]</strong><br/>
@@ -472,6 +473,12 @@
                 id:<input class="textbox" type="text" id="goods-delete-id" style="width: 100px;"
                           value=""/>
                 <input type="button" value="删除" onclick="goodsModule.deleteById()"/><br>
+            </div>
+            <div>
+                <strong>[图片]</strong><br/>
+                id:<input class="textbox" type="file" id="goods-m-image-fileName" accept="image/png, image/jpeg" style="width: 100px;"
+                          value="1.jpg"/>
+                <input type="button" value="图片" onclick="goodsModule.imageManagement()"/><br>
             </div>
         </div>
         <div style="float: left; width: 400px;">
