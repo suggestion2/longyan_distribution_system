@@ -59,11 +59,19 @@ public interface CustomerMapper {
 
     int subtractBusinessGold(TransferParams transferParams);
 
+    int addBusinessGold(TransferParams transferParams);
+
     int addCustomerGold(TransferParams transferParams);
+
+    int subtractCustomerGold(TransferParams transferParams);
 
     int subtractBusinessOilDrill(TransferParams transferParams);
 
     int addCustomerOilDrill(TransferParams transferParams);
+
+    int addBusinessOilDrill(TransferParams transferParams);
+
+    int subtractCustomerOilDrill(TransferParams transferParams);
 
     int deleteById(Integer id);
 }

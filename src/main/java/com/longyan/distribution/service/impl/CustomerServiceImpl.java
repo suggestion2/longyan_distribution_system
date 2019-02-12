@@ -163,6 +163,16 @@ public class CustomerServiceImpl implements CustomerService{
     }
 
     @Override
+    public int addBusinessGold(TransferParams transferParams) {
+        return customerMapper.addBusinessGold(transferParams);
+    }
+
+    @Override
+    public int subtractCustomerGold(TransferParams transferParams) {
+        return customerMapper.subtractCustomerGold(transferParams);
+    }
+
+    @Override
     public int addCustomerGold(TransferParams transferParams) {
         return customerMapper.addCustomerGold(transferParams);
     }
@@ -171,10 +181,19 @@ public class CustomerServiceImpl implements CustomerService{
     public int subtractBusinessOilDrill(TransferParams transferParams) {
         return customerMapper.subtractBusinessOilDrill(transferParams);
     }
-
     @Override
     public int addCustomerOilDrill(TransferParams transferParams) {
         return customerMapper.addCustomerOilDrill(transferParams);
+    }
+
+    @Override
+    public int addBusinessOilDrill(TransferParams transferParams) {
+        return customerMapper.addBusinessOilDrill(transferParams);
+    }
+
+    @Override
+    public int subtractCustomerOilDrill(TransferParams transferParams) {
+        return customerMapper.subtractCustomerOilDrill(transferParams);
     }
 
     @Override

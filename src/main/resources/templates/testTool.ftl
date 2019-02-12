@@ -150,6 +150,18 @@
                 <input type="button" value="列表" onclick="customerModule.goldRecordList()"/><br>
             </div>
             <div>
+                <strong>[金币转账]</strong><br/>
+                businessId:<input class="textbox" type="text" id="customer-a-goldTransfer-customerId"
+                                  style="width: 100px;"
+                                  value=""/><br>
+                amount:<input class="textbox" type="text" id="customer-a-goldTransfer-amount"
+                              style="width: 100px;"
+                              value=""/>
+                paymentPassword:<input class="textbox" type="text" id="customer-a-goldTransfer-paymentPassword" style="width: 100px;"
+                                       value=""/><br>
+                <input type="button" value="转账" onclick="customerModule.goldTransfer()"/><br>
+            </div>
+            <div>
                 <strong>[油钻收支记录]</strong><br/>
                 startIndex:<input class="textbox" type="text" id="customer-a-oilDrillRecordList-startIndex"
                                   style="width: 100px;"
@@ -157,6 +169,18 @@
                 pageSize:<input class="textbox" type="text" id="customer-a-oilDrillRecordList-pageSize" style="width: 100px;"
                                 value="10"/><br>
                 <input type="button" value="列表" onclick="customerModule.oilDrillRecordList()"/><br>
+            </div>
+            <div>
+                <strong>[油钻转账]</strong><br/>
+                businessId:<input class="textbox" type="text" id="customer-a-oilDrillTransfer-customerId"
+                                  style="width: 100px;"
+                                  value=""/><br>
+                amount:<input class="textbox" type="text" id="customer-a-oilDrillTransfer-amount"
+                              style="width: 100px;"
+                              value=""/>
+                paymentPassword:<input class="textbox" type="text" id="customer-a-oilDrillTransfer-paymentPassword" style="width: 100px;"
+                                       value=""/><br>
+                <input type="button" value="转账" onclick="customerModule.oilDrillTransfer()"/><br>
             </div>
         </div>
         <div style="float: left; width: 400px;">

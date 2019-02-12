@@ -332,6 +332,33 @@ var customerModule = {
         };
         showResult(settings);
     },
+    oilDrillTransfer: function () {
+        var settings = {
+            type: "POST",
+            url: "/api/customer/oilDrillTransfer",
+            dataType: "json",
+            data: JSON.stringify({
+                "businessId": $("#customer-a-oilDrillTransfer-customerId").val(),
+                "amount": $("#customer-a-oilDrillTransfer-amount").val(),
+                "paymentPassword": $("#customer-a-oilDrillTransfer-paymentPassword").val()
+            })
+        };
+        showResult(settings);
+    },
+    goldTransfer: function () {
+        var settings = {
+            type: "POST",
+            url: "/api/customer/goldTransfer",
+            dataType: "json",
+            data: JSON.stringify({
+                "businessId": $("#customer-a-goldTransfer-customerId").val(),
+                "amount": $("#customer-a-goldTransfer-amount").val(),
+                "paymentPassword": $("#customer-a-goldTransfer-paymentPassword").val()
+            })
+        };
+        showResult(settings);
+    },
+
 };
 
 var businessModule = {

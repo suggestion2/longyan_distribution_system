@@ -258,6 +258,20 @@
         `updateTime` = now()
         where `id` = #{id} and businessGold &gt;= #{amount}
     </update>
+
+    <update id="addBusinessGold" parameterType="com.longyan.distribution.mapper.TransferParams">
+        update `customer` set
+        `businessGold` = businessGold + #{amount},
+        `updateTime` = now()
+        where `id` = #{id}
+    </update>
+
+    <update id="subtractCustomerGold" parameterType="com.longyan.distribution.mapper.TransferParams">
+        update `customer` set
+        `customerGold` = customerGold - #{amount},
+        `updateTime` = now()
+        where `id` = #{id} and customerGold &gt;= #{amount}
+    </update>
     
     <update id="addCustomerGold" parameterType="com.longyan.distribution.mapper.TransferParams">
         update `customer` set
@@ -272,15 +286,30 @@
         `updateTime` = now()
         where `id` = #{id} and businessOilDrill &gt;= #{amount}
     </update>
-    
+
+
+    <update id="addBusinessOilDrill" parameterType="com.longyan.distribution.mapper.TransferParams">
+        update `customer` set
+        `businessOilDrill` = businessOilDrill + #{amount},
+        `updateTime` = now()
+        where `id` = #{id}
+    </update>
+
     <update id="addCustomerOilDrill" parameterType="com.longyan.distribution.mapper.TransferParams">
         update `customer` set
         `customerOilDrill` = customerOilDrill + #{amount},
         `updateTime` = now()
         where `id` = #{id}
     </update>
-    
-    
+
+    <update id="subtractCustomerOilDrill" parameterType="com.longyan.distribution.mapper.TransferParams">
+        update `customer` set
+        `customerOilDrill` = customerOilDrill - #{amount},
+        `updateTime` = now()
+        where `id` = #{id} and customerOilDrill &gt;= #{amount}
+    </update>
+
+
     <delete id="deleteById" parameterType="java.lang.Integer">
         update `customer` set valid = 0 where `id` = #{id}
     </delete>
