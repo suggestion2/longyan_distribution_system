@@ -186,10 +186,10 @@ public class OilDrillRecordController {
         //判断是增加还是减少
         if(Objects.equals(form.getType(),USERREDUCE)){
             //判断要减少的油钻是否大于用户油钻
-            if(Objects.equals(customer.getCustomerOilDrill().compareTo(amount),-1)){
+            if(Objects.equals(customer.getBusinessOilDrill().compareTo(amount),-1)){
                 throw new InvalidRequestException("reduceError","The amount of oilDrill to be reduced is greater than the user's oilDrill");
             }
-            customer.setCustomerOilDrill(amount);
+            customer.setBusinessOilDrill(amount);
             customerService.updateReduceBusinessOilDrill(customer);
             //添加减少油钻记录
             oilDrillRecord.setAmount(amount.multiply(new BigDecimal(-1)));
@@ -197,7 +197,7 @@ public class OilDrillRecordController {
             return customerService.getById(form.getId());
         }
         if(Objects.equals(form.getType(),USERADD)){
-            customer.setCustomerOilDrill(amount);
+            customer.setBusinessOilDrill(amount);
             customerService.updateAddBusinessOilDrill(customer);
             //添加增加油钻记录
             oilDrillRecord.setAmount(amount);
@@ -282,7 +282,7 @@ public class OilDrillRecordController {
         }
         //如果是后台手动添加，不是前台充值，就直接返回,不用给其他人分红
         if(Objects.equals(form.getType(), USERADD)){
-            customer.setCustomerGold(amount);
+            customer.setCustomerOilDrill(amount);
             customerService.updateAddCustomerOilDrill(customer);
             oilDrillRecord.setAmount(amount);
             oilDrillRecordService.create(oilDrillRecord);

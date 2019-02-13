@@ -83,7 +83,6 @@ public class CustomerController {
         return new CustomerListShortView(list,customerService.selectCount(query));
     }
 
-
     @RequestMapping(value = "/businessList",method = RequestMethod.POST)
     @CustomerLoginRequired
     public BusinessListView businessList(@Valid @RequestBody BusinessListForm form){
@@ -93,9 +92,10 @@ public class CustomerController {
         return new BusinessListView(customerService.selectBusinessList(query),customerService.selectCount(query));
     }
 
-    @RequestMapping(value = DETAIL,method = RequestMethod.GET)
-    public Customer detail(@PathVariable Integer id){
-        return customerService.getById(id);
+    @RequestMapping(value = CURRENT,method = RequestMethod.GET)
+    @CustomerLoginRequired
+    public Customer current(){
+        return sessionContext.getCustomer();
     }
 
     @RequestMapping(value = CREATE,method = RequestMethod.POST)
@@ -160,8 +160,11 @@ public class CustomerController {
     public ResponseView businessApplication(@Valid @RequestBody BusinessApplicationForm form){
         Customer customer = sessionContext.getCustomer();
         //如果不是合伙人不让申请成为商户
-        if(!Objects.equals(customer.getLevel(),CUSTOPMERTWOLEVEL)){
+        if(!Objects.equals(customer.getLevel(),CUSTOPMERTHREELEVEL)){
             throw new InvalidRequestException("invalidLevel","invalid level");
+        }
+        if(!Objects.equals(customer.getBusiness(),CUSTOMER)){
+            throw new InvalidRequestException("invalidBusinessStatus","invalid business status");
         }
         BeanUtils.copyProperties(form,customer);
         customer.setBusiness(BUSINESSAPPLICATION);
@@ -169,7 +172,6 @@ public class CustomerController {
         sessionContext.setCustomer(customer);
         return new ResponseView();
     }
-
 
     @RequestMapping(value = "/loginPassword", method = RequestMethod.PUT)
     @CustomerLoginRequired
@@ -201,12 +203,6 @@ public class CustomerController {
     public ResponseView logout() {
         sessionContext.logout();
         return new ResponseView();
-    }
-
-    @RequestMapping(value = "/inviteCode", method = RequestMethod.GET)
-    @CustomerLoginRequired
-    public CodeView inviteCode() {
-        return new CodeView("http://localhost:8110/testTool?id="+sessionContext.getCustomerId());
     }
 
     //金币转账

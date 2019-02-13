@@ -15,6 +15,7 @@ import com.longyan.distribution.service.GoodsService;
 import com.longyan.distribution.service.OrderItemService;
 import com.longyan.distribution.service.OrderService;
 import com.sug.core.platform.exception.ResourceNotFoundException;
+import com.sug.core.platform.web.rest.exception.InvalidRequestException;
 import com.sug.core.rest.view.ResponseView;
 import com.sug.core.util.BigDecimalUtils;
 import com.sug.core.util.SequenceNumUtils;
@@ -36,6 +37,7 @@ import static com.longyan.distribution.constants.CommonConstants.DETAIL;
 import static com.longyan.distribution.constants.CommonConstants.LIST;
 import static com.longyan.distribution.constants.GoodsConstants.ENABLE;
 import static com.longyan.distribution.constants.GoodsConstants.RECHARGE_GOODSNAME;
+import static com.longyan.distribution.constants.OrderConstants.CREATED;
 import static com.longyan.distribution.constants.OrderConstants.PAID;
 
 @RestController("orderApiController")
@@ -115,6 +117,9 @@ public class OrderController {
         Order order = orderService.getById(form.getId());
         if(Objects.isNull(order) || !order.getCustomerId().equals(customer.getId())){
             throw new ResourceNotFoundException("order not found");
+        }
+        if(!order.getStatus().equals(CREATED)){
+            throw new InvalidRequestException("invalidStatus","invalid status");
         }
 
         order.setStatus(PAID);

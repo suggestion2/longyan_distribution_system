@@ -183,6 +183,14 @@ var customerModule = {
         };
         showResult(settings);
     },
+    current: function () {
+        var settings = {
+            type: "GET",
+            url: "/api/customer/current",
+            dataType: "json"
+        };
+        showResult(settings);
+    },
     resetPayPwd: function () {
         var settings = {
             type: "PUT",
@@ -905,7 +913,7 @@ var customerMaModule= {
     businessVerify: function () {
         var settings = {
             type: "PUT",
-            url: "/management/customer/businessVerify",
+            url: "/management/customer/verifyBusiness",
             dataType: "json",
             data: JSON.stringify({
                 "id": $("#customer-m-businessVerify-id").val(),

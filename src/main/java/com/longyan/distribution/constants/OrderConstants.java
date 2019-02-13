@@ -1,5 +1,9 @@
 package com.longyan.distribution.constants;
 
 public class OrderConstants {
+    public static final int CREATED = 0;
     public static final int PAID = 1;
+
+    public static final int CANCEL = -1;
+    public static final int CONFIRM = 2;
 }

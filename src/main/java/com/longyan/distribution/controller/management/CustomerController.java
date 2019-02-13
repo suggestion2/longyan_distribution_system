@@ -84,7 +84,7 @@ public class CustomerController {
         if (Objects.isNull(customer)) {
             throw new ResourceNotFoundException("customer not exists");
         }
-        if (Objects.isNull(customer.getParentId()) || customer.getParentPhone().equals(NOTINVITE)) {
+        if (Objects.isNull(customer.getParentId()) || customer.getParentId().equals(NOTINVITE)) {
             return new Customer();
         }
         return customerService.getById(customer.getParentId());
@@ -112,7 +112,7 @@ public class CustomerController {
         if (Objects.equals(customer.getBusiness(), CUSTOMER)) {
             throw new InvalidRequestException("invalidStatus", "customer not a business");
         }
-        if (!form.getBusinessStatus().equals(ENABLE) && !form.getBusinessStatus().equals(DISABLE)) {
+        if (!form.getBusinessStatus().equals(BUSINESS_ENABLE) && !form.getBusinessStatus().equals(BUSINESS_DISABLE)) {
             throw new InvalidRequestException("invalidStatus", "invalid status");
         }
         if (!customer.getBusinessStatus().equals(form.getBusinessStatus())) {
@@ -286,6 +286,7 @@ public class CustomerController {
         }
 
         customer.setBusiness(form.getStatus());
+        customer.setBusinessStatus(form.getStatus().equals(BUSINESS) ? BUSINESS_ENABLE : BUSINESS_DISABLE);
         customer.setUpdateBy(sessionContext.getUser().getId());
         customerService.updateBusinessApplication(customer);
 

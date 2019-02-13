@@ -18,6 +18,7 @@ import com.sug.core.platform.exception.ResourceNotFoundException;
 import com.sug.core.platform.web.pagination.PaginationForm;
 import com.sug.core.platform.web.rest.exception.InvalidRequestException;
 import com.sug.core.rest.view.ResponseView;
+import com.sug.core.util.BigDecimalUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -93,7 +94,13 @@ public class BusinessController {
     public GoldRecordListView goldRecordList(@Valid @RequestBody PaginationForm form){
         Map<String,Object> query = form.getQueryMap();
         query.put("businessId",sessionContext.getCustomerId());
-        return new GoldRecordListView(goldRecordService.selectList(query),goldRecordService.selectCount(query));
+        List<GoldRecord> list = goldRecordService.selectList(query);
+        for (GoldRecord record:list){
+            if(record.getType().equals(TRANSFER)){
+                record.setAmount(BigDecimalUtils.multiply(record.getAmount(),-1));
+            }
+        }
+        return new GoldRecordListView(list,goldRecordService.selectCount(query));
     }
 
     @RequestMapping(value = "/goldWithdrawList",method = RequestMethod.POST)
@@ -186,7 +193,13 @@ public class BusinessController {
     public OilDrillRecordListView oilDrillRecordList(@Valid @RequestBody PaginationForm form){
         Map<String,Object> query = form.getQueryMap();
         query.put("businessId",sessionContext.getCustomerId());
-        return new OilDrillRecordListView(oilDrillRecordService.selectList(query),oilDrillRecordService.selectCount(query));
+        List<OilDrillRecord> list = oilDrillRecordService.selectList(query);
+        for (OilDrillRecord record:list){
+            if(record.getType().equals(TRANSFER)){
+                record.setAmount(BigDecimalUtils.multiply(record.getAmount(),-1));
+            }
+        }
+        return new OilDrillRecordListView(list,oilDrillRecordService.selectCount(query));
     }
 
     @RequestMapping(value = "/oilDrillWithdrawList",method = RequestMethod.POST)

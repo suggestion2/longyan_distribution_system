@@ -54,6 +54,10 @@
                 <input type="button" value="修改" onclick="customerModule.resetLogPwd()"/><br>
             </div>
             <div>
+                <strong>[当前用户]</strong><br/>
+                <input type="button" value="当前用户" onclick="customerModule.current()"/><br>
+            </div>
+            <div>
                 <strong>[修改支付密码]</strong><br/>
                 旧密码:<input class="textbox" type="text" id="customer-resetPayPwd-a-originPwd" style="width: 100px;"
                            value="123456"/>
@@ -76,7 +80,7 @@
                 <input type="button" value="修改" onclick="customerModule.update()"/><br>
             </div>
             <div>
-                <strong>[列表]</strong><br/>
+                <strong>[商户列表]</strong><br/>
                 商户账户或商户名称:<input class="textbox" type="text" id="customer-a-businessList-content" style="width: 100px;"
                                  value=""/>
                 startIndex:<input class="textbox" type="text" id="customer-a-businessList-startIndex"
@@ -87,7 +91,7 @@
                 <input type="button" value="列表" onclick="customerModule.businessList()"/><br>
             </div>
             <div>
-                <strong>[商户列表]</strong><br/>
+                <strong>[邀请列表]</strong><br/>
                 startIndex:<input class="textbox" type="text" id="customer-a-inviteList-startIndex"
                                   style="width: 100px;"
                                   value="0"/>
@@ -892,9 +896,8 @@
                 id:<input class="textbox" type="text" id="order-status-id" style="width: 100px;"
                                value=""/>
                 status:<select class="textbox" id="order-status-status" style="width: 100px;">
-                <option value="">all</option>
-                <option value="0">disable</option>
-                <option value="1">enable</option>
+                <option value="-1">取消</option>
+                <option value="2">确认</option>
             </select><br>
                 cancelReason(unnecessary):<input class="textbox" type="text" id="order-status-cancelReason" style="width: 100px;"
                                  value=""/><br>

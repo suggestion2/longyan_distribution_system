@@ -65,6 +65,12 @@ public class GoodsController {
             if (image == null) {
                 throw new InvalidRequestException("invalidImage","not an image");
             }
+            File localDir = new java.io.File(imagePath);
+            if(!localDir.exists()){
+                if(!localDir.mkdirs()){
+                    throw new RuntimeException("create local dir fail");
+                }
+            }
             file.transferTo(new java.io.File(imagePath + fileName));
         }
         return new ResponseView();
