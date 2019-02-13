@@ -1,6 +1,7 @@
 package com.longyan.distribution.controller.management;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.longyan.distribution.constants.OrderConstants;
 import com.longyan.distribution.context.SessionContext;
 import com.longyan.distribution.domain.OrderItem;
 import com.longyan.distribution.interceptor.UserLoginRequired;
@@ -8,6 +9,7 @@ import com.longyan.distribution.request.OrderStatusForm;
 import com.longyan.distribution.response.OrderDetailView;
 import com.longyan.distribution.service.OrderItemService;
 import com.sug.core.platform.exception.ResourceNotFoundException;
+import com.sug.core.platform.web.rest.exception.InvalidRequestException;
 import com.sug.core.rest.view.ResponseView;
 import com.sug.core.rest.view.SuccessView;
 import com.longyan.distribution.domain.Order;
@@ -26,6 +28,8 @@ import java.util.List;
 import java.util.Objects;
 
 import static com.longyan.distribution.constants.CommonConstants.*;
+import static com.longyan.distribution.constants.OrderConstants.CONFIRM;
+import static com.longyan.distribution.constants.OrderConstants.PAID;
 
 @RestController
 @RequestMapping(value = "/management/order")
@@ -63,6 +67,12 @@ public class OrderController {
         Order order = orderService.getById(form.getId());
         if(Objects.isNull(order)){
             throw new ResourceNotFoundException("order not exists");
+        }
+        if(!order.getStatus().equals(PAID)){
+            throw new InvalidRequestException("invalidOrderStatus","invalid order status");
+        }
+        if(!form.getStatus().equals(CONFIRM) && !form.getStatus().equals(OrderConstants.CANCEL)){
+            throw new InvalidRequestException("invalidStatus","invalid status");
         }
         BeanUtils.copyProperties(form,order);
         order.setRefuseReason(form.getCancelReason());
