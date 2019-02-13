@@ -713,20 +713,54 @@
             </div>
             <h2>列表</h2>
             <div>
-                <strong>[金币收支记录]</strong><br/>
+                <strong>[用户金币收支记录]</strong><br/>
+                customerId:<input class="textbox" type="text" id="customer-m-GoldList-customerId"
+                                  style="width: 100px;" value="0"/>
                 startIndex:<input class="textbox" type="text" id="customer-m-GoldList-startIndex"
                                   style="width: 100px;" value="0"/>
                 pageSize:<input class="textbox" type="text" id="customer-m-GoldList-pageSize" style="width: 100px;"
                                 value="10"/><br>
-                <input type="button" value="列表" onclick="customerMaModule.GoldList()"/><br>
+                <input type="button" value="列表" onclick="customerMaModule.customerGoldList()"/><br>
             </div>
             <div>
-                <strong>[油钻收支记录]</strong><br/>
+                <strong>[商户金币收支记录]</strong><br/>
+                businessId:<input class="textbox" type="text" id="business-m-GoldList-businessId"
+                                  style="width: 100px;" value="1"/>
+                startIndex:<input class="textbox" type="text" id="business-m-GoldList-startIndex"
+                                  style="width: 100px;" value="0"/>
+                pageSize:<input class="textbox" type="text" id="business-m-GoldList-pageSize" style="width: 100px;"
+                                value="10"/><br>
+                <input type="button" value="列表" onclick="customerMaModule.businessGoldList()"/><br>
+            </div>
+            <div>
+                <strong>[用户油钻收支记录]</strong><br/>
+                customerId:<input class="textbox" type="text" id="customer-m-oilDrillList-customerId"
+                                  style="width: 100px;" value="1"/>
                 startIndex:<input class="textbox" type="text" id="customer-m-oilDrillList-startIndex"
                                   style="width: 100px;" value="0"/>
                 pageSize:<input class="textbox" type="text" id="customer-m-oilDrillList-pageSize" style="width: 100px;"
                                 value="10"/><br>
-                <input type="button" value="列表" onclick="customerMaModule.oilDrillList()"/><br>
+                <input type="button" value="列表" onclick="customerMaModule.customerOilDrillList()"/><br>
+            </div>
+            <div>
+                <strong>[商户油钻收支记录]</strong><br/>
+                businessId:<input class="textbox" type="text" id="business-m-oilDrillList-businessId"
+                                  style="width: 100px;" value="1"/>
+                startIndex:<input class="textbox" type="text" id="business-m-oilDrillList-startIndex"
+                                  style="width: 100px;" value="0"/>
+                pageSize:<input class="textbox" type="text" id="business-m-oilDrillList-pageSize" style="width: 100px;"
+                                value="10"/><br>
+                <input type="button" value="列表" onclick="customerMaModule.businessOilDrillList()"/><br>
+            </div>
+            <div>
+                <strong>[用户钢蹦收支记录]</strong><br/>
+                customerId:<input class="textbox" type="text" id="customer-m-coinList-customerId"
+                                  style="width: 100px;" value="1"/>
+                startIndex:<input class="textbox" type="text" id="customer-m-coinList-startIndex"
+                                  style="width: 100px;" value="0"/>
+                pageSize:<input class="textbox" type="text" id="customer-m-coinList-pageSize" style="width: 100px;"
+                                value="10"/><br>
+                <input type="button" value="列表" onclick="customerMaModule.customerCoinList()"/><br>
             </div>
             <h2>升级vip</h2>
             <div>

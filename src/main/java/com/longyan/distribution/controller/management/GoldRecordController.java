@@ -60,9 +60,18 @@ public class GoldRecordController {
     @Autowired
     private SessionContext sessionContext;
 
-    @RequestMapping(value = LIST,method = RequestMethod.POST)
-    public GoldRecordListView list(@Valid @RequestBody GoldRecordListForm form){
-        return new GoldRecordListView(goldRecordService.selectList(form.getQueryMap()),goldRecordService.selectCount(form.getQueryMap()));
+    @RequestMapping(value = "/customerList",method = RequestMethod.POST)
+    public GoldRecordListView customerList(@Valid @RequestBody GoldRecordCustomerListForm form){
+        Map<String,Object> query = form.getQueryMap();
+        query.put("customerId",form.getCustomerId());
+        return new GoldRecordListView(goldRecordService.selectList(query),goldRecordService.selectCount(query));
+    }
+
+    @RequestMapping(value = "/businessList",method = RequestMethod.POST)
+    public GoldRecordListView businessList(@Valid @RequestBody GoldRecordBusinessListForm form){
+        Map<String,Object> query = form.getQueryMap();
+        query.put("businessId",form.getBusinessId());
+        return new GoldRecordListView(goldRecordService.selectList(query),goldRecordService.selectCount(query));
     }
 
     @RequestMapping(value = "cashList",method = RequestMethod.POST)

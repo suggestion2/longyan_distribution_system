@@ -128,7 +128,9 @@ public class CoinRecordController {
 
     @RequestMapping(value = LIST,method = RequestMethod.POST)
     public CoinRecordListView list(@Valid @RequestBody CoinRecordListForm form){
-        return new CoinRecordListView(coinRecordService.selectList(form.getQueryMap()));
+        Map<String,Object> query = form.getQueryMap();
+        query.put("customerId",form.getCustomerId());
+        return new CoinRecordListView(coinRecordService.selectList(query),coinRecordService.selectCount(query));
     }
 
     @RequestMapping(value = DETAIL,method = RequestMethod.GET)

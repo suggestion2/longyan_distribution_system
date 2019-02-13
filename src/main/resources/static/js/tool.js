@@ -1010,26 +1010,67 @@ var customerMaModule= {
         };
         showResult(settings);
     },
-    GoldList: function () {
+    customerGoldList: function () {
         var settings = {
             type: "POST",
-            url: "/management/goldRecord/list",
+            url: "/management/goldRecord/customerList",
             dataType: "json",
             data: JSON.stringify({
+                "customerId": $("#customer-m-GoldList-customerId").val(),
                 "pageIndex": $("#customer-m-GoldList-startIndex").val(),
                 "pageSize": $("#customer-m-GoldList-pageSize").val()
             })
         };
         showResult(settings);
     },
-    oilDrillList: function () {
+    businessGoldList: function () {
         var settings = {
             type: "POST",
-            url: "/management/oilDrillRecord/list",
+            url: "/management/goldRecord/businessList",
             dataType: "json",
             data: JSON.stringify({
+                "businessId": $("#business-m-GoldList-businessId").val(),
+                "pageIndex": $("#business-m-GoldList-startIndex").val(),
+                "pageSize": $("#business-m-GoldList-pageSize").val()
+            })
+        };
+        showResult(settings);
+    },
+    customerOilDrillList: function () {
+        var settings = {
+            type: "POST",
+            url: "/management/oilDrillRecord/customerList",
+            dataType: "json",
+            data: JSON.stringify({
+                "customerId": $("#customer-m-oilDrillList-customerId").val(),
                 "pageIndex": $("#customer-m-oilDrillList-startIndex").val(),
                 "pageSize": $("#customer-m-oilDrillList-pageSize").val()
+            })
+        };
+        showResult(settings);
+    },
+    businessOilDrillList: function () {
+        var settings = {
+            type: "POST",
+            url: "/management/oilDrillRecord/businessList",
+            dataType: "json",
+            data: JSON.stringify({
+                "businessId": $("#business-m-oilDrillList-businessId").val(),
+                "pageIndex": $("#business-m-oilDrillList-startIndex").val(),
+                "pageSize": $("#business-m-oilDrillList-pageSize").val()
+            })
+        };
+        showResult(settings);
+    },
+    customerCoinList: function () {
+        var settings = {
+            type: "POST",
+            url: "/management/coinRecord/list",
+            dataType: "json",
+            data: JSON.stringify({
+                "customerId": $("#customer-m-coinList-customerId").val(),
+                "pageIndex": $("#customer-m-coinList-startIndex").val(),
+                "pageSize": $("#customer-m-coinList-pageSize").val()
             })
         };
         showResult(settings);

@@ -4,7 +4,7 @@ import com.sug.core.platform.web.pagination.PaginationForm;
 
 import javax.validation.constraints.NotNull;
 
-public class OilDrillRecordListForm extends PaginationForm{
+public class GoldRecordCustomerListForm extends PaginationForm{
     @NotNull
     private Integer customerId;
 
@@ -15,4 +15,5 @@ public class OilDrillRecordListForm extends PaginationForm{
     public void setCustomerId(Integer customerId) {
         this.customerId = customerId;
     }
+
 }

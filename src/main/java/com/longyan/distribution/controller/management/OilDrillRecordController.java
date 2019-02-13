@@ -67,9 +67,18 @@ public class OilDrillRecordController {
     @Autowired
     private SessionContext sessionContext;
 
-    @RequestMapping(value = LIST,method = RequestMethod.POST)
-    public OilDrillRecordListView list(@Valid @RequestBody OilDrillRecordListForm form){
-        return new OilDrillRecordListView(oilDrillRecordService.selectList(form.getQueryMap()),oilDrillRecordService.selectCount(form.getQueryMap()));
+    @RequestMapping(value = "/customerList",method = RequestMethod.POST)
+    public OilDrillRecordListView customerList(@Valid @RequestBody OilDrillRecordCustomerListForm form){
+        Map<String,Object> query = form.getQueryMap();
+        query.put("customerId",form.getCustomerId());
+        return new OilDrillRecordListView(oilDrillRecordService.selectList(query),oilDrillRecordService.selectCount(query));
+    }
+
+    @RequestMapping(value = "/businessList",method = RequestMethod.POST)
+    public OilDrillRecordListView businessList(@Valid @RequestBody OilDrillRecordBusinessListForm form){
+        Map<String,Object> query = form.getQueryMap();
+        query.put("businessId",form.getBusinessId());
+        return new OilDrillRecordListView(oilDrillRecordService.selectList(query),oilDrillRecordService.selectCount(query));
     }
 
     @RequestMapping(value = DETAIL,method = RequestMethod.GET)
