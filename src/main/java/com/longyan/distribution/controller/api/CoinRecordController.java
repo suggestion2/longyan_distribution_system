@@ -112,8 +112,8 @@ public class CoinRecordController {
         goldRecord.setCustomerPhone(customer.getPhone());
         goldRecord.setCreateBy(CREATE_BY_SERVER);
         goldRecord.setType(EXCHANGE);
-        //添加减少金币记录
-        goldRecord.setAmount(form.getAmount());
+        //添加增加金币记录
+        goldRecord.setAmount(amount);
         goldRecordService.create(goldRecord);
         //钢蹦记录
         CoinRecord coinRecord = new CoinRecord();
@@ -163,8 +163,8 @@ public class CoinRecordController {
         oilDrillRecord.setCustomerPhone(customer.getPhone());
         oilDrillRecord.setCreateBy(CREATE_BY_SERVER);
         oilDrillRecord.setType(OilDrillConstants.EXCHANGE);
-        //添加减少油钻记录
-        oilDrillRecord.setAmount(form.getAmount());
+        //添加增加油钻记录
+        oilDrillRecord.setAmount(amount);
         oilDrillRecordService.create(oilDrillRecord);
         //钢蹦记录
         CoinRecord coinRecord = new CoinRecord();
@@ -197,7 +197,7 @@ public class CoinRecordController {
         coinRecord.setSourceCustomerLevel(NOT_SOURCE_CUSTOMERID);
         coinRecord.setSourceCustomerPhone(NOT_SOURCE_CUSTOMER_PHONE);
         coinRecord.setCustomerPhone(customer.getPhone());
-        coinRecord.setAmount(form.getAmount());
+        coinRecord.setAmount(form.getAmount().multiply(new BigDecimal(-1)));
         coinRecord.setType(WITHDRAW);
         //设置状态为待审核
         coinRecord.setStatus(WAITCHECK);

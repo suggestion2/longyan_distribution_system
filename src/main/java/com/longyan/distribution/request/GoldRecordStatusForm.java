@@ -8,18 +8,8 @@ public class GoldRecordStatusForm {
     private Integer id;
     @NotNull
     private Integer status;
-    @NotNull
-    private BigDecimal applyCount;//申请提现金币数
 
     private String refuseReason;
-
-    public BigDecimal getApplyCount() {
-        return applyCount;
-    }
-
-    public void setApplyCount(BigDecimal applyCount) {
-        this.applyCount = applyCount;
-    }
 
     public String getRefuseReason() {
         return refuseReason;

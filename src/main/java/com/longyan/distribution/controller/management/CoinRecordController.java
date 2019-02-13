@@ -93,7 +93,7 @@ public class CoinRecordController {
     //改变状态
     @Transactional
     @RequestMapping(value = "/resetStatus", method = RequestMethod.PUT)
-    public ResponseView resetStatus(@Valid @RequestBody OilDrillRecordStatusForm form) {
+    public ResponseView resetStatus(@Valid @RequestBody CoinRecordStatusForm form) {
         CoinRecord coinRecord = coinRecordService.getById(form.getId());
         if (Objects.isNull(coinRecord)) {
             throw new ResourceNotFoundException("oilDrill not exists");
@@ -104,13 +104,14 @@ public class CoinRecordController {
             if (Objects.isNull(customer)) {
                 throw new ResourceNotFoundException("customer not exists");
             }
+
             //判断要减少的钢镚会不会大于用户钢镚
-            if(Objects.equals(customer.getCustomerCoin().compareTo(form.getApplyCount()),-1)){
+            if(Objects.equals(customer.getCustomerCoin().compareTo(coinRecord.getAmount()),-1)){
                 throw new InvalidRequestException("coin","The amount of coin to be reduced is greater than the user's coin");
             }
             coinRecord.setStatus(PASS);
             coinRecordService.updateStatus(coinRecord);
-            customer.setBusinessOilDrill(form.getApplyCount());
+            customer.setCustomerCoin(BigDecimalUtils.multiply(coinRecord.getAmount(),-1));
             int status= customerService.updateReduceCustomerCoin(customer);
             if(Objects.equals(status,REDUCE_FAIL)){
                 throw new InvalidRequestException("reduceError","The amount of oilDrill to be reduced is greater than the user's oilDrill");

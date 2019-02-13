@@ -1,6 +1,7 @@
 package com.longyan.distribution.controller.management;
 
 import com.longyan.distribution.constants.GoldRecordConstans;
+import com.longyan.distribution.constants.OilDrillConstants;
 import com.longyan.distribution.context.SessionContext;
 import com.longyan.distribution.domain.CoinRecord;
 import com.longyan.distribution.domain.Customer;
@@ -71,7 +72,13 @@ public class GoldRecordController {
     public GoldRecordListView businessList(@Valid @RequestBody GoldRecordBusinessListForm form){
         Map<String,Object> query = form.getQueryMap();
         query.put("businessId",form.getBusinessId());
-        return new GoldRecordListView(goldRecordService.selectList(query),goldRecordService.selectCount(query));
+        List<GoldRecord> list = goldRecordService.selectList(query);
+        for (GoldRecord record:list){
+            if(record.getType().equals(OilDrillConstants.TRANSFER)){
+                record.setAmount(BigDecimalUtils.multiply(record.getAmount(),-1));
+            }
+        }
+        return new GoldRecordListView(list,goldRecordService.selectCount(query));
     }
 
     @RequestMapping(value = "cashList",method = RequestMethod.POST)
@@ -88,7 +95,7 @@ public class GoldRecordController {
         if (Objects.isNull(goldRecord)) {
             throw new ResourceNotFoundException("goldRecord not exists");
         }
-        Customer customer = customerService.getById(goldRecord.getCustomerId());
+        Customer customer = customerService.getById(goldRecord.getBusinessId());
         if (Objects.isNull(customer)) {
             throw new ResourceNotFoundException("customer not exists");
         }
@@ -118,17 +125,17 @@ public class GoldRecordController {
         }
         //审核通过减少用户金币
         if(Objects.equals(form.getStatus(),PASS)&&Objects.equals(goldRecord.getStatus(),WAITCHECK)){
-            Customer customer = customerService.getById(goldRecord.getCustomerId());
+            Customer customer = customerService.getById(goldRecord.getBusinessId());
             if (Objects.isNull(customer)) {
                 throw new ResourceNotFoundException("customer not exists");
             }
             //判断要减少的金币会不会大于商户金币
-            if(Objects.equals(customer.getBusinessGold().compareTo(form.getApplyCount()),-1)){
+            if(Objects.equals(customer.getBusinessGold().compareTo(goldRecord.getAmount()),-1)){
                 throw new InvalidRequestException("reduceError","The amount of gold to be reduced is greater than the user's gold");
             }
             goldRecord.setStatus(PASS);
             goldRecordService.updateStatus(goldRecord);
-            customer.setBusinessGold(form.getApplyCount());
+            customer.setBusinessGold(goldRecord.getAmount());
             int status= customerService.updateReduceBusinessGold(customer);
             if(Objects.equals(status,REDUCEFAIL)){
                 throw new InvalidRequestException("reduceError","The amount of gold to be reduced is greater than the user's gold");

@@ -8,8 +8,6 @@ public class OilDrillRecordStatusForm {
     private Integer id;
     @NotNull
     private Integer status;
-    @NotNull
-    private BigDecimal applyCount;//申请提现油钻数
 
     private String refuseReason;
 
@@ -27,14 +25,6 @@ public class OilDrillRecordStatusForm {
 
     public void setStatus(Integer status) {
         this.status = status;
-    }
-
-    public BigDecimal getApplyCount() {
-        return applyCount;
-    }
-
-    public void setApplyCount(BigDecimal applyCount) {
-        this.applyCount = applyCount;
     }
 
     public String getRefuseReason() {

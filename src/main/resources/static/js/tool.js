@@ -1119,8 +1119,7 @@ var goldRecordMaModule= {
             data: JSON.stringify({
                 "id": $("#goldRecord-m-resetStatus-id").val(),
                 "status": $("#goldRecord-m-resetStatus-status").val(),
-                "refuseReason": $("#goldRecord-m-resetStatus-refuseReason").val(),
-                "applyCount": $("#goldRecord-m-resetStatus-applyCount").val()
+                "refuseReason": $("#goldRecord-m-resetStatus-refuseReason").val()
             })
         };
         showResult(settings);
@@ -1162,8 +1161,7 @@ var oilDrillRecordMaModule= {
             data: JSON.stringify({
                 "id": $("#oilDrillRecord-m-resetStatus-id").val(),
                 "status": $("#oilDrillRecord-m-resetStatus-status").val(),
-                "refuseReason": $("#oilDrillRecord-m-resetStatus-refuseReason").val(),
-                "applyCount": $("#oilDrillRecord-m-resetStatus-applyCount").val()
+                "refuseReason": $("#oilDrillRecord-m-resetStatus-refuseReason").val()
             })
         };
         showResult(settings);
@@ -1203,8 +1201,7 @@ var coinRecordMaModule= {
             data: JSON.stringify({
                 "id": $("#coinRecord-m-resetStatus-id").val(),
                 "status": $("#coinRecord-m-resetStatus-status").val(),
-                "refuseReason": $("#coinRecord-m-resetStatus-refuseReason").val(),
-                "applyCount": $("#coinRecord-m-resetStatus-applyCount").val()
+                "refuseReason": $("#coinRecord-m-resetStatus-refuseReason").val()
             })
         };
         showResult(settings);

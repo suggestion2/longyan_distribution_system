@@ -30,6 +30,7 @@ import javax.validation.Valid;
 
 import java.math.BigDecimal;
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -37,6 +38,7 @@ import static com.longyan.distribution.constants.CoinRecordConstants.RECHARGEREW
 import static com.longyan.distribution.constants.CommonConstants.*;
 import static com.longyan.distribution.constants.CustomerConstants.*;
 import static com.longyan.distribution.constants.CustomerConstants.CUSTOPMERTHREELEVEL;
+import static com.longyan.distribution.constants.GoldRecordConstans.TRANSFER;
 import static com.longyan.distribution.constants.OilDrillConstants.*;
 import static com.longyan.distribution.constants.OilDrillConstants.NOTCUSTOMER;
 import static com.longyan.distribution.constants.OilDrillConstants.RECHARGE;
@@ -78,7 +80,13 @@ public class OilDrillRecordController {
     public OilDrillRecordListView businessList(@Valid @RequestBody OilDrillRecordBusinessListForm form){
         Map<String,Object> query = form.getQueryMap();
         query.put("businessId",form.getBusinessId());
-        return new OilDrillRecordListView(oilDrillRecordService.selectList(query),oilDrillRecordService.selectCount(query));
+        List<OilDrillRecord> list = oilDrillRecordService.selectList(query);
+        for (OilDrillRecord record:list){
+            if(record.getType().equals(TRANSFER)){
+                record.setAmount(BigDecimalUtils.multiply(record.getAmount(),-1));
+            }
+        }
+        return new OilDrillRecordListView(list,oilDrillRecordService.selectCount(query));
     }
 
     @RequestMapping(value = DETAIL,method = RequestMethod.GET)
@@ -109,7 +117,7 @@ public class OilDrillRecordController {
         if (Objects.isNull(oilDrillRecord)) {
             throw new ResourceNotFoundException("goldRecord not exists");
         }
-        Customer customer = customerService.getById(oilDrillRecord.getCustomerId());
+        Customer customer = customerService.getById(oilDrillRecord.getBusinessId());
         if (Objects.isNull(customer)) {
             throw new ResourceNotFoundException("customer not exists");
         }
@@ -137,17 +145,17 @@ public class OilDrillRecordController {
         }
         //审核通过减少用户油钻
         if(Objects.equals(form.getStatus(),PASS)&&Objects.equals(oilDrillRecord.getStatus(),WAITCHECK)){
-            Customer customer = customerService.getById(oilDrillRecord.getCustomerId());
+            Customer customer = customerService.getById(oilDrillRecord.getBusinessId());
             if (Objects.isNull(customer)) {
                 throw new ResourceNotFoundException("customer not exists");
             }
            //判断要减少的油钻会不会大于用户油钻
-            if(Objects.equals(customer.getBusinessOilDrill().compareTo(form.getApplyCount()),-1)){
+            if(Objects.equals(customer.getBusinessOilDrill().compareTo(oilDrillRecord.getAmount()),-1)){
                 throw new InvalidRequestException("reduceError","The amount of oilDrill to be reduced is greater than the user's oilDrill");
             }
             oilDrillRecord.setStatus(PASS);
             oilDrillRecordService.updateStatus(oilDrillRecord);
-            customer.setBusinessOilDrill(form.getApplyCount());
+            customer.setBusinessOilDrill(oilDrillRecord.getAmount());
             int status= customerService.updateReduceBusinessOilDrill(customer);
             if(Objects.equals(status,REDUCEFAIL)){
                 throw new InvalidRequestException("reduceError","The amount of oilDrill to be reduced is greater than the user's oilDrill");

@@ -30,7 +30,7 @@
 
     <select id="selectOilRecordAndCustomerList" resultMap="OilRecordAndCustomerList" parameterType="java.util.Map">
         select
-        a.`id` as OilDrillRecor d_id,
+        a.`id` as OilDrillRecord_id,
         a.`amount` as OilDrillRecord_amount,
         a.`createTime` as OilDrillRecord_createTime,
         a.`status` as OilDrillRecord_status,
