@@ -200,7 +200,7 @@ public class OilDrillRecordController {
     //用户增减油钻
     @Transactional
     @RequestMapping(value = "/customerAddReduceOil",method = RequestMethod.POST)
-    public ResponseView customerAddGoldRecord(@Valid @RequestBody CustomerAddReduceGoldForm form){
+    public Customer customerAddGoldRecord(@Valid @RequestBody CustomerAddReduceGoldForm form){
         Customer customer = customerService.getById(form.getId());
         int userId= sessionContext.getUser().getId();
         if (Objects.isNull(customer)) {
@@ -235,7 +235,8 @@ public class OilDrillRecordController {
             //添加减少油钻记录
             oilDrillRecord.setAmount(amount.multiply(new BigDecimal(-1)));
             oilDrillRecordService.create(oilDrillRecord);
-            return new ResponseView();
+            Customer currentCustomer = customerService.getById(form.getId());
+            return currentCustomer;
         }
         if(Objects.equals(form.getType(),RECHARGE)) {
             //进行当前用户按等级分配折扣充值增加油钻
@@ -266,7 +267,8 @@ public class OilDrillRecordController {
                 //添加增加油钻记录
                 oilDrillRecord.setAmount(currentAmount);
                 oilDrillRecordService.create(oilDrillRecord);
-                return new ResponseView();
+                Customer currentCustomer = customerService.getById(form.getId());
+                return currentCustomer;
             }
         }
         //如果是后台手动添加，不是前台充值，就直接返回,不用给其他人分红
@@ -275,8 +277,8 @@ public class OilDrillRecordController {
             customerService.updateAddCustomerOilDrill(customer);
             oilDrillRecord.setAmount(amount);
             oilDrillRecordService.create(oilDrillRecord);
-
-            return new ResponseView();
+            Customer currentCustomer = customerService.getById(form.getId());
+            return currentCustomer;
         }
         if(Objects.equals(form.getType(),RECHARGE)) {
             //判断当前用户是不是普通用户
@@ -356,7 +358,8 @@ public class OilDrillRecordController {
                 }
             }
         }
-        return new ResponseView();
+        Customer currentCustomer = customerService.getById(form.getId());
+        return currentCustomer;
     }
 
     @RequestMapping(value = UPDATE,method = RequestMethod.PUT)

@@ -199,7 +199,7 @@ public class GoldRecordController {
     //用户增减金币
     @Transactional
     @RequestMapping(value = "/customerAddReduceGold",method = RequestMethod.POST)
-    public ResponseView customerAddGoldRecord(@Valid @RequestBody CustomerAddReduceGoldForm form){
+    public Customer customerAddGoldRecord(@Valid @RequestBody CustomerAddReduceGoldForm form){
         Customer customer = customerService.getById(form.getId());
         int userId= sessionContext.getUser().getId();
         if (Objects.isNull(customer)) {
@@ -234,7 +234,8 @@ public class GoldRecordController {
             //添加减少金币记录
             goldRecord.setAmount(amount.multiply(new BigDecimal(-1)));
             goldRecordService.create(goldRecord);
-            return new ResponseView();
+            Customer currentCustomer = customerService.getById(form.getId());
+            return currentCustomer;
         }
         if(Objects.equals(form.getType(),RECHARGE)) {
             //进行当前用户按等级分配折扣充值增加金币
@@ -265,7 +266,8 @@ public class GoldRecordController {
                 //添加增加金币记录
                 goldRecord.setAmount(currentAmount);
                 goldRecordService.create(goldRecord);
-                return new ResponseView();
+                Customer currentCustomer = customerService.getById(form.getId());
+                return currentCustomer;
             }
         }
         //如果是后台手动添加，不是前台充值，就直接返回,不用给其他人分红
@@ -274,7 +276,8 @@ public class GoldRecordController {
             customerService.updateAddCustomerGold(customer);
             goldRecord.setAmount(amount);
             goldRecordService.create(goldRecord);
-            return new ResponseView();
+            Customer currentCustomer = customerService.getById(form.getId());
+            return currentCustomer;
         }
         if(Objects.equals(form.getType(),RECHARGE)) {
             //判断当前用户是不是普通用户
@@ -355,7 +358,8 @@ public class GoldRecordController {
                 }
             }
         }
-        return new ResponseView();
+        Customer currentCustomer = customerService.getById(form.getId());
+        return currentCustomer;
     }
 
     @RequestMapping(value = UPDATE,method = RequestMethod.PUT)
