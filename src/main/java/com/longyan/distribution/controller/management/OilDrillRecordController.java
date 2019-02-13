@@ -165,7 +165,7 @@ public class OilDrillRecordController {
    // 商户增减油钻
     @Transactional
     @RequestMapping(value = "/businessAddGoldOil",method = RequestMethod.POST)
-    public ResponseView businessAddGoldRecord(@Valid @RequestBody BusinessAddReduceGoldForm form){
+    public Customer businessAddGoldRecord(@Valid @RequestBody BusinessAddReduceGoldForm form){
         Customer customer = customerService.getById(form.getId());
         if (Objects.isNull(customer)) {
             throw new ResourceNotFoundException("customer not exists");
@@ -194,7 +194,7 @@ public class OilDrillRecordController {
             //添加减少油钻记录
             oilDrillRecord.setAmount(amount.multiply(new BigDecimal(-1)));
             oilDrillRecordService.create(oilDrillRecord);
-            return new ResponseView();
+            return customerService.getById(form.getId());
         }
         if(Objects.equals(form.getType(),USERADD)){
             customer.setCustomerOilDrill(amount);
@@ -203,7 +203,7 @@ public class OilDrillRecordController {
             oilDrillRecord.setAmount(amount);
             oilDrillRecordService.create(oilDrillRecord);
         }
-        return new ResponseView();
+        return customerService.getById(form.getId());
     }
 
     //用户增减油钻

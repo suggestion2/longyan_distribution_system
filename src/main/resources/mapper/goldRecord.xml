@@ -49,8 +49,13 @@
         <if test="phone!=null">
             and (a.`customerPhone` like concat ('%',#{phone},'%'))
         </if>
-        <if test="status!=null">
-            and a.`status` = #{status}
+        <if test="status!=null" >
+            <if test="status==1 and type!=null and type==2">
+                and (a.`status` = 1 or a.`status` = -1 or a.`status` = -2)
+            </if>
+            <if test="status!=1 ">
+              and a.`status` = #{status}
+            </if>
         </if>
         <if test="startIndex != null and pageSize != null">
             limit #{startIndex},#{pageSize}
@@ -93,8 +98,13 @@
         <if test="phone!=null">
             and (`customerPhone` like concat ('%',#{phone},'%'))
         </if>
-        <if test="status!=null">
-            and `status` = #{status}
+        <if test="status!=null" >
+            <if test="status==1 and type!=null and type==2">
+                and (`status` = 1 or `status` = -1 or `status` = -2)
+            </if>
+            <if test="status!=1 ">
+                and `status` = #{status}
+            </if>
         </if>
     </select>
 

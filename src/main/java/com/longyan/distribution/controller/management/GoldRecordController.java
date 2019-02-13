@@ -162,7 +162,7 @@ public class GoldRecordController {
 //    商户增减金币
     @Transactional
     @RequestMapping(value = "/businessAddGoldRecord",method = RequestMethod.POST)
-    public ResponseView businessAddGoldRecord(@Valid @RequestBody BusinessAddReduceGoldForm form){
+    public Customer businessAddGoldRecord(@Valid @RequestBody BusinessAddReduceGoldForm form){
         Customer customer = customerService.getById(form.getId());
         if (Objects.isNull(customer)) {
             throw new ResourceNotFoundException("customer not exists");
@@ -194,7 +194,7 @@ public class GoldRecordController {
             //添加减少金币记录
             goldRecord.setAmount(amount.multiply(new BigDecimal(-1)));
             goldRecordService.create(goldRecord);
-            return new ResponseView();
+            return customerService.getById(form.getId());
         }
         if(Objects.equals(form.getType(),USERADD)){
             customer.setBusinessGold(amount);
@@ -203,7 +203,7 @@ public class GoldRecordController {
             goldRecord.setAmount(amount);
             goldRecordService.create(goldRecord);
         }
-        return new ResponseView();
+        return customerService.getById(form.getId());
     }
     //用户增减金币
     @Transactional
