@@ -896,9 +896,8 @@
                 id:<input class="textbox" type="text" id="order-status-id" style="width: 100px;"
                                value=""/>
                 status:<select class="textbox" id="order-status-status" style="width: 100px;">
-                <option value="">all</option>
-                <option value="0">disable</option>
-                <option value="1">enable</option>
+                <option value="-1">取消</option>
+                <option value="2">确认</option>
             </select><br>
                 cancelReason(unnecessary):<input class="textbox" type="text" id="order-status-cancelReason" style="width: 100px;"
                                  value=""/><br>
