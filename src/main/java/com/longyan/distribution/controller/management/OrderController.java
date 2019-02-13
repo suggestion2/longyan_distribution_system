@@ -66,6 +66,7 @@ public class OrderController {
         }
         BeanUtils.copyProperties(form,order);
         order.setRefuseReason(form.getCancelReason());
+        order.setRemark(form.getRemarks());
         order.setUpdateBy(sessionContext.getUser().getId());
         orderService.updateStatus(order);
         return new ResponseView();

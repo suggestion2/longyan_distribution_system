@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 import java.util.Objects;
 
 import static com.longyan.distribution.constants.CustomerConstants.BUSINESS;
+import static com.longyan.distribution.constants.CustomerConstants.BUSINESS_ENABLE;
 
 @Component
 public class SessionContext {
@@ -42,7 +43,7 @@ public class SessionContext {
     }
 
     public void setBusiness(Customer customer){
-        httpSession.setAttribute("business",customer.getBusiness().equals(BUSINESS));
+        httpSession.setAttribute("business",customer.getBusiness().equals(BUSINESS) && customer.getBusinessStatus().equals(BUSINESS_ENABLE));
     }
 
     public boolean isBusiness(){

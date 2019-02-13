@@ -175,7 +175,10 @@
     
     <update id="updateBusinessApplication" parameterType="com.longyan.distribution.domain.Customer">
         update customer SET
-        business = #{business}
+        business = #{business},
+        businessStatus = #{businessStatus},
+        updateBy=#{updateBy},
+        updateTime = now()
         where id = #{id}
     </update>
     

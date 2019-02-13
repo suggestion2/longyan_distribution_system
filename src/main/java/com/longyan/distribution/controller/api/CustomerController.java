@@ -160,8 +160,11 @@ public class CustomerController {
     public ResponseView businessApplication(@Valid @RequestBody BusinessApplicationForm form){
         Customer customer = sessionContext.getCustomer();
         //如果不是合伙人不让申请成为商户
-        if(!Objects.equals(customer.getLevel(),CUSTOPMERTWOLEVEL)){
+        if(!Objects.equals(customer.getLevel(),CUSTOPMERTHREELEVEL)){
             throw new InvalidRequestException("invalidLevel","invalid level");
+        }
+        if(!Objects.equals(customer.getBusiness(),CUSTOMER)){
+            throw new InvalidRequestException("invalidBusinessStatus","invalid business status");
         }
         BeanUtils.copyProperties(form,customer);
         customer.setBusiness(BUSINESSAPPLICATION);

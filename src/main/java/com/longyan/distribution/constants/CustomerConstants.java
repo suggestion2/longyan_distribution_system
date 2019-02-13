@@ -21,8 +21,8 @@ public class CustomerConstants {
     //合伙人申请商户
     public static final int BUSINESSAPPLICATION = 2;
     //启用 禁用商户
-    public static final Integer ENABLE = 1;
-    public static final Integer DISABLE = 0;
+    public static final Integer BUSINESS_ENABLE = 1;
+    public static final Integer BUSINESS_DISABLE = 0;
     //没有上级
     public static final Integer NOTPARENT = 0;
     //没有上上级

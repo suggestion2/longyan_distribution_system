@@ -19,7 +19,7 @@
     <select id="selectList" resultType="com.longyan.distribution.domain.Goods" parameterType="java.util.Map">
         select * from `goods` where `valid` = 1
         <if test="content!=null">
-            and (`name` like concat ('%',#{content},'%') or `number` like concat ('%',#{content},'%'))
+            and `name` like concat ('%',#{content},'%')
         </if>
         <if test="categoryId1!=null">
             and `categoryId1` = #{categoryId1}
@@ -35,7 +35,7 @@
     <select id="selectCount" resultType="java.lang.Integer" parameterType="java.util.Map">
         select count(*) from `goods` where `valid` = 1
         <if test="content!=null">
-            and (`name` like concat ('%',#{content},'%') or `number` like concat ('%',#{content},'%'))
+            and `name` like concat ('%',#{content},'%')
         </if>
         <if test="categoryId1!=null">
             and `categoryId1` = #{categoryId1}

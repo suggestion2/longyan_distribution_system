@@ -913,7 +913,7 @@ var customerMaModule= {
     businessVerify: function () {
         var settings = {
             type: "PUT",
-            url: "/management/customer/businessVerify",
+            url: "/management/customer/verifyBusiness",
             dataType: "json",
             data: JSON.stringify({
                 "id": $("#customer-m-businessVerify-id").val(),
