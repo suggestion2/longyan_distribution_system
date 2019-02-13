@@ -183,6 +183,14 @@ var customerModule = {
         };
         showResult(settings);
     },
+    current: function () {
+        var settings = {
+            type: "GET",
+            url: "/api/customer/current",
+            dataType: "json"
+        };
+        showResult(settings);
+    },
     resetPayPwd: function () {
         var settings = {
             type: "PUT",

@@ -83,7 +83,6 @@ public class CustomerController {
         return new CustomerListShortView(list,customerService.selectCount(query));
     }
 
-
     @RequestMapping(value = "/businessList",method = RequestMethod.POST)
     @CustomerLoginRequired
     public BusinessListView businessList(@Valid @RequestBody BusinessListForm form){
@@ -93,9 +92,10 @@ public class CustomerController {
         return new BusinessListView(customerService.selectBusinessList(query),customerService.selectCount(query));
     }
 
-    @RequestMapping(value = DETAIL,method = RequestMethod.GET)
-    public Customer detail(@PathVariable Integer id){
-        return customerService.getById(id);
+    @RequestMapping(value = CURRENT,method = RequestMethod.GET)
+    @CustomerLoginRequired
+    public Customer current(){
+        return sessionContext.getCustomer();
     }
 
     @RequestMapping(value = CREATE,method = RequestMethod.POST)
@@ -170,7 +170,6 @@ public class CustomerController {
         return new ResponseView();
     }
 
-
     @RequestMapping(value = "/loginPassword", method = RequestMethod.PUT)
     @CustomerLoginRequired
     public ResponseView resetLoginPassword(@Valid @RequestBody CustomerLoginPasswordForm form) {
@@ -201,12 +200,6 @@ public class CustomerController {
     public ResponseView logout() {
         sessionContext.logout();
         return new ResponseView();
-    }
-
-    @RequestMapping(value = "/inviteCode", method = RequestMethod.GET)
-    @CustomerLoginRequired
-    public CodeView inviteCode() {
-        return new CodeView("http://localhost:8110/testTool?id="+sessionContext.getCustomerId());
     }
 
     //金币转账

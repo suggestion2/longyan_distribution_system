@@ -282,7 +282,7 @@ public class OilDrillRecordController {
         }
         //如果是后台手动添加，不是前台充值，就直接返回,不用给其他人分红
         if(Objects.equals(form.getType(), USERADD)){
-            customer.setCustomerGold(amount);
+            customer.setCustomerOilDrill(amount);
             customerService.updateAddCustomerOilDrill(customer);
             oilDrillRecord.setAmount(amount);
             oilDrillRecordService.create(oilDrillRecord);
