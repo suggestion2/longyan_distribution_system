@@ -777,10 +777,8 @@
                         value=""/><br/>
             status:<select class="textbox" id="goldRecord-m-list-status" style="width: 100px;">
             <option value="" selected>全部</option>
-            <option value="0" >待审核</option>
-            <option value="1" >审核通过</option>
-            <option value="-2" >审核驳回</option>
-            <option value="-1" >取消</option>
+            <option value="0" >待提现</option>
+            <option value="1" >提现记录</option>
             </select><br>
             startIndex:<input class="textbox" type="text" id="goldRecord-m-List-startIndex" style="width: 100px;"
                               value="0"/>
@@ -809,10 +807,8 @@
                         value=""/><br/>
             status:<select class="textbox" id="oilDrillRecord-m-list-status" style="width: 100px;">
             <option value="" selected>全部</option>
-            <option value="0" >待审核</option>
-            <option value="1" >审核通过</option>
-            <option value="-2" >审核驳回</option>
-            <option value="-1" >取消</option>
+            <option value="0" >待提现</option>
+            <option value="1" >提现记录</option>
             </select><br>
             startIndex:<input class="textbox" type="text" id="oilDrillRecord-m-List-startIndex" style="width: 100px;"
                               value="0"/>
@@ -841,10 +837,8 @@
                         value=""/><br/>
             type:<select class="textbox" id="coinRecord-m-list-status" style="width: 100px;">
             <option value="" selected>全部</option>
-            <option value="0" >待审核</option>
-            <option value="1" >审核通过</option>
-            <option value="-2" >审核驳回</option>
-            <option value="-1" >取消</option>
+            <option value="0" >待提现</option>
+            <option value="1" >提现记录</option>
             </select><br>
             startIndex:<input class="textbox" type="text" id="coinRecord-m-List-startIndex" style="width: 100px;"
                               value="0"/>
