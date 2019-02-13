@@ -179,8 +179,8 @@ public class CustomerController {
                 coinRecord.setAmount(parentAmount);
                 coinRecord.setType(INVITEREWARD);
                 coinRecordService.create(coinRecord);
-                //判断该vip上级是否有十个用户申请成vip,有的话把该vip上级升为合伙人
-                if (customerService.selectSubVipCount(parentCustomer.getId()) >= 10) {
+                //判断该vip上级是否有x个用户申请成vip,有的话把该vip上级升为合伙人
+                if (customerService.selectSubVipCount(parentCustomer.getId()) >= Integer.parseInt(systemParamsService.getValueByKey(Collections.singletonMap("key", VIPINVITENUM)).getValue())) {
                     parentCustomer.setLevel(CUSTOPMERTHREELEVEL);
                     parentCustomer.setUpdateBy(userId);
                     customerService.updateLevel(parentCustomer);

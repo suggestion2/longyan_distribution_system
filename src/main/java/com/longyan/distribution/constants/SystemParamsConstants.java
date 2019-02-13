@@ -7,7 +7,6 @@ import java.util.regex.Pattern;
 
 public class SystemParamsConstants {
     public static final String VIPINVITECOIN = "VIPINVITECOIN ";//VIP邀请获得的钢镚百分比
-    public static final String INVITEVIPCOIN = "/1";//合伙人邀请VIP获得的钢镚百分比
     public static final String INVITEVIPRECHARGEGOLDCOIN = "INVITEVIPRECHARGEGOLDCOIN";//合伙人邀请VIP,vip充值金币，合伙人获得的钢镚百分比
     public static final String INVITEVIPRECHARGEOILCOIN = "INVITEVIPRECHARGEOILCOIN";//合伙人邀请VIP,vip充值油钻，合伙人获得的钢镚百分比
     public static final String VIPINVITECOMMONRECHARGEGOLDCOIN = "VIPINVITECOMMONRECHARGEGOLDCOIN";//VIP邀请普通会员,普通会员充值金币，vip获得的钢镚百分比
@@ -18,7 +17,7 @@ public class SystemParamsConstants {
     public static final String COMMONOILCHARGE  = "COMMONOILCHARGE";//普通会员充值油钻的充值折扣
     public static final String VIPREOILCHARGE  = "VIPREOILCHARGE";//VIP充值油钻的充值折扣
     public static final String PARTNEOILRRECHARGE = "PARTNEOILRRECHARGE";//合伙人充值油钻的充值折扣
-    public static final String VIPINVITENUM = "/2";//VIP邀请x人升级为合伙人
+    public static final String VIPINVITENUM = "VIPINVITENUM";//VIP邀请x人升级为合伙人
     public static final String COINCASH = "COINCASH";//钢镚提现手续费费率
     public static final String BUSINESSGOLDCASH = "BUSINESSGOLDCASH";//商户金币提现手续费费率
     public static final String BUSINESSOILDRILLCASH = "BUSINESSOILDRILLCASH";//商户油钻提现手续费费率
@@ -30,7 +29,6 @@ public class SystemParamsConstants {
     public static final String VIPCARD = "VIPCARD";//vip会员卡
 
     public static final String VIPINVITECOIN_REGEX = "^[0-9]+(\\.[0-9]{1,2})?$";//VIP邀请获得的钢镚百分比
-    public static final String INVITEVIPCOIN_REGEX = "^[0-9]+(\\.[0-9]{1,2})?$";//合伙人邀请VIP获得的钢镚百分比
     public static final String INVITEVIPRECHARGEGOLDCOIN_REGEX = "^[0-9]+(\\.[0-9]{1,2})?$";//合伙人邀请VIP,vip充值金币，合伙人获得的钢镚百分比
     public static final String INVITEVIPRECHARGEOILCOIN_REGEX = "^[0-9]+(\\.[0-9]{1,2})?$";//合伙人邀请VIP,vip充值油钻，合伙人获得的钢镚百分比
     public static final String VIPINVITECOMMONRECHARGEGOLDCOIN_REGEX = "^[0-9]+(\\.[0-9]{1,2})?$";//VIP邀请普通会员,普通会员充值金币，vip获得的钢镚百分比
@@ -58,8 +56,6 @@ public class SystemParamsConstants {
                 return Pattern.matches(VIPINVITECOIN_REGEX,value);
             case VIPCARD:
                 return Pattern.matches(VIPCARD_REGEX,value);
-            case INVITEVIPCOIN:
-                return Pattern.matches(INVITEVIPCOIN_REGEX,value);
             case INVITEVIPRECHARGEGOLDCOIN:
                 return Pattern.matches(INVITEVIPRECHARGEGOLDCOIN_REGEX,value);
             case INVITEVIPRECHARGEOILCOIN:
