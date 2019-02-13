@@ -13,6 +13,15 @@ public class CoinRecordHandleView {
     private BigDecimal applyCount;//申请提现钢镚数
     private BigDecimal exchangeCash;//能兑换的现金金额
     private BigDecimal handleMoney;//手续费
+    private Integer level;
+
+    public Integer getLevel() {
+        return level;
+    }
+
+    public void setLevel(Integer level) {
+        this.level = level;
+    }
 
     public BigDecimal getCustomerCoin() {
         return customerCoin;
