@@ -230,7 +230,7 @@ public class CustomerController {
         if (Objects.isNull(customer)) {
             throw new ResourceNotFoundException("customer not exists");
         }
-        if (customer.getBusiness().equals(CUSTOMER)) {
+        if (customer.getBusiness().equals(CUSTOMER)||customer.getBusiness().equals(BUSINESSAPPLICATION)) {
             customer.setBusinessName(form.getBusinessName());
             customer.setBusiness(BUSINESS);
             customer.setUpdateBy(sessionContext.getUser().getId());
