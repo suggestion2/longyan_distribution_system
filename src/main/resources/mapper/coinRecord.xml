@@ -101,10 +101,10 @@
         </if>
         <if test="status!=null" >
             <if test="status==1 and type!=null and type==1">
-                and (a.`status` = 1 or a.`status` = -1 or a.`status` = -2)
+                and (`status` = 1 or `status` = -1 or `status` = -2)
             </if>
             <if test="status!=1 ">
-                and a.`status` = #{status}
+                and `status` = #{status}
             </if>
         </if>
     </select>
