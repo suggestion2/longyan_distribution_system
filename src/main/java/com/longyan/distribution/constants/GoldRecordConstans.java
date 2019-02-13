@@ -31,4 +31,7 @@ public class GoldRecordConstans {
 
     public static final int NORMAL_TYPE_DEFAULT_STATUS = 1;
 
+    //钢蹦转换
+    public static final int EXCHANGE = 6;
+
 }

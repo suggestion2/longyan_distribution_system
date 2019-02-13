@@ -5,9 +5,9 @@ public class OilDrillConstants {
     public static final int USERADD = 5;
     public static final int USERREDUCE = 4;
     public static final int RECHARGE = 1;
-    //会员的金币记录，商户id为0
+    //会员的油钻记录，商户id为0
     public static final int NOTBUSINESS = 0;
-    //商户的金币记录，会员id为0
+    //商户的油钻记录，会员id为0
     public static final int NOTCUSTOMER = 1;
     //小数位数
     public static final int DECIMAL = 2;
@@ -29,4 +29,7 @@ public class OilDrillConstants {
     public static final int WITHDRAW_CREATE_STATUS = 0;
 
     public static final int NORMAL_TYPE_DEFAULT_STATUS = 1;
+
+    //钢蹦转换
+    public static final int EXCHANGE = 6;
 }

@@ -4,13 +4,13 @@ import com.longyan.distribution.constants.OilDrillConstants;
 import com.longyan.distribution.context.SessionContext;
 import com.longyan.distribution.domain.Customer;
 import com.longyan.distribution.domain.GoldRecord;
+import com.longyan.distribution.domain.OilDrillRecord;
 import com.longyan.distribution.interceptor.BusinessRequired;
 import com.longyan.distribution.interceptor.CustomerLoginRequired;
 import com.longyan.distribution.request.*;
 import com.longyan.distribution.response.GoldRecordListView;
 import com.longyan.distribution.response.OilDrillRecordListView;
-import com.longyan.distribution.service.CustomerService;
-import com.longyan.distribution.service.SystemParamsService;
+import com.longyan.distribution.service.*;
 import com.sug.core.platform.crypto.MD5;
 import com.sug.core.platform.exception.ResourceNotFoundException;
 import com.sug.core.platform.web.pagination.PaginationForm;
@@ -18,7 +18,6 @@ import com.sug.core.platform.web.rest.exception.InvalidRequestException;
 import com.sug.core.rest.view.ResponseView;
 import com.sug.core.rest.view.SuccessView;
 import com.longyan.distribution.domain.CoinRecord;
-import com.longyan.distribution.service.CoinRecordService;
 import com.longyan.distribution.response.CoinRecordListView;
 import com.sug.core.util.BigDecimalUtils;
 import org.slf4j.Logger;
@@ -37,6 +36,9 @@ import java.util.Objects;
 
 import static com.longyan.distribution.constants.CoinRecordConstants.*;
 import static com.longyan.distribution.constants.CommonConstants.*;
+import static com.longyan.distribution.constants.GoldRecordConstans.EXCHANGE;
+import static com.longyan.distribution.constants.GoldRecordConstans.NOTBUSINESS;
+import static com.longyan.distribution.constants.GoldRecordConstans.NOTCUSTOMER;
 import static com.longyan.distribution.constants.SystemParamsConstants.COINCHANGEGOLD;
 import static com.longyan.distribution.constants.SystemParamsConstants.COINCHANGEOIL;
 import static com.longyan.distribution.constants.SystemParamsConstants.VIPINVITECOMMONRECHARGEGOLDCOIN;
@@ -50,6 +52,12 @@ public class CoinRecordController {
 
     @Autowired
     private CoinRecordService coinRecordService;
+
+    @Autowired
+    private GoldRecordService goldRecordService;
+
+    @Autowired
+    private OilDrillRecordService oilDrillRecordService;
 
     @Autowired
     private SystemParamsService systemParamsService;
@@ -95,6 +103,30 @@ public class CoinRecordController {
         BigDecimal amount = form.getAmount().subtract(BigDecimalUtils.multiply(value,form.getAmount()));
         customer.setCustomerGold(amount);
         customerService.updateAddCustomerGold(customer);
+        //兑换记录
+        GoldRecord goldRecord = new GoldRecord();
+        goldRecord.setCustomerId(customer.getId());
+        goldRecord.setBusinessId(NOTBUSINESS);
+        goldRecord.setBusinessName("");
+        goldRecord.setBusinessAccount("");
+        goldRecord.setCustomerPhone(customer.getPhone());
+        goldRecord.setCreateBy(CREATE_BY_SERVER);
+        goldRecord.setType(EXCHANGE);
+        //添加减少金币记录
+        goldRecord.setAmount(form.getAmount());
+        goldRecordService.create(goldRecord);
+        //钢蹦记录
+        CoinRecord coinRecord = new CoinRecord();
+        coinRecord.setCustomerId(customer.getId());
+        coinRecord.setSourceCustomerId(NOT_SOURCE_CUSTOMER_LEVEL);
+        coinRecord.setSourceCustomerLevel(NOT_SOURCE_CUSTOMERID);
+        coinRecord.setSourceCustomerPhone(NOT_SOURCE_CUSTOMER_PHONE);
+        coinRecord.setCustomerPhone(customer.getPhone());
+        //添加减少钢蹦记录
+        coinRecord.setAmount(form.getAmount().multiply(new BigDecimal(-1)));
+        coinRecord.setType(EXCHANGE_GOLD);
+        coinRecord.setCreateBy(CREATE_BY_SERVER);
+        coinRecordService.create(coinRecord);
         return new ResponseView();
     }
 
@@ -122,6 +154,30 @@ public class CoinRecordController {
         BigDecimal amount = form.getAmount().subtract(BigDecimalUtils.multiply(value,form.getAmount()));
         customer.setCustomerOilDrill(amount);
         customerService.updateAddCustomerOilDrill(customer);
+        //兑换油钻记录
+        OilDrillRecord oilDrillRecord = new OilDrillRecord();
+        oilDrillRecord.setCustomerId(customer.getId());
+        oilDrillRecord.setBusinessId(OilDrillConstants.NOTBUSINESS);
+        oilDrillRecord.setBusinessName("");
+        oilDrillRecord.setBusinessAccount("");
+        oilDrillRecord.setCustomerPhone(customer.getPhone());
+        oilDrillRecord.setCreateBy(CREATE_BY_SERVER);
+        oilDrillRecord.setType(OilDrillConstants.EXCHANGE);
+        //添加减少油钻记录
+        oilDrillRecord.setAmount(form.getAmount());
+        oilDrillRecordService.create(oilDrillRecord);
+        //钢蹦记录
+        CoinRecord coinRecord = new CoinRecord();
+        coinRecord.setCustomerId(customer.getId());
+        coinRecord.setSourceCustomerId(NOT_SOURCE_CUSTOMER_LEVEL);
+        coinRecord.setSourceCustomerLevel(NOT_SOURCE_CUSTOMERID);
+        coinRecord.setSourceCustomerPhone(NOT_SOURCE_CUSTOMER_PHONE);
+        coinRecord.setCustomerPhone(customer.getPhone());
+        //添加减少钢蹦记录
+        coinRecord.setAmount(form.getAmount().multiply(new BigDecimal(-1)));
+        coinRecord.setType(EXCHANGE_OILDRILL);
+        coinRecord.setCreateBy(CREATE_BY_SERVER);
+        coinRecordService.create(coinRecord);
         return new ResponseView();
     }
 
