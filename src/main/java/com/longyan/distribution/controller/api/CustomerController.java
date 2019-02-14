@@ -89,6 +89,7 @@ public class CustomerController {
         Map<String,Object> query = form.getQueryMap();
         //查找商户
         query.put("business",BUSINESS);
+        query.put("businessStatus",BUSINESS_ENABLE);
         return new BusinessListView(customerService.selectBusinessList(query),customerService.selectCount(query));
     }
 

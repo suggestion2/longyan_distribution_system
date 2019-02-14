@@ -24,11 +24,14 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 import static com.longyan.distribution.constants.CommonConstants.*;
 import static com.longyan.distribution.constants.OrderConstants.CONFIRM;
+import static com.longyan.distribution.constants.OrderConstants.CREATED;
 import static com.longyan.distribution.constants.OrderConstants.PAID;
 
 @RestController
@@ -49,7 +52,12 @@ public class OrderController {
 
     @RequestMapping(value = LIST,method = RequestMethod.POST)
     public OrderListView list(@Valid @RequestBody OrderListForm form){
-        return new OrderListView(orderService.selectList(form.getQueryMap()),orderService.selectCount(form.getQueryMap()));
+        Map<String,Object> query = form.getQueryMap();
+        if(Objects.nonNull(form.getStatus()) && form.getStatus().equals(1)){
+            query.put("pending",form.getStatus());
+            query.remove("status");
+        }
+        return new OrderListView(orderService.selectList(query),orderService.selectCount(query));
     }
 
     @RequestMapping(value = DETAIL,method = RequestMethod.GET)
@@ -68,7 +76,7 @@ public class OrderController {
         if(Objects.isNull(order)){
             throw new ResourceNotFoundException("order not exists");
         }
-        if(!order.getStatus().equals(PAID)){
+        if(!order.getStatus().equals(PAID) && !order.getStatus().equals(CREATED)){
             throw new InvalidRequestException("invalidOrderStatus","invalid order status");
         }
         if(!form.getStatus().equals(CONFIRM) && !form.getStatus().equals(OrderConstants.CANCEL)){

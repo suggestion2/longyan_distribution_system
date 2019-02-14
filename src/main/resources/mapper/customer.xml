@@ -26,6 +26,9 @@
                 and `business` = #{business}
             </if>
         </if>
+        <if test="businessStatus!=null">
+            and `businessStatus` = #{businessStatus}
+        </if>
         <if test="parentId!=null">
             and `parentId` = #{parentId}
         </if>
@@ -94,6 +97,9 @@
         </if>
         <if test="parentId!=null">
             and `parentId` = #{parentId}
+        </if>
+        <if test="businessStatus!=null">
+            and `businessStatus` = #{businessStatus}
         </if>
         <if test="level!=null">
             and `level` = #{level}
@@ -176,6 +182,7 @@
     
     <update id="updateBusinessApplication" parameterType="com.longyan.distribution.domain.Customer">
         update customer SET
+        businessAccount = #{businessAccount},
         business = #{business},
         businessStatus = #{businessStatus},
         updateBy=#{updateBy},
