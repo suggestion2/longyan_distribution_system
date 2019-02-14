@@ -7,10 +7,7 @@ import com.longyan.distribution.domain.Goods;
 import com.longyan.distribution.interceptor.CustomerLoginRequired;
 import com.longyan.distribution.interceptor.UserLoginRequired;
 import com.longyan.distribution.request.*;
-import com.longyan.distribution.response.CustomerInviteListView;
-import com.longyan.distribution.response.CustomerListShortView;
-import com.longyan.distribution.response.CustomerListView;
-import com.longyan.distribution.response.CustomerShortView;
+import com.longyan.distribution.response.*;
 import com.longyan.distribution.service.CoinRecordService;
 import com.longyan.distribution.service.CustomerService;
 import com.longyan.distribution.service.GoodsService;
@@ -29,10 +26,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 import java.math.BigDecimal;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 import static com.longyan.distribution.constants.CoinRecordConstants.INVITEREWARD;
 import static com.longyan.distribution.constants.CoinRecordConstants.RECHARGEREWARD;
@@ -79,15 +73,19 @@ public class CustomerController {
 
     //邀请关系上级
     @RequestMapping(value = "/customerParent/{id}", method = RequestMethod.GET)
-    public Customer customerList(@PathVariable Integer id) {
+    public List<Customer> customerList(@PathVariable Integer id) {
         Customer customer = customerService.getById(id);
         if (Objects.isNull(customer)) {
             throw new ResourceNotFoundException("customer not exists");
         }
-        if (Objects.isNull(customer.getParentId()) || customer.getParentId().equals(NOTINVITE)) {
-            return new Customer();
-        }
-        return customerService.getById(customer.getParentId());
+//        if (Objects.isNull(customer.getParentId()) || customer.getParentId().equals(NOTINVITE)) {
+//            return null;
+//        }
+        List<Customer> list = new ArrayList<>();
+//        CustomerParentView customerParentView = new CustomerParentView();
+//        customerParentView.setCustomer(customerService.getById(customer.getParentId()));
+        list.add(customerService.getById(customer.getParentId()));
+        return list;
     }
 
     //邀请下级表
