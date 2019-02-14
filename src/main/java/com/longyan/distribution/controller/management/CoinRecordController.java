@@ -58,7 +58,7 @@ public class CoinRecordController {
     @Autowired
     private SessionContext sessionContext;
 
-    @RequestMapping(value = "cashList",method = RequestMethod.POST)
+    @RequestMapping(value = "/cashList",method = RequestMethod.POST)
     public CoinRecordListView cashList(@Valid @RequestBody CoinRecordCashListForm form){
         Map<String,Object> map = form.getQueryMap();
         map.put("type",WITHDRAW);
@@ -67,7 +67,7 @@ public class CoinRecordController {
 
 
     //打款展示处理
-    @RequestMapping(value = "moneyHandle",method = RequestMethod.POST)
+    @RequestMapping(value = "/moneyHandle",method = RequestMethod.POST)
     public CoinRecordHandleView moneyHandle(@Valid @RequestBody CoinRecordMoneyHandleForm form){
         CoinRecord coinRecord = coinRecordService.getById(form.getId());
         if (Objects.isNull(coinRecord)) {
