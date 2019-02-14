@@ -78,7 +78,7 @@ public class OrderController {
 
     @RequestMapping(value = CREATE, method = RequestMethod.POST)
     @Transactional
-    public OrderCreateView create(@Valid @RequestBody OrderCreateForm form) {
+    public OrderDetailView create(@Valid @RequestBody OrderCreateForm form) {
         Customer customer = sessionContext.getCustomer();
 
         Order order = new Order();
@@ -91,7 +91,7 @@ public class OrderController {
             order.setCount(0);
             order.setGoodsNames(RECHARGE_GOODSNAME);
             orderService.create(order);
-            return new OrderCreateView(order.getId());
+            return new OrderDetailView(order,new ArrayList<>());
         }
 
         order.setCount(form.getList().stream().mapToInt(OrderItemCreateForm::getCount).sum());
@@ -107,7 +107,7 @@ public class OrderController {
             itemList.add(orderItem);
         }
         orderItemService.batchCreate(itemList);
-        return new OrderCreateView(order.getId());
+        return new OrderDetailView(order,itemList);
     }
 
     @RequestMapping(value = "/paid", method = RequestMethod.PUT)
