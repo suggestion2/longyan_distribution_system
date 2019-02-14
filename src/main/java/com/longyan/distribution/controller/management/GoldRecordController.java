@@ -81,7 +81,7 @@ public class GoldRecordController {
         return new GoldRecordListView(list,goldRecordService.selectCount(query));
     }
 
-    @RequestMapping(value = "cashList",method = RequestMethod.POST)
+    @RequestMapping(value = "/cashList",method = RequestMethod.POST)
     public GoldRecordListView cashList(@Valid @RequestBody GoldRecordCheckListForm form){
         Map<String,Object> map = form.getQueryMap();
         map.put("type",WITHDRAW);
@@ -89,7 +89,7 @@ public class GoldRecordController {
     }
 
     //打款展示处理
-    @RequestMapping(value = "moneyHandle",method = RequestMethod.POST)
+    @RequestMapping(value = "/moneyHandle",method = RequestMethod.POST)
     public GoldRecordHandleView moneyHandle(@Valid @RequestBody GoldRecordMoneyHandleForm form){
         GoldRecord goldRecord = goldRecordService.getById(form.getId());
         if (Objects.isNull(goldRecord)) {

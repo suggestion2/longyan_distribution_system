@@ -1,6 +1,8 @@
 package com.longyan.distribution.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.sug.core.util.jsonFormat.SimpleDateTimeSerializer;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -12,7 +14,7 @@ public class Order {
     private Integer customerId;
     private Integer count;
     private BigDecimal amount;
-    @JsonIgnore
+    @JsonSerialize(using = SimpleDateTimeSerializer.class)
     private Date createTime;
     @JsonIgnore
     private Date updateTime;
