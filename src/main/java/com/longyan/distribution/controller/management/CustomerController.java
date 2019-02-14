@@ -284,6 +284,7 @@ public class CustomerController {
         }
 
         customer.setBusiness(form.getStatus());
+        customer.setBusinessAccount(form.getStatus().equals(BUSINESS) ? String.format("%06d",customer.getId()) : "0");
         customer.setBusinessStatus(form.getStatus().equals(BUSINESS) ? BUSINESS_ENABLE : BUSINESS_DISABLE);
         customer.setUpdateBy(sessionContext.getUser().getId());
         customerService.updateBusinessApplication(customer);

@@ -349,8 +349,10 @@
                                value=""/>
                 status:<select class="textbox" id="order-api-list-status" style="width: 100px;">
                 <option value="">all</option>
-                <option value="0">disable</option>
-                <option value="1">enable</option>
+                <option value="-1">取消</option>
+                <option value="0">创建</option>
+                <option value="1">已支付</option>
+                <option value="2">已确认</option>
             </select><br>
                 pageIndex:<input class="textbox" type="text" id="order-api-list-pageIndex" style="width: 100px;"
                                  value="0"/>
@@ -872,7 +874,7 @@
                 <option value="">all</option>
                 <option value="-1">取消</option>
                 <option value="2">确认</option>
-                <option value="1">已支付</option>
+                <option value="1">待处理</option>
             </select><br>
                 pageIndex:<input class="textbox" type="text" id="order-list-pageIndex" style="width: 100px;"
                                   value="0"/>

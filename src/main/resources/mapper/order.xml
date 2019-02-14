@@ -21,6 +21,9 @@
         <if test="status!=null">
             and `status` = #{status}
         </if>
+        <if test="pending!=null">
+            and (`status` = 0 or `status` = 1)
+        </if>
         <if test="customerId!=null">
             and `customerId` = #{customerId}
         </if>
@@ -36,6 +39,9 @@
         </if>
         <if test="status!=null">
             and `status` = #{status}
+        </if>
+        <if test="pending!=null">
+            and (`status` = 0 or `status` = 1)
         </if>
         <if test="customerId!=null">
             and `customerId` = #{customerId}

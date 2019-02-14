@@ -35,5 +35,11 @@ public class DistributionApplicationTests {
 		System.out.println(coinRecordMapper.selectCoinRecordAndCustomerList(Collections.singletonMap("type",1)).size());
 	}
 
+
+	@Test
+	public void test(){
+		System.out.println(String.format("%06d",1));
+		System.out.println(String.format("%06d",111111111));
+	}
 }
 
