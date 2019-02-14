@@ -65,6 +65,7 @@ public class CoinRecordController {
         return new CoinRecordListView(coinRecordService.selectCoinRecordAndCustomerList(map),coinRecordService.selectCount(map));
     }
 
+
     //打款展示处理
     @RequestMapping(value = "moneyHandle",method = RequestMethod.POST)
     public CoinRecordHandleView moneyHandle(@Valid @RequestBody CoinRecordMoneyHandleForm form){

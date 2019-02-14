@@ -237,6 +237,14 @@ var customerModule = {
         };
         showResult(settings);
     },
+    businessDetail: function () {
+        var settings = {
+            type: "GET",
+            url: "/api/customer/" + $("#customer-a-businessDetail-id").val(),
+            dataType: "json"
+        };
+        showResult(settings);
+    },
     inviteList: function () {
         var settings = {
             type: "POST",
