@@ -232,6 +232,7 @@ public class CustomerController {
             customer.setBusinessName(form.getBusinessName());
             customer.setBusiness(BUSINESS);
             customer.setUpdateBy(sessionContext.getUser().getId());
+            customer.setBusinessStatus(BUSINESS_ENABLE);
             customerService.updateBusiness(customer);
         }
         return new ResponseView();

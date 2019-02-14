@@ -170,6 +170,7 @@
         set a.businessAccount = b.c,
         a.business=#{business},
         a.businessName=#{businessName},
+        a.businessStatus = #{businessStatus},
         a.updateBy=#{updateBy};
     </update>
     
