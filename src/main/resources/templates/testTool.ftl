@@ -91,6 +91,12 @@
                 <input type="button" value="列表" onclick="customerModule.businessList()"/><br>
             </div>
             <div>
+                <strong>[商户详情]</strong><br/>
+                id:<input class="textbox" type="text" id="customer-a-businessDetail-id" style="width: 100px;"
+                                 value=""/>
+                <input type="button" value="列表" onclick="customerModule.businessDetail()"/><br>
+            </div>
+            <div>
                 <strong>[邀请列表]</strong><br/>
                 startIndex:<input class="textbox" type="text" id="customer-a-inviteList-startIndex"
                                   style="width: 100px;"

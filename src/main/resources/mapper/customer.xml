@@ -6,6 +6,10 @@
         select * from `customer` where id= #{id} and `valid` = 1
     </select>
 
+    <select id="selectBusinessById" resultType="com.longyan.distribution.domain.Customer" parameterType="java.lang.Integer">
+        select id,businessAccount,businessName,business from `customer` where id= #{id} and `valid` = 1
+    </select>
+
     <select id="select" resultType="com.longyan.distribution.domain.Customer" parameterType="java.util.Map">
         select * from `customer` where `valid` = 1
         <if test="id!=null">
@@ -42,7 +46,7 @@
     </select>
 
     <select id="selectShortViewList" resultType="com.longyan.distribution.response.CustomerShortView" parameterType="java.util.Map">
-        select id,phone,parentPhone,superParentPhone,realName,parentRealName,superParentRealName from `customer` where `valid` = 1
+        select id,phone,parentPhone,superParentPhone,realName,parentRealName,superParentRealName,createTime from `customer` where `valid` = 1
         <if test="business!=null">
             and `business` = #{business}
         </if>
@@ -61,7 +65,7 @@
     </select>
 
     <select id="selectBusinessList" resultType="com.longyan.distribution.response.BusinessView" parameterType="java.util.Map">
-        select businessAccount,businessName  from `customer` where `valid` = 1
+        select businessAccount,businessName,id  from `customer` where `valid` = 1
         <if test="business!=null">
             and `business` = #{business}
         </if>

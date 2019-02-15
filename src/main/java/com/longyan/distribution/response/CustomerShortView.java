@@ -1,6 +1,11 @@
 package com.longyan.distribution.response;
 
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.sug.core.util.jsonFormat.SimpleDateTimeSerializer;
+
+import java.util.Date;
+
 public class CustomerShortView {
 
     private Integer id;
@@ -11,6 +16,16 @@ public class CustomerShortView {
     private String parentRealName;
     private String superParentRealName;
     private Integer type;
+    @JsonSerialize(using = SimpleDateTimeSerializer.class)
+    private Date createTime;
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
 
     public Integer getType() {
         return type;

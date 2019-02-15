@@ -28,6 +28,11 @@ public class CustomerServiceImpl implements CustomerService{
         return customerMapper.selectById(id);
     }
 
+    @Override
+    public Customer selectBusinessById(Integer id){
+        return customerMapper.selectBusinessById(id);
+    }
+
 
     @Override
     public Customer select(Map<String, Object> map){

@@ -103,7 +103,7 @@ public class OilDrillRecordController {
     }
 
     //提现列表
-    @RequestMapping(value = "cashList",method = RequestMethod.POST)
+    @RequestMapping(value = "/cashList",method = RequestMethod.POST)
     public OilDrillRecordListView cashList(@Valid @RequestBody OilDrillCashListForm form){
         Map<String,Object> map = form.getQueryMap();
         map.put("type",WITHDRAW);
@@ -111,7 +111,7 @@ public class OilDrillRecordController {
     }
 
     //打款展示处理
-    @RequestMapping(value = "moneyHandle",method = RequestMethod.POST)
+    @RequestMapping(value = "/moneyHandle",method = RequestMethod.POST)
     public OilDrillRecordHandleView moneyHandle(@Valid @RequestBody GoldRecordMoneyHandleForm form){
         OilDrillRecord oilDrillRecord = oilDrillRecordService.getById(form.getId());
         if (Objects.isNull(oilDrillRecord)) {
