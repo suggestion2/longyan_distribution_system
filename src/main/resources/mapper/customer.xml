@@ -61,7 +61,7 @@
     </select>
 
     <select id="selectBusinessList" resultType="com.longyan.distribution.response.BusinessView" parameterType="java.util.Map">
-        select businessAccount,businessName  from `customer` where `valid` = 1
+        select businessAccount,businessName,id  from `customer` where `valid` = 1
         <if test="business!=null">
             and `business` = #{business}
         </if>

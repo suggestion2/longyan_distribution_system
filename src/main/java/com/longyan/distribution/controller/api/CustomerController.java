@@ -83,6 +83,15 @@ public class CustomerController {
         return new CustomerListShortView(list,customerService.selectCount(query));
     }
 
+    @RequestMapping(value = DETAIL, method = RequestMethod.GET)
+    public Customer detail(@PathVariable Integer id) {
+        Customer customer = customerService.getById(id);
+        if (Objects.isNull(customer)||!Objects.equals(customer.getBusiness(), BUSINESS)) {
+            throw new ResourceNotFoundException("business not found");
+        }
+        return customer;
+    }
+
     @RequestMapping(value = "/businessList",method = RequestMethod.POST)
     @CustomerLoginRequired
     public BusinessListView businessList(@Valid @RequestBody BusinessListForm form){
