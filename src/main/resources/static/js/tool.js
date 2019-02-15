@@ -763,8 +763,8 @@ var orderModule= {
             data: JSON.stringify({
                 "content": $("#order-list-content").val(),
                 "status": $("#order-list-status").val(),
-                "pageIndex": $("#goods-list-pageIndex").val(),
-                "pageSize": $("#goods-list-pageSize").val()
+                "pageIndex": $("#order-list-pageIndex").val(),
+                "pageSize": $("#order-list-pageSize").val()
             })
         };
         showResult(settings);
@@ -777,8 +777,8 @@ var orderModule= {
             data: JSON.stringify({
                 "content": $("#order-api-list-content").val(),
                 "status": $("#order-api-list-status").val(),
-                "pageIndex": $("#goods-api-list-pageIndex").val(),
-                "pageSize": $("#goods-api-list-pageSize").val()
+                "pageIndex": $("#order-api-list-pageIndex").val(),
+                "pageSize": $("#order-api-list-pageSize").val()
             })
         };
         showResult(settings);
@@ -806,8 +806,8 @@ var orderModule= {
             "remark": $("#order-api-create-remark").val(),
             "list":[]
         };
-        if($("#order-api-create-hasItem").val() === 1){
-            jsonObject.list.add({
+        if($("#order-api-create-hasItem").val() == '1'){
+            jsonObject.list.push({
                 "goodsId": $("#order-api-create-goodsId").val(),
                 "goodsName": $("#order-api-create-goodsName").val(),
                 "price": $("#order-api-create-price").val(),

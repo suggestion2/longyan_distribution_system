@@ -112,12 +112,12 @@ public class CustomerController {
     public ResponseView create(@Valid @RequestBody CustomerCreateForm form){
         Customer customer = new Customer();
         if(Objects.nonNull(customerService.selectByPhone(form.getPhone()))){
-            throw new InvalidRequestException("duplicatePhone","duplicate phone");
+            throw new InvalidRequestException("手机号码重复","错误的手机号码");
         }
         BeanUtils.copyProperties(form,customer);
         customer.setLevel(COMMONLEVEL);
-        customer.setLoginPassword(MD5.encrypt(INIT_PASSWORD + MD5_SALT));
-        customer.setPaymentPassword(MD5.encrypt(INIT_PASSWORD + MD5_SALT));
+        customer.setLoginPassword(MD5.encrypt(form.getLoginPassword() + MD5_SALT));
+        customer.setPaymentPassword(MD5.encrypt(form.getPaymentPassword() + MD5_SALT));
         //设置默认为空
         customer.setParentRealName("");
         customer.setSuperParentRealName("");
@@ -149,7 +149,7 @@ public class CustomerController {
         Customer customer = customerService.selectByPhone(form.getPhone());
         if(Objects.isNull(customer) ||
                 !MD5.encrypt(form.getLoginPassword() + MD5_SALT).equalsIgnoreCase(customer.getLoginPassword())){
-            throw new ResourceNotFoundException("user not found or invalid password");
+            throw new ResourceNotFoundException("用户没有找到或密码错误");
         }
         sessionContext.setCustomer(customer);
         return new ResponseView();

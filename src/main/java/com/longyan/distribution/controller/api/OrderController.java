@@ -14,6 +14,7 @@ import com.longyan.distribution.response.OrderListView;
 import com.longyan.distribution.service.GoodsService;
 import com.longyan.distribution.service.OrderItemService;
 import com.longyan.distribution.service.OrderService;
+import com.longyan.distribution.service.SystemParamsService;
 import com.sug.core.platform.exception.ResourceNotFoundException;
 import com.sug.core.platform.web.rest.exception.InvalidRequestException;
 import com.sug.core.rest.view.ResponseView;
@@ -27,16 +28,12 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 import static com.longyan.distribution.constants.CommonConstants.CREATE;
 import static com.longyan.distribution.constants.CommonConstants.DETAIL;
 import static com.longyan.distribution.constants.CommonConstants.LIST;
-import static com.longyan.distribution.constants.GoodsConstants.ENABLE;
-import static com.longyan.distribution.constants.GoodsConstants.RECHARGE_GOODSNAME;
+import static com.longyan.distribution.constants.GoodsConstants.*;
 import static com.longyan.distribution.constants.OrderConstants.CREATED;
 import static com.longyan.distribution.constants.OrderConstants.PAID;
 
@@ -59,6 +56,9 @@ public class OrderController {
     @Autowired
     private SessionContext sessionContext;
 
+    @Autowired
+    private SystemParamsService systemParamsService;
+
     @RequestMapping(value = LIST, method = RequestMethod.POST)
     public OrderListView list(@Valid @RequestBody OrderListForm form) {
         Map<String,Object> query = form.getQueryMap();
@@ -79,8 +79,13 @@ public class OrderController {
     @RequestMapping(value = CREATE, method = RequestMethod.POST)
     @Transactional
     public OrderDetailView create(@Valid @RequestBody OrderCreateForm form) {
+        //不是vip卡不能下单
+        if(form.getList().size()>0&&Objects.equals(form.getRecharge(),NORMAL_GOODSNAME)){
+            Integer.valueOf(systemParamsService.getValueByKey(Collections.singletonMap("key", VIPCARD)).getValue());
+            if(!Objects.equals(form.getList().get(0).getGoodsId(),Integer.valueOf(systemParamsService.getValueByKey(Collections.singletonMap("key", VIPCARD)).getValue())))
+                throw new InvalidRequestException("不是会员vip升级卡不能下单");
+        }
         Customer customer = sessionContext.getCustomer();
-
         Order order = new Order();
         BeanUtils.copyProperties(form, order);
         order.setCustomerId(customer.getId());

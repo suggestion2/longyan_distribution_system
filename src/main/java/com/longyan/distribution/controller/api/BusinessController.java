@@ -56,9 +56,9 @@ public class BusinessController {
     @RequestMapping(value = LOGIN, method = RequestMethod.POST)
     public ResponseView login(@Valid @RequestBody CustomerLoginForm form) {
         Customer customer = customerService.selectByPhone(form.getPhone());
-        if(Objects.isNull(customer) || !customer.getBusiness().equals(BUSINESS) ||
-                !MD5.encrypt(form.getLoginPassword() + MD5_SALT).equalsIgnoreCase(customer.getLoginPassword())){
-            throw new ResourceNotFoundException("user not found or invalid password");
+        if(Objects.isNull(customer) || !customer.getBusiness().equals(BUSINESS) || !customer.getBusinessStatus().equals(BUSINESS_ENABLE) ||
+        !MD5.encrypt(form.getLoginPassword() + MD5_SALT).equalsIgnoreCase(customer.getLoginPassword())){
+            throw new ResourceNotFoundException("不是商户状态，或用户名密码错误,或商户已经被禁用");
         }
         sessionContext.setCustomer(customer);
         return new ResponseView();
