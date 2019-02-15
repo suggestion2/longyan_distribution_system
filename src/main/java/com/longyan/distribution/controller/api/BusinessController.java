@@ -96,7 +96,7 @@ public class BusinessController {
         query.put("businessId",sessionContext.getCustomerId());
         List<GoldRecord> list = goldRecordService.selectList(query);
         for (GoldRecord record:list){
-            if(record.getType().equals(TRANSFER)){
+            if(record.getType().equals(TRANSFER)||record.getType().equals(WITHDRAW)){
                 record.setAmount(BigDecimalUtils.multiply(record.getAmount(),-1));
             }
         }
@@ -109,7 +109,13 @@ public class BusinessController {
         Map<String,Object> query = form.getQueryMap();
         query.put("businessId",sessionContext.getCustomerId());
         query.put("type",WITHDRAW);
-        return new GoldRecordListView(goldRecordService.selectList(query),goldRecordService.selectCount(query));
+        List<GoldRecord> list = goldRecordService.selectList(query);
+        for (GoldRecord record:list){
+            if(record.getType().equals(WITHDRAW)){
+                record.setAmount(BigDecimalUtils.multiply(record.getAmount(),-1));
+            }
+        }
+        return new GoldRecordListView(list,goldRecordService.selectCount(query));
     }
 
     @RequestMapping(value = "/goldWithdraw",method = RequestMethod.POST)
@@ -195,7 +201,7 @@ public class BusinessController {
         query.put("businessId",sessionContext.getCustomerId());
         List<OilDrillRecord> list = oilDrillRecordService.selectList(query);
         for (OilDrillRecord record:list){
-            if(record.getType().equals(TRANSFER)){
+            if(record.getType().equals(TRANSFER)||record.getType().equals(OilDrillConstants.WITHDRAW)){
                 record.setAmount(BigDecimalUtils.multiply(record.getAmount(),-1));
             }
         }
@@ -208,7 +214,13 @@ public class BusinessController {
         Map<String,Object> query = form.getQueryMap();
         query.put("businessId",sessionContext.getCustomerId());
         query.put("type", OilDrillConstants.WITHDRAW);
-        return new OilDrillRecordListView(oilDrillRecordService.selectList(query),oilDrillRecordService.selectCount(query));
+        List<OilDrillRecord> list = oilDrillRecordService.selectList(query);
+        for (OilDrillRecord record:list){
+            if(record.getType().equals(OilDrillConstants.WITHDRAW)){
+                record.setAmount(BigDecimalUtils.multiply(record.getAmount(),-1));
+            }
+        }
+        return new OilDrillRecordListView(list,oilDrillRecordService.selectCount(query));
     }
 
     @RequestMapping(value = "/oilDrillWithdraw",method = RequestMethod.POST)

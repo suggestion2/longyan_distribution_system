@@ -1,5 +1,6 @@
 package com.longyan.distribution.controller.management;
 
+import com.longyan.distribution.constants.OilDrillConstants;
 import com.longyan.distribution.context.SessionContext;
 import com.longyan.distribution.domain.CoinRecord;
 import com.longyan.distribution.domain.Customer;
@@ -73,6 +74,12 @@ public class OilDrillRecordController {
     public OilDrillRecordListView customerList(@Valid @RequestBody OilDrillRecordCustomerListForm form){
         Map<String,Object> query = form.getQueryMap();
         query.put("customerId",form.getCustomerId());
+        List<OilDrillRecord> list = oilDrillRecordService.selectList(query);
+        for (OilDrillRecord record:list){
+            if(record.getType().equals(OilDrillConstants.WITHDRAW)){
+                record.setAmount(BigDecimalUtils.multiply(record.getAmount(),-1));
+            }
+        }
         return new OilDrillRecordListView(oilDrillRecordService.selectList(query),oilDrillRecordService.selectCount(query));
     }
 
@@ -82,7 +89,7 @@ public class OilDrillRecordController {
         query.put("businessId",form.getBusinessId());
         List<OilDrillRecord> list = oilDrillRecordService.selectList(query);
         for (OilDrillRecord record:list){
-            if(record.getType().equals(TRANSFER)){
+            if(record.getType().equals(TRANSFER)||record.getType().equals(OilDrillConstants.WITHDRAW)){
                 record.setAmount(BigDecimalUtils.multiply(record.getAmount(),-1));
             }
         }

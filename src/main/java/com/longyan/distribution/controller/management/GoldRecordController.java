@@ -65,7 +65,13 @@ public class GoldRecordController {
     public GoldRecordListView customerList(@Valid @RequestBody GoldRecordCustomerListForm form){
         Map<String,Object> query = form.getQueryMap();
         query.put("customerId",form.getCustomerId());
-        return new GoldRecordListView(goldRecordService.selectList(query),goldRecordService.selectCount(query));
+        List<GoldRecord> list = goldRecordService.selectList(query);
+        for (GoldRecord record:list){
+            if(record.getType().equals(WITHDRAW)){
+                record.setAmount(BigDecimalUtils.multiply(record.getAmount(),-1));
+            }
+        }
+        return new GoldRecordListView(list,goldRecordService.selectCount(query));
     }
 
     @RequestMapping(value = "/businessList",method = RequestMethod.POST)
@@ -74,7 +80,7 @@ public class GoldRecordController {
         query.put("businessId",form.getBusinessId());
         List<GoldRecord> list = goldRecordService.selectList(query);
         for (GoldRecord record:list){
-            if(record.getType().equals(OilDrillConstants.TRANSFER)){
+            if(record.getType().equals(OilDrillConstants.TRANSFER)||record.getType().equals(WITHDRAW)){
                 record.setAmount(BigDecimalUtils.multiply(record.getAmount(),-1));
             }
         }
