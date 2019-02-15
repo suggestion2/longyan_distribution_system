@@ -85,7 +85,7 @@ public class CustomerController {
 
     @RequestMapping(value = DETAIL, method = RequestMethod.GET)
     public Customer detail(@PathVariable Integer id) {
-        Customer customer = customerService.getById(id);
+        Customer customer = customerService.selectBusinessById(id);
         if (Objects.isNull(customer)||!Objects.equals(customer.getBusiness(), BUSINESS)) {
             throw new ResourceNotFoundException("business not found");
         }

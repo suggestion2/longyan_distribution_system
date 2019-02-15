@@ -14,6 +14,8 @@ import java.util.Map;
 public interface CustomerService {
     Customer getById(Integer id);
 
+    Customer selectBusinessById(Integer id);
+
     Customer select(Map<String, Object> map);
 
     Customer selectByPhone(String phone);

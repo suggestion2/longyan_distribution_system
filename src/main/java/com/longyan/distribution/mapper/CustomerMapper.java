@@ -13,6 +13,8 @@ public interface CustomerMapper {
 
     Customer selectById(Integer id);
 
+    Customer selectBusinessById(Integer id);
+
     Customer select(Map<String, Object> map);
 
     List<Customer> selectList(Map<String, Object> map);
