@@ -10,7 +10,6 @@ import com.sug.core.rest.view.SuccessView;
 import com.longyan.distribution.domain.Goods;
 import com.longyan.distribution.service.GoodsService;
 import com.longyan.distribution.response.GoodsListView;
-import com.sun.deploy.net.URLEncoder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
