@@ -79,11 +79,14 @@ public class OrderController {
     @RequestMapping(value = CREATE, method = RequestMethod.POST)
     @Transactional
     public OrderDetailView create(@Valid @RequestBody OrderCreateForm form) {
-        //不是vip卡不能下单
-        if(form.getList().size()>0&&Objects.equals(form.getRecharge(),NORMAL_GOODSNAME)){
-            if(!Objects.equals(form.getList().get(0).getGoodsId(),Integer.valueOf(systemParamsService.getValueByKey(Collections.singletonMap("key", VIPCARD)).getValue())))
-                throw new InvalidRequestException("不是会员vip升级卡不能下单");
-        }
+//        //不是vip卡不能下单
+//        if(form.getList().size()>0&&Objects.equals(form.getRecharge(),NORMAL_GOODSNAME)){
+//            for(OrderItemCreateForm list:form.getList()){
+//                if(!Objects.equals(list.getGoodsId(), Integer.valueOf(systemParamsService.getValueByKey(Collections.singletonMap("key", VIPCARD)).getValue()))){
+//                    throw new InvalidRequestException("不是会员vip升级卡不能下单");
+//                }
+//            }
+//        }
         Customer customer = sessionContext.getCustomer();
         Order order = new Order();
         BeanUtils.copyProperties(form, order);
