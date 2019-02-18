@@ -31,6 +31,7 @@ public class Order {
     private String goodsNames;
     private String remark;
 
+
     public Integer getId() {
         return id;
     }

@@ -1,20 +1,14 @@
 package com.longyan.distribution.controller.api;
 
 import com.longyan.distribution.context.SessionContext;
-import com.longyan.distribution.domain.Customer;
-import com.longyan.distribution.domain.Order;
-import com.longyan.distribution.domain.OrderItem;
-import com.longyan.distribution.domain.User;
+import com.longyan.distribution.domain.*;
 import com.longyan.distribution.interceptor.CustomerLoginRequired;
 import com.longyan.distribution.interceptor.UserLoginRequired;
 import com.longyan.distribution.request.*;
 import com.longyan.distribution.response.OrderCreateView;
 import com.longyan.distribution.response.OrderDetailView;
 import com.longyan.distribution.response.OrderListView;
-import com.longyan.distribution.service.GoodsService;
-import com.longyan.distribution.service.OrderItemService;
-import com.longyan.distribution.service.OrderService;
-import com.longyan.distribution.service.SystemParamsService;
+import com.longyan.distribution.service.*;
 import com.sug.core.platform.exception.ResourceNotFoundException;
 import com.sug.core.platform.web.rest.exception.InvalidRequestException;
 import com.sug.core.rest.view.ResponseView;
@@ -28,11 +22,11 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.math.BigDecimal;
 import java.util.*;
 
-import static com.longyan.distribution.constants.CommonConstants.CREATE;
-import static com.longyan.distribution.constants.CommonConstants.DETAIL;
-import static com.longyan.distribution.constants.CommonConstants.LIST;
+import static com.longyan.distribution.constants.CommonConstants.*;
+import static com.longyan.distribution.constants.GoldRecordConstans.*;
 import static com.longyan.distribution.constants.GoodsConstants.*;
 import static com.longyan.distribution.constants.OrderConstants.CREATED;
 import static com.longyan.distribution.constants.OrderConstants.PAID;
@@ -46,6 +40,9 @@ public class OrderController {
 
     @Autowired
     private GoodsService goodsService;
+
+    @Autowired
+    private GoldRecordService goldRecordService;
 
     @Autowired
     private OrderService orderService;
@@ -100,7 +97,11 @@ public class OrderController {
             orderService.create(order);
             return new OrderDetailView(order,new ArrayList<>());
         }
-
+        //判断用户拥有的金币是否足够购买商品
+//        BigDecimal amount = BigDecimalUtils.multiply(form.getList().get(0).getPrice(),form.getList().stream().mapToInt(OrderItemCreateForm::getCount).sum());
+        if(Objects.equals(customer.getCustomerGold().compareTo(form.getAmount()),-1)){
+            throw new InvalidRequestException("用户金币不足不能下单");
+        }
         order.setCount(form.getList().stream().mapToInt(OrderItemCreateForm::getCount).sum());
         order.setGoodsNames(form.getList().get(0).getGoodsName());
         orderService.create(order);
@@ -113,6 +114,7 @@ public class OrderController {
             orderItem.setCreateBy(0);
             itemList.add(orderItem);
         }
+
         orderItemService.batchCreate(itemList);
         return new OrderDetailView(order,itemList);
     }

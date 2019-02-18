@@ -59,6 +59,9 @@
         `updateBy`,
         `recharge`,
         `customerRealName`,
+        <if test="remark!=null">
+           `remark`,
+        </if>
         `goodsNames`
         )
         values
@@ -71,6 +74,9 @@
         #{createBy},
         #{recharge},
         #{customerRealName},
+        <if test="remark!=null">
+            #{remark},
+        </if>
         #{goodsNames}
         )
     </insert>
@@ -94,7 +100,9 @@
         update `order` set
         `updateBy` = #{updateBy},
         `status` = #{status},
+        <if test="refuseReason!=null">
         `refuseReason` = #{refuseReason},
+        </if>
         `remark` = #{remark},
         `updateTime` = now()
         where `id` = #{id}

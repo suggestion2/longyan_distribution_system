@@ -22,6 +22,8 @@ public class GoldRecordConstans {
     public static final int REFUSE = -2;
 
     public static final int TRANSFER = 3;
+    //平台消费
+    public static final int CONSUMPTION = 7;
     //减少金币操作失败
     public static final int REDUCEFAIL = 0;
 
