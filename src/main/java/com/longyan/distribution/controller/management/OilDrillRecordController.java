@@ -304,80 +304,79 @@ public class OilDrillRecordController {
             Customer currentCustomer = customerService.getById(form.getId());
             return currentCustomer;
         }
+        //判断是不是充值，是充值有分红
         if(Objects.equals(form.getType(),RECHARGE)) {
-            //判断当前用户是不是普通用户
-            if(Objects.equals(customer.getLevel(),CUSTOPMERONELEVEL)){
-                //判断是否有上级
-                if(!Objects.equals(customer.getParentId(),NOTPARENT)){
-                    Customer parentCustomer = customerService.getById(customer.getParentId());
-                    //判断上级等级是不是vip
-                    if(Objects.equals(parentCustomer.getLevel(), CUSTOPMERTWOLEVEL)){
-                        //添加vip分红
-                        BigDecimal value = new BigDecimal(systemParamsService.getValueByKey(Collections.singletonMap("key",VIPINVITECOMMONRECHARGEOILCOIN)).getValue());
-                        BigDecimal parentAmount = BigDecimalUtils.multiply(value,amount);
-                        parentCustomer.setCustomerCoin(parentAmount);
-                        customerService.updateAddCustomerCoin(parentCustomer);
-                        //添加分红记录
-                        coinRecord.setCustomerId(parentCustomer.getId());
-                        coinRecord.setCustomerPhone(parentCustomer.getPhone());
-                        coinRecord.setAmount(parentAmount);
-                        coinRecord.setType(RECHARGEREWARD);
-                        coinRecordService.create(coinRecord);
-                        //判断是否有上上级
-                        if(!Objects.equals(customer.getSuperParentId(),NOTSUPERPARENT)){
-                            Customer superParentCustomer = customerService.getById(customer.getSuperParentId());
-                            //判断上上级是不是合伙人
-                            if(Objects.equals(superParentCustomer.getLevel(), CUSTOPMERTHREELEVEL)){
-                                //拿出拿出合伙人对vip分红百分比，添加分红
-                                BigDecimal partnerRebate =  new BigDecimal(systemParamsService.getValueByKey(Collections.singletonMap("key",INVITEVIPRECHARGEOILCOIN)).getValue());
-                                BigDecimal superParentAmount = BigDecimalUtils.multiply(partnerRebate,amount);
-                                superParentCustomer.setCustomerCoin(superParentAmount);
-                                customerService.updateAddCustomerCoin(superParentCustomer);
-                                //添加分红记录
-                                coinRecord.setCustomerId(superParentCustomer.getId());
-                                coinRecord.setCustomerPhone(superParentCustomer.getPhone());
-                                coinRecord.setAmount(superParentAmount);
-                                coinRecord.setType(RECHARGEREWARD);
-                                coinRecordService.create(coinRecord);
-                            }
+            //判断当前用户是不是普通用户，判断是否有上级
+            if(Objects.equals(customer.getLevel(),CUSTOPMERONELEVEL)&&!Objects.equals(customer.getParentId(),NOTPARENT)){
+                Customer parentCustomer = customerService.getById(customer.getParentId());
+                //判断上级等级是不是vip
+                if(Objects.equals(parentCustomer.getLevel(), CUSTOPMERTWOLEVEL)){
+                    //添加vip分红
+                    vipToNormal(amount,parentCustomer,coinRecord);
+                    //判断是否有上上级
+                    if(!Objects.equals(customer.getSuperParentId(),NOTSUPERPARENT)){
+                        Customer superParentCustomer = customerService.getById(customer.getSuperParentId());
+                        //判断上上级是不是合伙人
+                        if(Objects.equals(superParentCustomer.getLevel(), CUSTOPMERTHREELEVEL)){
+                            //拿出拿出合伙人对vip分红百分比，添加分红
+                            partnerToVip(amount,superParentCustomer,coinRecord);
+                            Customer currentCustomer = customerService.getById(form.getId());
+                            return currentCustomer;
                         }
                     }
-                    //判断上级等级是不是合伙人，是合伙人上上级没有分红
-                    if(Objects.equals(parentCustomer.getLevel(), CUSTOPMERTHREELEVEL)){
-                        //计算合伙人对普通用户分红百分比，添加分红
-                        BigDecimal vipRebate =  new BigDecimal(systemParamsService.getValueByKey(Collections.singletonMap("key",INVITEVIPRECHARGEOILCOIN)).getValue());
-                        BigDecimal normalRebate = new BigDecimal(systemParamsService.getValueByKey(Collections.singletonMap("key",VIPINVITECOMMONRECHARGEOILCOIN)).getValue());
-                        BigDecimal partnerRebate=vipRebate.add(normalRebate);
-                        BigDecimal superParentAmount = BigDecimalUtils.multiply(partnerRebate,amount);
-                        parentCustomer.setCustomerCoin(superParentAmount);
-                        customerService.updateAddCustomerCoin(parentCustomer);
-                        //添加分红记录
-                        coinRecord.setCustomerId(parentCustomer.getId());
-                        coinRecord.setCustomerPhone(parentCustomer.getPhone());
-                        coinRecord.setAmount(superParentAmount);
-                        coinRecord.setType(RECHARGEREWARD);
-                        coinRecordService.create(coinRecord);
+                }
+                //判断上级等级是不是普通会员
+                if(Objects.equals(parentCustomer.getLevel(), CUSTOPMERONELEVEL)){
+                    //判断是否有上上级
+                    if(!Objects.equals(customer.getSuperParentId(),NOTSUPERPARENT)) {
+                        Customer superParentCustomer = customerService.getById(customer.getSuperParentId());
+                        //判断上上级是不是合伙人
+                        if(Objects.equals(superParentCustomer.getLevel(), CUSTOPMERTHREELEVEL)){
+                            //计算合伙人对普通用户分红百分比，添加分红
+                            partnerToNormal(amount,superParentCustomer,coinRecord);
+                        }
+                        //判断上上级是不是vip
+                        if(Objects.equals(superParentCustomer.getLevel(), CUSTOPMERTWOLEVEL)){
+                            //计算vip对普通用户分红百分比，添加分红
+                            vipToNormal(amount,superParentCustomer,coinRecord);
+                        }
                     }
                 }
+                //判断上级等级是不是合伙人，是合伙人上上级没有分红
+                if(Objects.equals(parentCustomer.getLevel(), CUSTOPMERTHREELEVEL)){
+                    //计算合伙人对普通用户分红百分比，添加分红
+                    partnerToNormal(amount,parentCustomer,coinRecord);
+                    Customer currentCustomer = customerService.getById(form.getId());
+                    return currentCustomer;
+                }
             }
-            //判断当前用户是不是vip
-            if(Objects.equals(customer.getLevel(),CUSTOPMERTWOLEVEL)){
-                //判断是否有上级
-                if(!Objects.equals(customer.getParentId(),NOTPARENT)){
-                    Customer parentCustomer = customerService.getById(customer.getParentId());
-                    //判断上级等级是不是合伙人
-                    if(Objects.equals(parentCustomer.getLevel(), CUSTOPMERTHREELEVEL)){
+            //判断当前用户是不是vip，判断是否有上级
+            if(Objects.equals(customer.getLevel(),CUSTOPMERTWOLEVEL)&&!Objects.equals(customer.getParentId(),NOTPARENT)){
+                Customer parentCustomer = customerService.getById(customer.getParentId());
+                //判断上级等级是不是合伙人
+                if(Objects.equals(parentCustomer.getLevel(), CUSTOPMERTHREELEVEL)){
+                    //拿出合伙人对vip分红百分比，添加分红
+                    partnerToVip(amount,parentCustomer,coinRecord);
+                    //是合伙人上上级没有分红
+                    Customer currentCustomer = customerService.getById(form.getId());
+                    return currentCustomer;
+                }
+                //判断上级等级是不是普通用户，是，判断是否有上上级
+                if(Objects.equals(parentCustomer.getLevel(), CUSTOPMERONELEVEL)&&!Objects.equals(customer.getSuperParentId(),NOTSUPERPARENT)){
+                    Customer superParentCustomer = customerService.getById(customer.getSuperParentId());
+                    //判断上上级是不是合伙人
+                    if(Objects.equals(superParentCustomer.getLevel(),CUSTOPMERTHREELEVEL)){
                         //拿出合伙人对vip分红百分比，添加分红
-                        BigDecimal partnerRebate =  new BigDecimal(systemParamsService.getValueByKey(Collections.singletonMap("key",INVITEVIPRECHARGEOILCOIN)).getValue());
-                        BigDecimal parentAmount = BigDecimalUtils.multiply(partnerRebate,amount);
-                        parentCustomer.setCustomerCoin(parentAmount);
-                        customerService.updateAddCustomerCoin(parentCustomer);
-                        //添加分红记录
-                        coinRecord.setCustomerId(parentCustomer.getId());
-                        coinRecord.setCustomerPhone(parentCustomer.getPhone());
-                        coinRecord.setAmount(parentAmount);
-                        coinRecord.setType(RECHARGEREWARD);
-                        coinRecordService.create(coinRecord);
+                        partnerToVip(amount,superParentCustomer,coinRecord);
+                    }
+                }
+                //判断上级等级是不是vip，是，判断是否有上上级
+                if(Objects.equals(parentCustomer.getLevel(), CUSTOPMERTWOLEVEL)&&!Objects.equals(customer.getSuperParentId(),NOTSUPERPARENT)){
+                    Customer superParentCustomer = customerService.getById(customer.getSuperParentId());
+                    //判断上上级是不是合伙人
+                    if(Objects.equals(superParentCustomer.getLevel(),CUSTOPMERTHREELEVEL)){
+                        //拿出合伙人对vip分红百分比，添加分红
+                        partnerToVip(amount,superParentCustomer,coinRecord);
                     }
                 }
             }
@@ -395,5 +394,48 @@ public class OilDrillRecordController {
         BeanUtils.copyProperties(form,oilDrillRecord);
         oilDrillRecordService.update(oilDrillRecord);
         return new SuccessView();
+    }
+    //计算合伙人对普通用户分红百分比，添加分红
+    public void partnerToNormal(BigDecimal amount,Customer customer,CoinRecord coinRecord){
+        BigDecimal vipRebate =  new BigDecimal(systemParamsService.getValueByKey(Collections.singletonMap("key",INVITEVIPRECHARGEOILCOIN)).getValue());
+        BigDecimal normalRebate = new BigDecimal(systemParamsService.getValueByKey(Collections.singletonMap("key",VIPINVITECOMMONRECHARGEOILCOIN)).getValue());
+        BigDecimal partnerRebate=vipRebate.add(normalRebate);
+        BigDecimal superParentAmount = BigDecimalUtils.multiply(partnerRebate,amount);
+        customer.setCustomerCoin(superParentAmount);
+        customerService.updateAddCustomerCoin(customer);
+        //添加分红记录
+        coinRecord.setCustomerId(customer.getId());
+        coinRecord.setCustomerPhone(customer.getPhone());
+        coinRecord.setAmount(superParentAmount);
+        coinRecord.setType(RECHARGEREWARD);
+        coinRecordService.create(coinRecord);
+    }
+
+    //计算vip对普通用户分红百分比，添加分红
+    public void vipToNormal(BigDecimal amount,Customer customer,CoinRecord coinRecord){
+        BigDecimal value = new BigDecimal(systemParamsService.getValueByKey(Collections.singletonMap("key",VIPINVITECOMMONRECHARGEOILCOIN)).getValue());
+        BigDecimal parentAmount = BigDecimalUtils.multiply(value,amount);
+        customer.setCustomerCoin(parentAmount);
+        customerService.updateAddCustomerCoin(customer);
+        //添加分红记录
+        coinRecord.setCustomerId(customer.getId());
+        coinRecord.setCustomerPhone(customer.getPhone());
+        coinRecord.setAmount(parentAmount);
+        coinRecord.setType(RECHARGEREWARD);
+        coinRecordService.create(coinRecord);
+    }
+    //计算合伙人对vip分红百分比，添加分红
+    public void partnerToVip(BigDecimal amount,Customer customer,CoinRecord coinRecord){
+        //拿出合伙人对vip分红百分比，添加分红
+        BigDecimal partnerRebate =  new BigDecimal(systemParamsService.getValueByKey(Collections.singletonMap("key",INVITEVIPRECHARGEOILCOIN)).getValue());
+        BigDecimal parentAmount = BigDecimalUtils.multiply(partnerRebate,amount);
+        customer.setCustomerCoin(parentAmount);
+        customerService.updateAddCustomerCoin(customer);
+        //添加分红记录
+        coinRecord.setCustomerId(customer.getId());
+        coinRecord.setCustomerPhone(customer.getPhone());
+        coinRecord.setAmount(parentAmount);
+        coinRecord.setType(RECHARGEREWARD);
+        coinRecordService.create(coinRecord);
     }
 }

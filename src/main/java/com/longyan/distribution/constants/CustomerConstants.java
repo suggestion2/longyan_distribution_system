@@ -28,11 +28,4 @@ public class CustomerConstants {
     //没有上上级
     public static final Integer NOTSUPERPARENT = 0;
 
-
-
-
-
-
-
-
 }
