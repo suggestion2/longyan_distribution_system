@@ -27,5 +27,9 @@ public class CustomerConstants {
     public static final Integer NOTPARENT = 0;
     //没有上上级
     public static final Integer NOTSUPERPARENT = 0;
+    //升级vip分红等级
+    public static final Integer ONE_LEVEL = 1;
+    public static final Integer TWO_LEVEL = 2;
+
 
 }

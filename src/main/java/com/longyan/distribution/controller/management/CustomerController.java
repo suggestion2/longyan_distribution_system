@@ -157,72 +157,93 @@ public class CustomerController {
         customer.setLevel(CUSTOPMERTWOLEVEL);
         customer.setUpdateBy(sessionContext.getUser().getId());
         customerService.updateLevel(customer);
-        //判断是否有上级
-        if (!Objects.equals(customer.getParentId(), NOTPARENT)) {
-            int userId = sessionContext.getUser().getId();
-            CoinRecord coinRecord = new CoinRecord();
+        int userId = sessionContext.getUser().getId();
+        CoinRecord coinRecord = new CoinRecord();;
+        Customer parentCustomer = customerService.getById(customer.getParentId());
+        Customer superParent = customerService.getById(customer.getSuperParentId());
+        boolean isParent = false;
+        boolean isSuper = false;
+        //如果有上级，并判断上级不是普通会员
+        if (!Objects.isNull(parentCustomer)) {
+            isParent = !Objects.equals(customer.getParentId(), NOTPARENT) && !Objects.equals(parentCustomer.getLevel(),CUSTOPMERONELEVEL);
+        }
+        //如果有上上级，判断上上级不是普通会员
+        if (!Objects.isNull(superParent)) {
+            isSuper = !Objects.equals(customer.getSuperParentId(), NOTPARENT) && !Objects.equals(superParent.getLevel(),CUSTOPMERONELEVEL);
+        }
+        if(isParent||isSuper){
+            //赋值
             coinRecord.setCreateBy(userId);
             coinRecord.setSourceCustomerId(customer.getId());
             coinRecord.setSourceCustomerLevel(customer.getLevel());
             coinRecord.setSourceCustomerPhone(customer.getPhone());
-            Customer parentCustomer = customerService.getById(customer.getParentId());
-            //判断上级等级是不是vip
-            if (Objects.equals(parentCustomer.getLevel(), CUSTOPMERTWOLEVEL)) {
-                //拿出分红比
-                BigDecimal value = new BigDecimal(systemParamsService.getValueByKey(Collections.singletonMap("key", INVITECOMMONBECOMEVIPCOIN)).getValue());
-                BigDecimal vipCard = goodsService.getById(Integer.valueOf(systemParamsService.getValueByKey(Collections.singletonMap("key", VIPCARD)).getValue())).getPrice();
-                BigDecimal parentAmount = BigDecimalUtils.multiply(value, vipCard);
-                parentCustomer.setCustomerCoin(parentAmount);
-                customerService.updateAddCustomerCoin(parentCustomer);
-                //添加分红记录
-                coinRecord.setCustomerId(parentCustomer.getId());
-                coinRecord.setCustomerPhone(parentCustomer.getPhone());
-                coinRecord.setAmount(parentAmount);
-                coinRecord.setType(INVITEREWARD);
-                coinRecordService.create(coinRecord);
-                //判断该vip上级是否有x个用户申请成vip,有的话把该vip上级升为合伙人
-                if (customerService.selectSubVipCount(parentCustomer.getId()) >= Integer.parseInt(systemParamsService.getValueByKey(Collections.singletonMap("key", VIPINVITENUM)).getValue())) {
-                    parentCustomer.setLevel(CUSTOPMERTHREELEVEL);
-                    parentCustomer.setUpdateBy(userId);
-                    customerService.updateLevel(parentCustomer);
-                }
-                //判断是否有上上级
-                if (!Objects.equals(customer.getSuperParentId(), NOTSUPERPARENT)) {
-                    Customer superParentCustomer = customerService.getById(customer.getSuperParentId());
-                    //判断上上级是不是合伙人
-                    if (Objects.equals(superParentCustomer.getLevel(), CUSTOPMERTHREELEVEL)) {
-                        //拿出分红比
-                        BigDecimal superValue = new BigDecimal(systemParamsService.getValueByKey(Collections.singletonMap("key", INVITEVIPINVITECOMMONCOIN)).getValue());
-                        BigDecimal superParentAmount = BigDecimalUtils.multiply(superValue, vipCard);
-                        superParentCustomer.setCustomerCoin(superParentAmount);
-                        customerService.updateAddCustomerCoin(superParentCustomer);
-                        //添加分红记录
-                        coinRecord.setCustomerId(superParentCustomer.getId());
-                        coinRecord.setCustomerPhone(superParentCustomer.getPhone());
-                        coinRecord.setAmount(superParentAmount);
-                        coinRecord.setType(INVITEREWARD);
-                        coinRecordService.create(coinRecord);
-                    }
-                }
-            }
-            //判断上级等级是不是合伙人，是合伙人上上级没有分红
-            if (Objects.equals(parentCustomer.getLevel(), CUSTOPMERTHREELEVEL)) {
-                BigDecimal value = new BigDecimal(systemParamsService.getValueByKey(Collections.singletonMap("key", INVITECOMMONBECOMEVIPCOIN)).getValue());
-                BigDecimal vipCard = goodsService.getById(Integer.valueOf(systemParamsService.getValueByKey(Collections.singletonMap("key", VIPCARD)).getValue())).getPrice();
-                BigDecimal parentAmount = BigDecimalUtils.multiply(value, vipCard);
-                parentCustomer.setCustomerCoin(parentAmount);
-                customerService.updateAddCustomerCoin(parentCustomer);
-                //添加分红记录
-                coinRecord.setCustomerId(parentCustomer.getId());
-                coinRecord.setCustomerPhone(parentCustomer.getPhone());
-                coinRecord.setAmount(parentAmount);
-                coinRecord.setType(INVITEREWARD);
-                coinRecordService.create(coinRecord);
-            }
         }
-
+        if(isParent && isSuper){
+            BigDecimal vipCard = goodsService.getById(Integer.valueOf(systemParamsService.getValueByKey(Collections.singletonMap("key", VIPCARD)).getValue())).getPrice();
+            //一级分红
+            rebate(vipCard,parentCustomer,coinRecord,ONE_LEVEL);
+            //二级分红
+            rebate(vipCard,superParent,coinRecord,TWO_LEVEL);
+            return new ResponseView();
+        }
+        if(isParent && !isSuper){
+            BigDecimal vipCard = goodsService.getById(Integer.valueOf(systemParamsService.getValueByKey(Collections.singletonMap("key", VIPCARD)).getValue())).getPrice();
+            rebate(vipCard,parentCustomer,coinRecord,ONE_LEVEL);
+            return new ResponseView();
+        }
+        if(isSuper && !isParent){
+            BigDecimal vipCard = goodsService.getById(Integer.valueOf(systemParamsService.getValueByKey(Collections.singletonMap("key", VIPCARD)).getValue())).getPrice();
+            rebate(vipCard,superParent,coinRecord,ONE_LEVEL);
+            return new ResponseView();
+        }
         return new ResponseView();
     }
+
+    public int check(Customer customer,Customer parentCustomer){
+        if(customer.getLevel()>parentCustomer.getLevel()){
+            return 1;
+        }
+        if(customer.getLevel()==parentCustomer.getLevel()){
+            return 2;
+        }
+        if(customer.getLevel()<parentCustomer.getLevel()){
+            return -1;
+        }
+        return -2;
+    }
+
+    //计算分红
+    public void rebate(BigDecimal vipCard,Customer customer,CoinRecord coinRecord,int level){
+        BigDecimal value = null;
+        if(Objects.equals(level,ONE_LEVEL)){
+            value = new BigDecimal(systemParamsService.getValueByKey(Collections.singletonMap("key", INVITECOMMONBECOMEVIPCOIN)).getValue());
+        }
+        if(Objects.equals(level,TWO_LEVEL)){
+            value = new BigDecimal(systemParamsService.getValueByKey(Collections.singletonMap("key", INVITEVIPINVITECOMMONCOIN)).getValue());
+        }
+        BigDecimal parentAmount = BigDecimalUtils.multiply(value, vipCard);
+        customer.setCustomerCoin(parentAmount);
+        customerService.updateAddCustomerCoin(customer);
+        //添加分红记录
+        coinRecord.setCustomerId(customer.getId());
+        coinRecord.setCustomerPhone(customer.getPhone());
+        coinRecord.setAmount(parentAmount);
+        coinRecord.setType(INVITEREWARD);
+        coinRecordService.create(coinRecord);
+    }
+//    //计算二级（跳级）分红
+//    public void TwoToVip(BigDecimal vipCard,Customer customer,CoinRecord coinRecord){
+//        BigDecimal value = new BigDecimal(systemParamsService.getValueByKey(Collections.singletonMap("key", INVITEVIPINVITECOMMONCOIN)).getValue());
+//        BigDecimal parentAmount = BigDecimalUtils.multiply(value, vipCard);
+//        customer.setCustomerCoin(parentAmount);
+//        customerService.updateAddCustomerCoin(customer);
+//        //添加分红记录
+//        coinRecord.setCustomerId(customer.getId());
+//        coinRecord.setCustomerPhone(customer.getPhone());
+//        coinRecord.setAmount(parentAmount);
+//        coinRecord.setType(INVITEREWARD);
+//        coinRecordService.create(coinRecord);
+//    }
 
     //设为商户
     @RequestMapping(value = "/resetBusiness", method = RequestMethod.PUT)
