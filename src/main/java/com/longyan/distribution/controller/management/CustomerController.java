@@ -199,19 +199,6 @@ public class CustomerController {
         return new ResponseView();
     }
 
-    public int check(Customer customer,Customer parentCustomer){
-        if(customer.getLevel()>parentCustomer.getLevel()){
-            return 1;
-        }
-        if(customer.getLevel()==parentCustomer.getLevel()){
-            return 2;
-        }
-        if(customer.getLevel()<parentCustomer.getLevel()){
-            return -1;
-        }
-        return -2;
-    }
-
     //计算分红
     public void rebate(BigDecimal vipCard,Customer customer,CoinRecord coinRecord,int level){
         BigDecimal value = null;
