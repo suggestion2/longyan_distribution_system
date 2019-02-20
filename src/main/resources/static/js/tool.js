@@ -219,7 +219,8 @@ var customerModule = {
             data: JSON.stringify({
                 "realName": $("#customer-a-update-realName").val(),
                 "customerBank": $("#customer-a-update-customerBank").val(),
-                "customerBankAccount": $("#customer-a-update-customerBankAccount").val()
+                "customerBankAccount": $("#customer-a-update-customerBankAccount").val(),
+                "address": $("#customer-a-update-address").val()
             })
         };
         showResult(settings);

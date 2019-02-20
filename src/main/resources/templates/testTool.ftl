@@ -77,13 +77,9 @@
                           value="农行"/><br>
                 银行账号:<input class="textbox" type="text" id="customer-a-update-customerBankAccount" style="width: 100px;"
                             value="6222600260001072442"/><br>
-                <input type="button" value="修改" onclick="customerModule.update()"/><br>
-            </div>
-            <div>
-                <strong>[修改地址]</strong><br/>
-                收货地址:<input class="textbox" type="text" id="customer-a-addAddress-address" style="width: 100px;"
+                收货地址:<input class="textbox" type="text" id="customer-a-update-address" style="width: 100px;"
                             value="收货地址"/><br>
-                <input type="button" value="修改" onclick="customerModule.addAddress()"/><br>
+                <input type="button" value="修改" onclick="customerModule.update()"/><br>
             </div>
             <div>
                 <strong>[商户列表]</strong><br/>

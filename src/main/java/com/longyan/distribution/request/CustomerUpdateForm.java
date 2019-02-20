@@ -22,6 +22,15 @@ public class CustomerUpdateForm {
     @NotEmpty
     @Pattern(regexp=RegexUtils.REGEX_NUM  ,message = RegexUtils.REGEX_NUM_MESSAGE  )
     private String customerBankAccount;
+    private String address;
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
     public String getRealName() {
         return realName;
