@@ -165,6 +165,16 @@ public class CustomerController {
         return new ResponseView();
     }
 
+    @RequestMapping(value = "/addAddress",method = RequestMethod.PUT)
+    @CustomerLoginRequired
+    public ResponseView addAddress(@Valid @RequestBody CustomerAddAddressFrom form){
+        Customer customer = sessionContext.getCustomer();
+        BeanUtils.copyProperties(form,customer);
+        customerService.update(customer);
+        sessionContext.setCustomer(customer);
+        return new ResponseView();
+    }
+
     @RequestMapping(value = "businessApplication",method = RequestMethod.PUT)
     @CustomerLoginRequired
     public ResponseView businessApplication(@Valid @RequestBody BusinessApplicationForm form){

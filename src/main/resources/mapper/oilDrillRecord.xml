@@ -56,6 +56,7 @@
                 and a.`status` = #{status}
             </if>
         </if>
+        order by updateTime desc
         <if test="startIndex != null and pageSize != null">
             limit #{startIndex},#{pageSize}
         </if>
@@ -75,6 +76,7 @@
         <if test="phone!=null">
             and (`customerPhone` like concat ('%',#{phone},'%'))
         </if>
+        order by updateTime desc
         <if test="startIndex != null and pageSize != null">
             limit #{startIndex},#{pageSize}
         </if>

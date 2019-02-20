@@ -85,6 +85,9 @@ public class OrderController {
 //            }
 //        }
         Customer customer = sessionContext.getCustomer();
+        if(Objects.isNull(customer.getAddress())){
+            throw new InvalidRequestException("请先填写收货地址");
+        }
         Order order = new Order();
         BeanUtils.copyProperties(form, order);
         order.setCustomerId(customer.getId());
@@ -104,6 +107,7 @@ public class OrderController {
         }
         order.setCount(form.getList().stream().mapToInt(OrderItemCreateForm::getCount).sum());
         order.setGoodsNames(form.getList().get(0).getGoodsName());
+            order.setAddress(customer.getAddress());
         orderService.create(order);
         List<OrderItem> itemList = new ArrayList<>();
         for (OrderItemCreateForm itemCreateForm : form.getList()) {

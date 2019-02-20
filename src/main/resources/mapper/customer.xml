@@ -39,7 +39,6 @@
         <if test="managementContent!=null">
             and (`phone` like concat ('%',#{managementContent},'%') or `realName` like concat ('%',#{managementContent},'%') or `businessAccount` like concat ('%',#{managementContent},'%') or `businessName` like concat ('%',#{managementContent},'%'))
         </if>
-
         <if test="startIndex != null and pageSize != null">
             limit #{startIndex},#{pageSize}
         </if>
@@ -163,6 +162,7 @@
         `business` = #{business},
         `businessStatus` = #{businessStatus},
         `updateBy` = #{updateBy},
+        `address` =#{address},
         `updateTime` = now()
         where `id` = #{id}
     </update>

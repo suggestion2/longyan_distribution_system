@@ -30,7 +30,15 @@ public class Order {
     private String customerRealName;
     private String goodsNames;
     private String remark;
+    private String address;
 
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
     public Integer getId() {
         return id;

@@ -224,6 +224,17 @@ var customerModule = {
         };
         showResult(settings);
     },
+    addAddress: function () {
+        var settings = {
+            type: "PUT",
+            url: "/api/customer/addAddress",
+            dataType: "json",
+            data: JSON.stringify({
+                "address": $("#customer-a-addAddress-address").val()
+            })
+        };
+        showResult(settings);
+    },
     businessList: function () {
         var settings = {
             type: "POST",

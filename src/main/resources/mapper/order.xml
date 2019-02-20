@@ -27,6 +27,7 @@
         <if test="customerId!=null">
             and `customerId` = #{customerId}
         </if>
+        order by updateTime desc
         <if test="startIndex != null and pageSize != null">
             limit #{startIndex},#{pageSize}
         </if>
@@ -62,6 +63,9 @@
         <if test="remark!=null">
            `remark`,
         </if>
+        <if test="address!=null">
+           `address`,
+        </if>
         `goodsNames`
         )
         values
@@ -76,6 +80,9 @@
         #{customerRealName},
         <if test="remark!=null">
             #{remark},
+        </if>
+        <if test="address!=null">
+            #{address},
         </if>
         #{goodsNames}
         )

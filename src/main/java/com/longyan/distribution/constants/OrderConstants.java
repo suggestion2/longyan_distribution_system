@@ -4,6 +4,7 @@ public class OrderConstants {
     public static final int CREATED = 0;
     public static final int PAID = 1;
 
+    //下单失败
     public static final int UPDATE_FAIL = 0;
 
     //普通订单

@@ -102,7 +102,7 @@ public class OrderController {
                 throw new ResourceNotFoundException("用户没有找到");
             }
             if(Objects.equals(customer.getBusinessGold().compareTo(order.getAmount()),-1)){
-                throw new InvalidRequestException("用户金币不足","用户金币不足");
+                throw new InvalidRequestException("金币不足，请先充值");
             }
             //减少用户金币
             customer.setCustomerGold(order.getAmount());
@@ -123,8 +123,8 @@ public class OrderController {
             order.setUpdateBy(sessionContext.getUser().getId());
 
             if(Objects.equals(orderService.updateStatus(order),UPDATE_FAIL)){
-
-            }orderService.updateStatus(order);
+                throw new InvalidRequestException("修改订单失败");
+            }
             return new ResponseView();
         }
         order.setRefuseReason(form.getCancelReason());

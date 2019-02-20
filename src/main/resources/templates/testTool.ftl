@@ -80,6 +80,12 @@
                 <input type="button" value="修改" onclick="customerModule.update()"/><br>
             </div>
             <div>
+                <strong>[修改地址]</strong><br/>
+                收货地址:<input class="textbox" type="text" id="customer-a-addAddress-address" style="width: 100px;"
+                            value="收货地址"/><br>
+                <input type="button" value="修改" onclick="customerModule.addAddress()"/><br>
+            </div>
+            <div>
                 <strong>[商户列表]</strong><br/>
                 商户账户或商户名称:<input class="textbox" type="text" id="customer-a-businessList-content" style="width: 100px;"
                                  value=""/>

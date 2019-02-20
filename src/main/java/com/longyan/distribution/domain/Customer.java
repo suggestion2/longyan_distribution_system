@@ -46,6 +46,15 @@ public class Customer {
     private String parentRealName;
     private String superParentRealName;
     private Integer businessStatus;
+    private String address;
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
     public Integer getId() {
         return id;
