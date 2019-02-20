@@ -101,7 +101,7 @@ public class OrderController {
             if(Objects.isNull(customer)){
                 throw new ResourceNotFoundException("用户没有找到");
             }
-            if(Objects.equals(customer.getBusinessGold().compareTo(order.getAmount()),-1)){
+            if(Objects.equals(customer.getCustomerGold().compareTo(order.getAmount()),-1)){
                 throw new InvalidRequestException("金币不足，请先充值");
             }
             //减少用户金币
