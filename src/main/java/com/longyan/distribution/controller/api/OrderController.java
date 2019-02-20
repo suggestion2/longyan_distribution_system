@@ -30,6 +30,8 @@ import static com.longyan.distribution.constants.GoldRecordConstans.*;
 import static com.longyan.distribution.constants.GoodsConstants.*;
 import static com.longyan.distribution.constants.OrderConstants.CREATED;
 import static com.longyan.distribution.constants.OrderConstants.PAID;
+import static com.longyan.distribution.constants.OrderConstants.VIP_CARD;
+import static com.longyan.distribution.constants.SystemParamsConstants.COMMONGOLDCHARGE;
 
 @RestController("orderApiController")
 @RequestMapping(value = "/api/order")
@@ -102,7 +104,7 @@ public class OrderController {
         }
         //判断用户拥有的金币是否足够购买商品
 //        BigDecimal amount = BigDecimalUtils.multiply(form.getList().get(0).getPrice(),form.getList().stream().mapToInt(OrderItemCreateForm::getCount).sum());
-        if(Objects.equals(customer.getCustomerGold().compareTo(form.getAmount()),-1)){
+        if(Objects.equals(customer.getCustomerGold().compareTo(form.getAmount()),-1)&&!Objects.equals(order.getRecharge(),VIP_CARD)){
             throw new InvalidRequestException("用户金币不足不能下单");
         }
         order.setCount(form.getList().stream().mapToInt(OrderItemCreateForm::getCount).sum());

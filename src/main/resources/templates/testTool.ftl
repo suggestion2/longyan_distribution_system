@@ -379,6 +379,7 @@
                 amount:<input class="textbox" type="text" id="order-api-create-amount" style="width: 100px;"
                                value=""/>
                 recharge:<select class="textbox" id="order-api-create-recharge" style="width: 100px;">
+                <option value="0">vipCard</option>
                 <option value="1">normal</option>
                 <option value="2">recharge</option>
             </select><br>

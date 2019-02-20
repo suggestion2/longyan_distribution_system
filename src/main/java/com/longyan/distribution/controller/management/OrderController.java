@@ -26,14 +26,12 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 import java.math.BigDecimal;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 import static com.longyan.distribution.constants.CommonConstants.*;
 import static com.longyan.distribution.constants.GoldRecordConstans.CONSUMPTION;
 import static com.longyan.distribution.constants.GoldRecordConstans.NOTBUSINESS;
+import static com.longyan.distribution.constants.GoodsConstants.VIPCARD;
 import static com.longyan.distribution.constants.OrderConstants.*;
 
 @RestController
@@ -60,6 +58,9 @@ public class OrderController {
 
     @Autowired
     private CustomerService customerService;
+
+    @Autowired
+    private SystemParamsService systemParamsService;
 
     @RequestMapping(value = LIST,method = RequestMethod.POST)
     public OrderListView list(@Valid @RequestBody OrderListForm form){
@@ -95,7 +96,7 @@ public class OrderController {
         }
         BeanUtils.copyProperties(form,order);
         //如果是普通订单,并且后台确认了
-        if(Objects.equals(order.getRecharge(),NORMAL_ORDER)&&Objects.equals(order.getStatus(),CONFIRM)){
+        if(Objects.equals(order.getRecharge(),NORMAL_ORDER)&&Objects.equals(order.getStatus(),CONFIRM)&&!Objects.equals(order.getRecharge(),VIP_CARD)){
             //判断用户金币够不够
             Customer customer = customerService.getById(order.getCustomerId());
             if(Objects.isNull(customer)){

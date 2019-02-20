@@ -9,6 +9,8 @@ public class OrderConstants {
 
     //普通订单
     public static final int NORMAL_ORDER = 1;
+            //vip卡
+    public static final int VIP_CARD = 0;
 
     public static final int CANCEL = -1;
     public static final int CONFIRM = 2;
