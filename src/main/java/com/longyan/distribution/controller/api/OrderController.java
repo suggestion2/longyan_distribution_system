@@ -28,9 +28,7 @@ import java.util.*;
 import static com.longyan.distribution.constants.CommonConstants.*;
 import static com.longyan.distribution.constants.GoldRecordConstans.*;
 import static com.longyan.distribution.constants.GoodsConstants.*;
-import static com.longyan.distribution.constants.OrderConstants.CREATED;
-import static com.longyan.distribution.constants.OrderConstants.PAID;
-import static com.longyan.distribution.constants.OrderConstants.VIP_CARD;
+import static com.longyan.distribution.constants.OrderConstants.*;
 import static com.longyan.distribution.constants.SystemParamsConstants.COMMONGOLDCHARGE;
 
 @RestController("orderApiController")
@@ -87,7 +85,7 @@ public class OrderController {
 //            }
 //        }
         Customer customer = sessionContext.getCustomer();
-        if(Objects.isNull(customer.getAddress())){
+        if(Objects.isNull(customer.getAddress()) && form.getRecharge().equals(NORMAL_ORDER)){
             throw new InvalidRequestException("请先填写收货地址");
         }
         Order order = new Order();
@@ -96,7 +94,7 @@ public class OrderController {
         order.setCustomerRealName(customer.getRealName());
         order.setNumber(SequenceNumUtils.generateNum());
         order.setCreateBy(0);
-        if (Objects.isNull(form.getList()) || form.getList().size() == 0) {
+        if (!form.getRecharge().equals(NORMAL_ORDER)) {
             order.setCount(0);
             order.setGoodsNames(RECHARGE_GOODSNAME);
             orderService.create(order);
@@ -104,7 +102,7 @@ public class OrderController {
         }
         //判断用户拥有的金币是否足够购买商品
 //        BigDecimal amount = BigDecimalUtils.multiply(form.getList().get(0).getPrice(),form.getList().stream().mapToInt(OrderItemCreateForm::getCount).sum());
-        if(Objects.equals(customer.getCustomerGold().compareTo(form.getAmount()),-1)&&!Objects.equals(order.getRecharge(),VIP_CARD)){
+        if(Objects.equals(customer.getCustomerGold().compareTo(form.getAmount()),-1)&&Objects.equals(order.getRecharge(),NORMAL_ORDER)){
             throw new InvalidRequestException("用户金币不足不能下单");
         }
         order.setCount(form.getList().stream().mapToInt(OrderItemCreateForm::getCount).sum());
