@@ -94,7 +94,7 @@ public class OrderController {
         order.setCustomerRealName(customer.getRealName());
         order.setNumber(SequenceNumUtils.generateNum());
         order.setCreateBy(0);
-        if (!form.getRecharge().equals(NORMAL_ORDER)) {
+        if (form.getRecharge().equals(RECHARGE_ORDER)) {
             order.setCount(0);
             order.setGoodsNames(RECHARGE_GOODSNAME);
             orderService.create(order);

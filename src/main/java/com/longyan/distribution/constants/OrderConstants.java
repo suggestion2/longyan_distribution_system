@@ -9,6 +9,9 @@ public class OrderConstants {
 
     //普通订单
     public static final int NORMAL_ORDER = 1;
+
+    //充值订单
+    public static final int RECHARGE_ORDER = 2;
             //vip卡
     public static final int VIP_CARD = 0;
 

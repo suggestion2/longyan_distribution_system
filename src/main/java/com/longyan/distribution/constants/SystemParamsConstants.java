@@ -29,6 +29,7 @@ public class SystemParamsConstants {
     public static final String VIPCARD = "VIPCARD";//vip会员卡
 
     public static final String VIPINVITECOIN_REGEX = "^[0-9]+(\\.[0-9]{1,2})?$";//VIP邀请获得的钢镚百分比
+    public static final String BUSINESSOILDRILLCASH_REGEX = "^[0-9]+(\\.[0-9]{1,2})?$";//VIP邀请获得的钢镚百分比
     public static final String INVITEVIPRECHARGEGOLDCOIN_REGEX = "^[0-9]+(\\.[0-9]{1,2})?$";//合伙人邀请VIP,vip充值金币，合伙人获得的钢镚百分比
     public static final String INVITEVIPRECHARGEOILCOIN_REGEX = "^[0-9]+(\\.[0-9]{1,2})?$";//合伙人邀请VIP,vip充值油钻，合伙人获得的钢镚百分比
     public static final String VIPINVITECOMMONRECHARGEGOLDCOIN_REGEX = "^[0-9]+(\\.[0-9]{1,2})?$";//VIP邀请普通会员,普通会员充值金币，vip获得的钢镚百分比
@@ -54,6 +55,8 @@ public class SystemParamsConstants {
         switch (key){
             case VIPINVITECOIN:
                 return Pattern.matches(VIPINVITECOIN_REGEX,value);
+            case BUSINESSOILDRILLCASH:
+                return Pattern.matches(BUSINESSOILDRILLCASH_REGEX,value);
             case VIPCARD:
                 return Pattern.matches(VIPCARD_REGEX,value);
             case INVITEVIPRECHARGEGOLDCOIN:
