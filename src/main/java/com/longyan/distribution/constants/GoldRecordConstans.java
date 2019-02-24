@@ -36,4 +36,7 @@ public class GoldRecordConstans {
     //钢蹦转换
     public static final int EXCHANGE = 6;
 
+    //待审核的订单个数
+    public static final int WAITCHECKNUMBER = 0;
+
 }

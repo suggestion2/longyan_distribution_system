@@ -172,7 +172,7 @@ public class CustomerController {
         Customer customer = sessionContext.getCustomer();
         //如果不是合伙人不让申请成为商户
         if(!Objects.equals(customer.getLevel(),CUSTOPMERTHREELEVEL)){
-            throw new InvalidRequestException("invalidLevel","invalid level");
+            throw new InvalidRequestException("等级错误","请先升级成合伙人");
         }
         if(!Objects.equals(customer.getBusiness(),CUSTOMER)){
             throw new InvalidRequestException("invalidBusinessStatus","invalid business status");
@@ -189,7 +189,7 @@ public class CustomerController {
     public ResponseView resetLoginPassword(@Valid @RequestBody CustomerLoginPasswordForm form) {
         Customer customer = sessionContext.getCustomer();
         if(!MD5.encrypt(form.getOriginPassword() + MD5_SALT).equalsIgnoreCase(customer.getLoginPassword())){
-            throw new InvalidRequestException("invalidPassword","invalid origin password");
+            throw new InvalidRequestException("密码错误","错误的登录密码");
         }
         customer.setLoginPassword(MD5.encrypt(form.getNewPassword() + MD5_SALT));
         customerService.updateLoginPassword(customer);
@@ -202,7 +202,7 @@ public class CustomerController {
     public ResponseView resetPaymentPassword(@Valid @RequestBody CustomerPaymentPasswordForm form) {
         Customer customer = sessionContext.getCustomer();
         if(!MD5.encrypt(form.getOriginPassword() + MD5_SALT).equalsIgnoreCase(customer.getPaymentPassword())){
-            throw new InvalidRequestException("invalidPassword","invalid origin password");
+            throw new InvalidRequestException("密码错误","错误的支付密码");
         }
         customer.setPaymentPassword(MD5.encrypt(form.getNewPassword() + MD5_SALT));
         customerService.updatePaymentPassword(customer);
@@ -223,7 +223,7 @@ public class CustomerController {
     public ResponseView goldTransfer(@Valid @RequestBody CustomerTransferForm form){
         Customer customer = sessionContext.getCustomer();
         if(!customer.getPaymentPassword().equalsIgnoreCase(MD5.encrypt(form.getPaymentPassword() + MD5_SALT))){
-            throw new InvalidRequestException("invalidPassword","invalid payment password");
+            throw new InvalidRequestException("密码错误","错误的支付密码");
         }
 
         Customer target = customerService.getById(form.getBusinessId());
@@ -232,11 +232,11 @@ public class CustomerController {
         }
 
         if(target.getId().equals(customer.getId())){
-            throw new InvalidRequestException("invalidTarget","can not transfer to yourself");
+            throw new InvalidRequestException("转账错误","不能转账给你自己");
         }
 
         if(customer.getCustomerGold().compareTo(form.getAmount()) < 0 ){
-            throw new InvalidRequestException("invalidAmount","insufficient Balance");
+            throw new InvalidRequestException("金币不足","金币不足");
         }
 
         GoldRecord goldRecord = new GoldRecord();
@@ -256,7 +256,7 @@ public class CustomerController {
         TransferParams params = new TransferParams(customer.getId(),form.getAmount());
 
         if(customerService.subtractCustomerGold(params) == 0){
-            throw new InvalidRequestException("invalidAmount","insufficient Balance");
+            throw new InvalidRequestException("金币不足","金币不足");
         }
 
         params.setId(target.getId());
@@ -273,7 +273,7 @@ public class CustomerController {
     public ResponseView oilDrillTransfer(@Valid @RequestBody CustomerTransferForm form){
         Customer customer = sessionContext.getCustomer();
         if(!customer.getPaymentPassword().equalsIgnoreCase(MD5.encrypt(form.getPaymentPassword() + MD5_SALT))){
-            throw new InvalidRequestException("invalidPassword","invalid payment password");
+            throw new InvalidRequestException("密码错误","错误的支付密码");
         }
 
         Customer target = customerService.getById(form.getBusinessId());
@@ -282,11 +282,11 @@ public class CustomerController {
         }
         //不能自己给自己添加
         if(target.getId().equals(customer.getId())){
-            throw new InvalidRequestException("invalidTarget","can not transfer to yourself");
+            throw new InvalidRequestException("转账错误","不能转账给你自己");
         }
 
         if(customer.getCustomerOilDrill().compareTo(form.getAmount()) < 0 ){
-            throw new InvalidRequestException("invalidAmount","insufficient Balance");
+            throw new InvalidRequestException("油钻不足","油钻不足");
         }
 
         OilDrillRecord oilDrillRecord = new OilDrillRecord();
@@ -306,7 +306,7 @@ public class CustomerController {
         TransferParams params = new TransferParams(customer.getId(),form.getAmount());
 
         if(customerService.subtractCustomerOilDrill(params) == 0){
-            throw new InvalidRequestException("invalidAmount","insufficient Balance");
+            throw new InvalidRequestException("油钻不足","油钻不足");
         }
 
         params.setId(target.getId());

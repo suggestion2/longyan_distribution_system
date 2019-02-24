@@ -103,7 +103,7 @@ public class GoldRecordController {
         }
         Customer customer = customerService.getById(goldRecord.getBusinessId());
         if (Objects.isNull(customer)) {
-            throw new ResourceNotFoundException("customer not exists");
+            throw new ResourceNotFoundException("用户不存在");
         }
         if(!Objects.equals(goldRecord.getType(),WITHDRAW)) {
             throw new InvalidRequestException("invalidStatus", "invalid status");
@@ -133,7 +133,7 @@ public class GoldRecordController {
         if(Objects.equals(form.getStatus(),PASS)&&Objects.equals(goldRecord.getStatus(),WAITCHECK)){
             Customer customer = customerService.getById(goldRecord.getBusinessId());
             if (Objects.isNull(customer)) {
-                throw new ResourceNotFoundException("customer not exists");
+                throw new ResourceNotFoundException("用户不存在");
             }
             //判断要减少的金币会不会大于商户金币
             if(Objects.equals(customer.getBusinessGold().compareTo(goldRecord.getAmount()),-1)){
@@ -178,7 +178,7 @@ public class GoldRecordController {
     public Customer businessAddGoldRecord(@Valid @RequestBody BusinessAddReduceGoldForm form){
         Customer customer = customerService.getById(form.getId());
         if (Objects.isNull(customer)) {
-            throw new ResourceNotFoundException("customer not exists");
+            throw new ResourceNotFoundException("用户不存在");
         }
         if(!Objects.equals(BUSINESS,customer.getBusiness())){
             throw new InvalidRequestException("addError","This account is not a merchant");
@@ -225,7 +225,7 @@ public class GoldRecordController {
         Customer customer = customerService.getById(form.getId());
         int userId= sessionContext.getUser().getId();
         if (Objects.isNull(customer)) {
-            throw new ResourceNotFoundException("customer not exists");
+            throw new ResourceNotFoundException("用户不存在");
         }
         GoldRecord goldRecord = new GoldRecord();
         CoinRecord coinRecord = new CoinRecord();

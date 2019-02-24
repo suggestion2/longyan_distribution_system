@@ -132,7 +132,7 @@ public class OrderController {
             throw new ResourceNotFoundException("order not found");
         }
         if(!order.getStatus().equals(CREATED)){
-            throw new InvalidRequestException("invalidStatus","invalid status");
+            throw new InvalidRequestException("错误的订单状态","错误的订单状态");
         }
 
         order.setStatus(PAID);
