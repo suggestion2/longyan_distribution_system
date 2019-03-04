@@ -27,6 +27,10 @@ public class SystemParamsConstants {
     public static final String INVITECOMMONBECOMEVIPCOIN = "INVITECOMMONBECOMEVIPCOIN";//合伙人或VIP邀请普通会员,普通会员升级vip，vip获得的钢镚百分比
     public static final String INVITEVIPINVITECOMMONCOIN = "INVITEVIPINVITECOMMONCOIN";//合伙人邀请vip，vip邀请普通会员,普通会员升级vip，合伙人获得的钢蹦百分比
     public static final String VIPCARD = "VIPCARD";//vip会员卡
+    public static final String COMMON_INVITE_COMMON_RECHARGE_GOLD_COIN = "COMMON_INVITE_COMMON_RECHARGE_GOLD_COIN";//上级普通会员邀请普通会员，普通会员充值金币，上级普通会员获得的钢镚百分比
+    public static final String VIP_INVITE_VIP_RECHARGE_GOLD_COIN = "VIP_INVITE_VIP_RECHARGE_GOLD_COIN";//上级vip邀请vip，vip充值金币，上级vip获得的钢镚百分比
+    public static final String PARTNER_INVITE_PARTNER_RECHARGE_GOLD_COIN = "PARTNE_INVITE_PARTNE_RECHARGE_GOLD_COIN";//上级合伙人邀请合伙人，合伙人充值金币，上级合伙人获得的钢镚百分比
+
 
     public static final String VIPINVITECOIN_REGEX = "^[0-9]+(\\.[0-9]{1,2})?$";//VIP邀请获得的钢镚百分比
     public static final String BUSINESSOILDRILLCASH_REGEX = "^[0-9]+(\\.[0-9]{1,2})?$";//VIP邀请获得的钢镚百分比
@@ -49,6 +53,9 @@ public class SystemParamsConstants {
     public static final String INVITECOMMONBECOMEVIPCOIN_REGEX = "^[0-9]+(\\.[0-9]{1,2})?$";//合伙人或VIP邀请普通会员,普通会员升级vip，vip获得的钢镚百分比
     public static final String INVITEVIPINVITECOMMONCOIN_REGEX = "^[0-9]+(\\.[0-9]{1,2})?$";//合伙人邀请vip，vip邀请普通会员,普通会员升级vip，合伙人获得的钢蹦百分比
     public static final String VIPCARD_REGEX = "^[0-9]*$";//vip会员卡
+    public static final String COMMON_INVITE_COMMON_RECHARGE_GOLD_COIN_REGEX = "^[0-9]+(\\.[0-9]{1,2})?$";//上级普通会员邀请普通会员，普通会员充值金币，上级普通会员获得的钢镚百分比
+    public static final String VIP_INVITE_VIP_RECHARGE_GOLD_COIN_REGEX = "^[0-9]+(\\.[0-9]{1,2})?$";//上级vip邀请vip，vip充值金币，上级vip获得的钢镚百分比
+    public static final String PARTNER_INVITE_PARTNER_RECHARGE_GOLD_COIN_REGEX = "^[0-9]+(\\.[0-9]{1,2})?$";//上级合伙人邀请合伙人，合伙人充值金币，上级合伙人获得的钢镚百分比
 
 
     public static boolean matches(String key,String value){
@@ -95,6 +102,12 @@ public class SystemParamsConstants {
                 return Pattern.matches(INVITECOMMONBECOMEVIPCOIN_REGEX,value);
             case INVITEVIPINVITECOMMONCOIN:
                 return Pattern.matches(INVITEVIPINVITECOMMONCOIN_REGEX,value);
+            case COMMON_INVITE_COMMON_RECHARGE_GOLD_COIN:
+                return Pattern.matches(COMMON_INVITE_COMMON_RECHARGE_GOLD_COIN_REGEX,value);
+            case VIP_INVITE_VIP_RECHARGE_GOLD_COIN:
+                return Pattern.matches(VIP_INVITE_VIP_RECHARGE_GOLD_COIN_REGEX,value);
+            case PARTNER_INVITE_PARTNER_RECHARGE_GOLD_COIN:
+                return Pattern.matches(PARTNER_INVITE_PARTNER_RECHARGE_GOLD_COIN_REGEX,value);
             default:return false;
         }
     }
