@@ -39,7 +39,7 @@ public class CommonController {
         User user = userService.getByName(form.getName());
         if(Objects.isNull(user) ||
                 !MD5.encrypt(form.getPassword() + MD5_SALT).equalsIgnoreCase(user.getPassword())){
-            throw new ResourceNotFoundException("user not found or invalid password");
+            throw new ResourceNotFoundException("用户名或者密码错误");
         }
         sessionContext.setUser(user);
         return new ResponseView();
@@ -50,7 +50,7 @@ public class CommonController {
     public ResponseView resetPassword(@Valid @RequestBody UserPasswordForm form) {
         User user = sessionContext.getUser();
         if(!MD5.encrypt(form.getOriginPassword() + MD5_SALT).equalsIgnoreCase(user.getPassword())){
-            throw new InvalidRequestException("invalid password");
+            throw new InvalidRequestException("密码错误");
         }
         user.setPassword(MD5.encrypt(form.getNewPassword() + MD5_SALT));
         user.setUpdateBy(user.getId());

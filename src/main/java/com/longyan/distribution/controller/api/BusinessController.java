@@ -1,5 +1,7 @@
 package com.longyan.distribution.controller.api;
 
+import com.longyan.distribution.constants.CoinRecordConstants;
+import com.longyan.distribution.constants.GoldRecordConstans;
 import com.longyan.distribution.constants.OilDrillConstants;
 import com.longyan.distribution.context.SessionContext;
 import com.longyan.distribution.domain.Customer;
@@ -27,10 +29,12 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import static com.longyan.distribution.constants.CoinRecordConstants.WAITCHECKNUMBER;
 import static com.longyan.distribution.constants.CommonConstants.*;
 import static com.longyan.distribution.constants.CustomerConstants.*;
 import static com.longyan.distribution.constants.GoldRecordConstans.*;
@@ -123,11 +127,16 @@ public class BusinessController {
     public ResponseView goldWithdraw(@Valid @RequestBody WithdrawForm form){
         Customer customer = sessionContext.getCustomer();
         if(!customer.getPaymentPassword().equalsIgnoreCase(MD5.encrypt(form.getPaymentPassword() + MD5_SALT))){
-            throw new InvalidRequestException("invalidPassword","invalid payment password");
+            throw new InvalidRequestException("密码错误","错误的支付密码");
         }
-
+        Map<String,Object> map = new HashMap<>();
+        map.put("status",GoldRecordConstans.WAITCHECK);
+        map.put("businessId",customer.getId());
+        if(!Objects.equals(goldRecordService.selectList(map).size(), GoldRecordConstans.WAITCHECKNUMBER)){
+            throw new InvalidRequestException("有提现单待审核","不能再进行提现，先处理当前提现单");
+        }
         if(customer.getBusinessGold().compareTo(form.getAmount()) < 0 ){
-            throw new InvalidRequestException("invalidAmount","insufficient Balance");
+            throw new InvalidRequestException("金币不足","金币不足");
         }
 
         GoldRecord goldRecord = new GoldRecord();
@@ -152,7 +161,7 @@ public class BusinessController {
     public ResponseView goldTransfer(@Valid @RequestBody TransferForm form){
         Customer customer = sessionContext.getCustomer();
         if(!customer.getPaymentPassword().equalsIgnoreCase(MD5.encrypt(form.getPaymentPassword() + MD5_SALT))){
-            throw new InvalidRequestException("invalidPassword","invalid payment password");
+            throw new InvalidRequestException("密码错误","错误的支付密码");
         }
 
         Customer target = customerService.getById(form.getCustomerId());
@@ -161,11 +170,11 @@ public class BusinessController {
         }
 
         if(target.getId().equals(customer.getId())){
-            throw new InvalidRequestException("invalidTarget","can not transfer to yourself");
+            throw new InvalidRequestException("错误的转账操作","不能转账给你自己");
         }
 
         if(customer.getBusinessGold().compareTo(form.getAmount()) < 0 ){
-            throw new InvalidRequestException("invalidAmount","insufficient Balance");
+            throw new InvalidRequestException("金币不足","金币不足");
         }
 
         GoldRecord goldRecord = new GoldRecord();
@@ -184,7 +193,7 @@ public class BusinessController {
         TransferParams params = new TransferParams(customer.getId(),form.getAmount());
 
         if(customerService.subtractBusinessGold(params) == 0){
-            throw new InvalidRequestException("invalidAmount","insufficient Balance");
+            throw new InvalidRequestException("金币不足","金币不足");
         }
 
         params.setId(target.getId());
@@ -228,11 +237,16 @@ public class BusinessController {
     public ResponseView oilDrillWithdraw(@Valid @RequestBody WithdrawForm form){
         Customer customer = sessionContext.getCustomer();
         if(!customer.getPaymentPassword().equalsIgnoreCase(MD5.encrypt(form.getPaymentPassword() + MD5_SALT))){
-            throw new InvalidRequestException("invalidPassword","invalid payment password");
+            throw new InvalidRequestException("密码错误","错误的支付密码");
         }
-
+        Map<String,Object> map = new HashMap<>();
+        map.put("status",OilDrillConstants.WAITCHECK);
+        map.put("businessId",customer.getId());
+        if(!Objects.equals(oilDrillRecordService.selectList(map).size(), OilDrillConstants.WAITCHECKNUMBER)){
+            throw new InvalidRequestException("有提现单待审核","不能再进行提现，先处理当前提现单");
+        }
         if(customer.getBusinessOilDrill().compareTo(form.getAmount()) < 0 ){
-            throw new InvalidRequestException("invalidAmount","insufficient Balance");
+            throw new InvalidRequestException("油钻不足","油钻不足");
         }
 
         OilDrillRecord oilDrillRecord = new OilDrillRecord();
@@ -257,7 +271,7 @@ public class BusinessController {
     public ResponseView oilDrillTransfer(@Valid @RequestBody TransferForm form){
         Customer customer = sessionContext.getCustomer();
         if(!customer.getPaymentPassword().equalsIgnoreCase(MD5.encrypt(form.getPaymentPassword() + MD5_SALT))){
-            throw new InvalidRequestException("invalidPassword","invalid payment password");
+            throw new InvalidRequestException("密码错误","错误的支付密码");
         }
 
         Customer target = customerService.getById(form.getCustomerId());
@@ -266,11 +280,11 @@ public class BusinessController {
         }
 
         if(target.getId().equals(customer.getId())){
-            throw new InvalidRequestException("invalidTarget","can not transfer to yourself");
+            throw new InvalidRequestException("错误的转账操作","不能转账给你自己");
         }
 
         if(customer.getBusinessOilDrill().compareTo(form.getAmount()) < 0 ){
-            throw new InvalidRequestException("invalidAmount","insufficient Balance");
+            throw new InvalidRequestException("油钻不足","油钻不足");
         }
 
         OilDrillRecord oilDrillRecord = new OilDrillRecord();
@@ -289,7 +303,7 @@ public class BusinessController {
         TransferParams params = new TransferParams(customer.getId(),form.getAmount());
 
         if(customerService.subtractBusinessOilDrill(params) == 0){
-            throw new InvalidRequestException("invalidAmount","insufficient Balance");
+            throw new InvalidRequestException("油钻不足","油钻不足");
         }
 
         params.setId(target.getId());

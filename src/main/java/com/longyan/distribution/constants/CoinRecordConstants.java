@@ -14,6 +14,8 @@ public class CoinRecordConstants {
     public static final int REDUCE_FAIL = 0;
     //待审核
     public static final int WAITCHECK = 0;
+    //待审核的订单个数
+    public static final int WAITCHECKNUMBER = 0;
     //驳回
     public static final int REFUSE = -2;
     //提现/兑换没有SOURCE_CUSTOMERID

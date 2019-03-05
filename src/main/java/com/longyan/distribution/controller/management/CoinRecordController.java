@@ -71,14 +71,14 @@ public class CoinRecordController {
     public CoinRecordHandleView moneyHandle(@Valid @RequestBody CoinRecordMoneyHandleForm form){
         CoinRecord coinRecord = coinRecordService.getById(form.getId());
         if (Objects.isNull(coinRecord)) {
-            throw new ResourceNotFoundException("goldRecord not exists");
+            throw new ResourceNotFoundException("记录不存在");
         }
         Customer customer = customerService.getById(coinRecord.getCustomerId());
         if (Objects.isNull(customer)) {
-            throw new ResourceNotFoundException("customer not exists");
+            throw new ResourceNotFoundException("用户不存在");
         }
         if(!Objects.equals(coinRecord.getType(),WITHDRAW)) {
-            throw new InvalidRequestException("invalidStatus", "invalid status");
+            throw new InvalidRequestException("提现状态错误", "提现状态错误");
         }
         //计算手续费，拿出系统参数手续费,减掉手续费
         BigDecimal value = new BigDecimal(systemParamsService.getValueByKey(Collections.singletonMap("key",COINCASH)).getValue());
@@ -97,25 +97,25 @@ public class CoinRecordController {
     public ResponseView resetStatus(@Valid @RequestBody CoinRecordStatusForm form) {
         CoinRecord coinRecord = coinRecordService.getById(form.getId());
         if (Objects.isNull(coinRecord)) {
-            throw new ResourceNotFoundException("oilDrill not exists");
+            throw new ResourceNotFoundException("记录不存在");
         }
         //审核通过减少用户钢镚
         if(Objects.equals(form.getStatus(),PASS)&&Objects.equals(coinRecord.getStatus(),WAITCHECK)){
             Customer customer = customerService.getById(coinRecord.getCustomerId());
             if (Objects.isNull(customer)) {
-                throw new ResourceNotFoundException("customer not exists");
+                throw new ResourceNotFoundException("用户没有找到");
             }
 
             //判断要减少的钢镚会不会大于用户钢镚
             if(Objects.equals(customer.getCustomerCoin().compareTo(coinRecord.getAmount()),-1)){
-                throw new InvalidRequestException("coin","The amount of coin to be reduced is greater than the user's coin");
+                throw new InvalidRequestException("钢镚不足","用户钢镚不足");
             }
             coinRecord.setStatus(PASS);
             coinRecordService.updateStatus(coinRecord);
             customer.setCustomerCoin(BigDecimalUtils.multiply(coinRecord.getAmount(),-1));
             int status= customerService.updateReduceCustomerCoin(customer);
             if(Objects.equals(status,REDUCE_FAIL)){
-                throw new InvalidRequestException("reduceError","The amount of oilDrill to be reduced is greater than the user's oilDrill");
+                throw new InvalidRequestException("钢镚不足","用户钢镚不足");
             }
         }
         //审核没通过添加拒绝理由
@@ -152,7 +152,7 @@ public class CoinRecordController {
     public SuccessView update(@Valid @RequestBody CoinRecordUpdateForm form){
         CoinRecord coinRecord = coinRecordService.getById(form.getId());
         if(Objects.isNull(coinRecord)){
-            throw new ResourceNotFoundException("coinRecord not exists");
+            throw new ResourceNotFoundException("记录不存在");
         }
         BeanUtils.copyProperties(form,coinRecord);
         coinRecordService.update(coinRecord);

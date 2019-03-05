@@ -107,7 +107,7 @@ public class OrderController {
         }
         order.setCount(form.getList().stream().mapToInt(OrderItemCreateForm::getCount).sum());
         order.setGoodsNames(form.getList().get(0).getGoodsName());
-            order.setAddress(customer.getAddress());
+        order.setAddress(customer.getAddress());
         orderService.create(order);
         List<OrderItem> itemList = new ArrayList<>();
         for (OrderItemCreateForm itemCreateForm : form.getList()) {
@@ -132,7 +132,7 @@ public class OrderController {
             throw new ResourceNotFoundException("order not found");
         }
         if(!order.getStatus().equals(CREATED)){
-            throw new InvalidRequestException("invalidStatus","invalid status");
+            throw new InvalidRequestException("错误的订单状态","错误的订单状态");
         }
 
         order.setStatus(PAID);

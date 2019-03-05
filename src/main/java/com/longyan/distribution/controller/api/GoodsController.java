@@ -68,7 +68,7 @@ public class GoodsController {
     public ResponseEntity<Resource> getImage(@PathVariable String fileName) throws FileNotFoundException {
         File file = new File(imagePath + fileName);
         if(!file.exists()){
-            throw new ResourceNotFoundException("image not found");
+            throw new ResourceNotFoundException("图片没有发现");
         }
 
         return ResponseEntity.ok()

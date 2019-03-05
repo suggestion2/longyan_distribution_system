@@ -70,6 +70,9 @@
         <if test="customerId!=null">
             and `customerId` = #{customerId}
         </if>
+        <if test="status!=null">
+            and `status` = #{status}
+        </if>
         <if test="type!=null">
             and `type` = #{type}
         </if>

@@ -79,7 +79,7 @@ public class CustomerController {
     public List<Customer> customerList(@PathVariable Integer id) {
         Customer customer = customerService.getById(id);
         if (Objects.isNull(customer)) {
-            throw new ResourceNotFoundException("customer not exists");
+            throw new ResourceNotFoundException("用户不存在");
         }
 //        if (Objects.isNull(customer.getParentId()) || customer.getParentId().equals(NOTINVITE)) {
 //            return null;
@@ -96,7 +96,7 @@ public class CustomerController {
     public CustomerListView customerList(@Valid @RequestBody InviteCustomerListForm form) {
         Customer customer = customerService.getById(form.getId());
         if (Objects.isNull(customer)) {
-            throw new ResourceNotFoundException("customer not exists");
+            throw new ResourceNotFoundException("用户不存在");
         }
         Map<String, Object> query = Collections.singletonMap("parentId", form.getId());
         return new CustomerListView(customerService.selectList(query), customerService.selectCount(query));
@@ -107,14 +107,14 @@ public class CustomerController {
     public ResponseView resetBusinessStatus(@Valid @RequestBody CustomerBusinessStatusForm form) {
         Customer customer = customerService.getById(form.getId());
         if (Objects.isNull(customer)) {
-            throw new ResourceNotFoundException("customer not exists");
+            throw new ResourceNotFoundException("用户不存在");
         }
         //先判断是不是商户
         if (Objects.equals(customer.getBusiness(), CUSTOMER)) {
-            throw new InvalidRequestException("invalidStatus", "customer not a business");
+            throw new InvalidRequestException("错误的状态", "用户不是商户");
         }
         if (!form.getBusinessStatus().equals(BUSINESS_ENABLE) && !form.getBusinessStatus().equals(BUSINESS_DISABLE)) {
-            throw new InvalidRequestException("invalidStatus", "invalid status");
+            throw new InvalidRequestException("错误的状态", "错误的状态");
         }
         if (!customer.getBusinessStatus().equals(form.getBusinessStatus())) {
             customer.setBusinessStatus(form.getBusinessStatus());
@@ -129,10 +129,10 @@ public class CustomerController {
     public ResponseView resetLevel(@Valid @RequestBody CustomerManagementLevelForm form) {
         Customer customer = customerService.getById(form.getId());
         if (Objects.isNull(customer)) {
-            throw new ResourceNotFoundException("customer not exists");
+            throw new ResourceNotFoundException("用户不存在");
         }
         if (!form.getLevel().equals(CUSTOPMERONELEVEL) && !form.getLevel().equals(CUSTOPMERTWOLEVEL) && !form.getLevel().equals(CUSTOPMERTHREELEVEL)) {
-            throw new InvalidRequestException("invalidStatus", "invalid status");
+            throw new InvalidRequestException("错误的状态", "错误的状态");
         }
         if (!customer.getLevel().equals(form.getLevel())) {
             customer.setLevel(form.getLevel());
@@ -148,10 +148,10 @@ public class CustomerController {
     public ResponseView becomeVip(@Valid @RequestBody CustomerBecomeVipForm form) {
         Customer customer = customerService.getById(form.getId());
         if (Objects.isNull(customer)) {
-            throw new ResourceNotFoundException("customer not exists");
+            throw new ResourceNotFoundException("用户不存在");
         }
         if (customer.getLevel().equals(CUSTOPMERTWOLEVEL) || customer.getLevel().equals(CUSTOPMERTHREELEVEL)) {
-            throw new InvalidRequestException("invalidStatus", "invalid status");
+            throw new InvalidRequestException("错误的状态", "错误的状态");
         }
 
         customer.setLevel(CUSTOPMERTWOLEVEL);
@@ -237,7 +237,7 @@ public class CustomerController {
     public ResponseView resetBusiness(@Valid @RequestBody CustomerBusinessForm form) {
         Customer customer = customerService.getById(form.getId());
         if (Objects.isNull(customer)) {
-            throw new ResourceNotFoundException("customer not exists");
+            throw new ResourceNotFoundException("用户不存在");
         }
         if (customer.getBusiness().equals(CUSTOMER)||customer.getBusiness().equals(BUSINESSAPPLICATION)) {
             customer.setBusinessName(form.getBusinessName());
@@ -253,7 +253,7 @@ public class CustomerController {
     public Customer detail(@PathVariable Integer id) {
         Customer customer = customerService.getById(id);
         if (Objects.isNull(customer)) {
-            throw new ResourceNotFoundException("customer not found");
+            throw new ResourceNotFoundException("用户不存在");
         }
         return customer;
     }
@@ -263,7 +263,7 @@ public class CustomerController {
     public ResponseView resetLoginPassword(@Valid @RequestBody ResetCustomerPasswordForm form) {
         Customer customer = customerService.getById(form.getId());
         if (Objects.isNull(customer)) {
-            throw new ResourceNotFoundException("customer not exists");
+            throw new ResourceNotFoundException("用户不存在");
         }
         customer.setLoginPassword(MD5.encrypt(INIT_PASSWORD + MD5_SALT));
         customerService.updateLoginPassword(customer);
@@ -275,7 +275,7 @@ public class CustomerController {
     public ResponseView resetPaymentPassword(@Valid @RequestBody ResetCustomerPasswordForm form) {
         Customer customer = customerService.getById(form.getId());
         if (Objects.isNull(customer)) {
-            throw new ResourceNotFoundException("customer not exists");
+            throw new ResourceNotFoundException("用户不存在");
         }
         customer.setPaymentPassword(MD5.encrypt(INIT_PASSWORD + MD5_SALT));
         customerService.updatePaymentPassword(customer);
@@ -286,7 +286,7 @@ public class CustomerController {
     public ResponseView verifyBusiness(@Valid @RequestBody VerifyBusinessForm form) {
         Customer customer = customerService.getById(form.getId());
         if (Objects.isNull(customer)) {
-            throw new ResourceNotFoundException("customer not exists");
+            throw new ResourceNotFoundException("用户不存在");
         }
         if (!customer.getBusiness().equals(BUSINESSAPPLICATION)) {
             throw new InvalidRequestException("invalidBusinessApplication", "not application status");

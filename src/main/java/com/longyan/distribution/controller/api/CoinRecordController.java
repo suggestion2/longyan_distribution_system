@@ -1,5 +1,6 @@
 package com.longyan.distribution.controller.api;
 
+import com.longyan.distribution.constants.CoinRecordConstants;
 import com.longyan.distribution.constants.OilDrillConstants;
 import com.longyan.distribution.context.SessionContext;
 import com.longyan.distribution.domain.Customer;
@@ -31,6 +32,7 @@ import javax.validation.Valid;
 
 import java.math.BigDecimal;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
@@ -87,16 +89,16 @@ public class CoinRecordController {
         Customer customer = customerService.getById(sessionContext.getCustomerId());
         if(Objects.isNull(customer) ||
                 !MD5.encrypt(form.getPaymentPassword() + MD5_SALT).equalsIgnoreCase(customer.getPaymentPassword())){
-            throw new ResourceNotFoundException("customer not found or invalid paymentPassword");
+            throw new ResourceNotFoundException("用户名没有找到或者密码错误");
         }
         //扣除钢蹦
         customer.setCustomerCoin(form.getAmount());
         if(Objects.equals(customer.getCustomerCoin().compareTo(form.getAmount()),-1)){
-            throw new InvalidRequestException("reduceError","The amount of oilDrill to be reduced is greater than the user's oilDrill");
+            throw new InvalidRequestException("兑换错误","用户钢镚不足");
         }
         int status = customerService.updateReduceCustomerCoin(customer);
         if(Objects.equals(status,REDUCE_FAIL)){
-            throw new InvalidRequestException("reduceError","The amount of oilDrill to be reduced is greater than the user's oilDrill");
+            throw new InvalidRequestException("兑换错误","用户钢镚不足");
         }
         //拿出手续费计算，兑换金币
         BigDecimal value = new BigDecimal(systemParamsService.getValueByKey(Collections.singletonMap("key",COINCHANGEGOLD)).getValue());
@@ -138,16 +140,16 @@ public class CoinRecordController {
         Customer customer = sessionContext.getCustomer();
         if(Objects.isNull(customer) ||
                 !MD5.encrypt(form.getPaymentPassword() + MD5_SALT).equalsIgnoreCase(customer.getPaymentPassword())){
-            throw new ResourceNotFoundException("customer not found or invalid paymentPassword");
+            throw new ResourceNotFoundException("用户名或者密码错误");
         }
         //扣除钢蹦
         customer.setCustomerCoin(form.getAmount());
         if(Objects.equals(customer.getCustomerCoin().compareTo(form.getAmount()),-1)){
-            throw new InvalidRequestException("reduceError","The amount of oilDrill to be reduced is greater than the user's oilDrill");
+            throw new InvalidRequestException("兑换错误","用户油钻不足");
         }
         int status = customerService.updateReduceCustomerCoin(customer);
         if(Objects.equals(status,REDUCE_FAIL)){
-            throw new InvalidRequestException("reduceError","The amount of oilDrill to be reduced is greater than the user's oilDrill");
+            throw new InvalidRequestException("兑换错误","用户油钻不足");
         }
         //拿出手续费计算，兑换油钻
         BigDecimal value = new BigDecimal(systemParamsService.getValueByKey(Collections.singletonMap("key",COINCHANGEOIL)).getValue());
@@ -186,11 +188,19 @@ public class CoinRecordController {
     public ResponseView coinWithdraw(@Valid @RequestBody CoinRecordWithdrawForm form){
         Customer customer = sessionContext.getCustomer();
         if(!customer.getPaymentPassword().equalsIgnoreCase(MD5.encrypt(form.getPaymentPassword() + MD5_SALT))){
-            throw new InvalidRequestException("invalidPassword","invalid payment password");
+            throw new InvalidRequestException("密码错误","错误的支付密码");
+        }
+
+        Map<String,Object> map = new HashMap<>();
+        map.put("status",CoinRecordConstants.WAITCHECK);
+        map.put("customerId",customer.getId());
+        if(!Objects.equals(coinRecordService.selectList(map).size(), WAITCHECKNUMBER)){
+            throw new InvalidRequestException("有提现单待审核","不能再进行提现，先处理当前提现单");
         }
         if(Objects.equals(customer.getCustomerCoin().compareTo(form.getAmount()),-1)){
-            throw new InvalidRequestException("invalidAmount","insufficient Balance");
+            throw new InvalidRequestException("钢镚不足","钢镚不足");
         }
+        coinRecordService.selectList(map);
         CoinRecord coinRecord = new CoinRecord();
         coinRecord.setCustomerId(customer.getId());
         coinRecord.setSourceCustomerId(NOT_SOURCE_CUSTOMER_LEVEL);
