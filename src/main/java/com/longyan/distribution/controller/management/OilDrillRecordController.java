@@ -35,6 +35,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import static com.longyan.distribution.constants.CoinRecordConstants.INVITEREWARD;
 import static com.longyan.distribution.constants.CoinRecordConstants.RECHARGEREWARD;
 import static com.longyan.distribution.constants.CommonConstants.*;
 import static com.longyan.distribution.constants.CustomerConstants.*;
@@ -282,7 +283,6 @@ public class OilDrillRecordController {
                 oilDrillRecord.setAmount(currentAmount);
                 oilDrillRecordService.create(oilDrillRecord);
             }
-            //如果当前用户会员等级是最高，充值就不用给其他人分红;
             if(Objects.equals(customer.getLevel(), CUSTOPMERTHREELEVEL)){
                 BigDecimal value = new BigDecimal(systemParamsService.getValueByKey(Collections.singletonMap("key",PARTNEOILRRECHARGE)).getValue());
                 BigDecimal currentAmount=amount.divide(value, DECIMAL, BigDecimal.ROUND_UP);
@@ -291,8 +291,6 @@ public class OilDrillRecordController {
                 //添加增加油钻记录
                 oilDrillRecord.setAmount(currentAmount);
                 oilDrillRecordService.create(oilDrillRecord);
-                Customer currentCustomer = customerService.getById(form.getId());
-                return currentCustomer;
             }
         }
         //如果是后台手动添加，不是前台充值，就直接返回,不用给其他人分红
@@ -306,6 +304,16 @@ public class OilDrillRecordController {
         }
         //判断是不是充值，是充值有分红
         if(Objects.equals(form.getType(),RECHARGE)) {
+            //判断当前用户是不是合伙人，判断是否有上级
+            if(Objects.equals(customer.getLevel(),CUSTOPMERTHREELEVEL)&&!Objects.equals(customer.getParentId(),NOTPARENT)){
+                Customer parentCustomer = customerService.getById(customer.getParentId());
+                //判断上级等级是不是合伙人，是，添加同级分红
+                if(Objects.equals(parentCustomer.getLevel(), CUSTOPMERTHREELEVEL)){
+                    rebate(amount,parentCustomer,coinRecord,CUSTOPMERTHREELEVEL);
+                    Customer currentCustomer = customerService.getById(form.getId());
+                    return currentCustomer;
+                }
+            }
             //判断当前用户是不是普通用户，判断是否有上级
             if(Objects.equals(customer.getLevel(),CUSTOPMERONELEVEL)&&!Objects.equals(customer.getParentId(),NOTPARENT)){
                 Customer parentCustomer = customerService.getById(customer.getParentId());
@@ -327,6 +335,8 @@ public class OilDrillRecordController {
                 }
                 //判断上级等级是不是普通会员
                 if(Objects.equals(parentCustomer.getLevel(), CUSTOPMERONELEVEL)){
+                    //同级分红
+                    rebate(amount,parentCustomer,coinRecord,CUSTOPMERONELEVEL);
                     //判断是否有上上级
                     if(!Objects.equals(customer.getSuperParentId(),NOTSUPERPARENT)) {
                         Customer superParentCustomer = customerService.getById(customer.getSuperParentId());
@@ -370,13 +380,18 @@ public class OilDrillRecordController {
                         partnerToVip(amount,superParentCustomer,coinRecord);
                     }
                 }
-                //判断上级等级是不是vip，是，判断是否有上上级
-                if(Objects.equals(parentCustomer.getLevel(), CUSTOPMERTWOLEVEL)&&!Objects.equals(customer.getSuperParentId(),NOTSUPERPARENT)){
-                    Customer superParentCustomer = customerService.getById(customer.getSuperParentId());
-                    //判断上上级是不是合伙人
-                    if(Objects.equals(superParentCustomer.getLevel(),CUSTOPMERTHREELEVEL)){
-                        //拿出合伙人对vip分红百分比，添加分红
-                        partnerToVip(amount,superParentCustomer,coinRecord);
+                //判断上级等级是不是vip，
+                if(Objects.equals(parentCustomer.getLevel(), CUSTOPMERTWOLEVEL)){
+                    //同级分红
+                    rebate(amount,parentCustomer,coinRecord,CUSTOPMERTWOLEVEL);
+                    //判断是否有上上级
+                    if(!Objects.equals(customer.getSuperParentId(),NOTSUPERPARENT)){
+                        Customer superParentCustomer = customerService.getById(customer.getSuperParentId());
+                        //判断上上级是不是合伙人
+                        if(Objects.equals(superParentCustomer.getLevel(),CUSTOPMERTHREELEVEL)){
+                            //拿出合伙人对vip分红百分比，添加分红
+                            partnerToVip(amount,superParentCustomer,coinRecord);
+                        }
                     }
                 }
             }
@@ -395,6 +410,30 @@ public class OilDrillRecordController {
         oilDrillRecordService.update(oilDrillRecord);
         return new SuccessView();
     }
+
+    //计算同级分红
+    public void rebate(BigDecimal amount,Customer customer,CoinRecord coinRecord,int level){
+        BigDecimal value = null;
+        if(Objects.equals(level,CUSTOPMERONELEVEL)){
+            value = new BigDecimal(systemParamsService.getValueByKey(Collections.singletonMap("key", COMMON_INVITE_COMMON_RECHARGE_OIL_COIN)).getValue());
+        }
+        if(Objects.equals(level,CUSTOPMERTWOLEVEL)){
+            value = new BigDecimal(systemParamsService.getValueByKey(Collections.singletonMap("key", VIP_INVITE_VIP_RECHARGE_OIL_COIN)).getValue());
+        }
+        if(Objects.equals(level,CUSTOPMERTHREELEVEL)){
+            value = new BigDecimal(systemParamsService.getValueByKey(Collections.singletonMap("key", PARTNER_INVITE_PARTNER_RECHARGE_OIL_COIN)).getValue());
+        }
+        BigDecimal parentAmount = BigDecimalUtils.multiply(value, amount);
+        customer.setCustomerCoin(parentAmount);
+        customerService.updateAddCustomerCoin(customer);
+        //添加分红记录
+        coinRecord.setCustomerId(customer.getId());
+        coinRecord.setCustomerPhone(customer.getPhone());
+        coinRecord.setAmount(parentAmount);
+        coinRecord.setType(INVITEREWARD);
+        coinRecordService.create(coinRecord);
+    }
+
     //计算合伙人对普通用户分红百分比，添加分红
     public void partnerToNormal(BigDecimal amount,Customer customer,CoinRecord coinRecord){
         BigDecimal vipRebate =  new BigDecimal(systemParamsService.getValueByKey(Collections.singletonMap("key",INVITEVIPRECHARGEOILCOIN)).getValue());
