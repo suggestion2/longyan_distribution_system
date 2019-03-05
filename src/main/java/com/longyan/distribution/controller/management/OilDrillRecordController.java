@@ -430,7 +430,7 @@ public class OilDrillRecordController {
         coinRecord.setCustomerId(customer.getId());
         coinRecord.setCustomerPhone(customer.getPhone());
         coinRecord.setAmount(parentAmount);
-        coinRecord.setType(INVITEREWARD);
+        coinRecord.setType(RECHARGEREWARD);
         coinRecordService.create(coinRecord);
     }
 
