@@ -12,7 +12,7 @@ public class CustomerAddReduceGoldForm {
     @NotNull
     private Integer type;
     @NotNull
-    @Pattern(regexp=RegexUtils.REGEX_NUM,message = RegexUtils.REGEX_NUM_MESSAGE)
+    @Pattern(regexp="(^[1-9](\\d+)?(\\.\\d{1,2})?$)|(^0$)|(^\\d\\.\\d{1,2}$)",message = RegexUtils.REGEX_NUM_MESSAGE)
     private String amount;
 
     public Integer getId() {
